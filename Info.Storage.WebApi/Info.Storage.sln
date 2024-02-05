@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info.Storage.Extensions", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info.Storage.Utils", "Info.Storage.Utils", "{F5F330EF-E36B-4321-A555-2C6BB6D0C0E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Info.Storage.HttpApi.Host", "Presentation\Info.Storage.HttpApi.Host\Info.Storage.HttpApi.Host.csproj", "{E2E3C9AD-26B5-4651-BFF0-541C053353DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.HttpApi.Host", "Presentation\Info.Storage.HttpApi.Host\Info.Storage.HttpApi.Host.csproj", "{E2E3C9AD-26B5-4651-BFF0-541C053353DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

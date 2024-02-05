@@ -7,8 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Databases\Entities\" />
     <Folder Include="Databases\Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FreeSql" Version="3.2.812" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Info.Store.Infa.Entity\Info.Storage.Infa.Entity.csproj" />
   </ItemGroup>
 
 </Project>
