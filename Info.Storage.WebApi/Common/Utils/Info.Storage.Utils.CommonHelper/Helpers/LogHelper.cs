@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Info.Storage.Utils.CommonHelper.Extensions;
+using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
@@ -44,6 +45,28 @@ namespace Info.Storage.Utils.CommonHelper.Helpers
         }
 
         #endregion 构造函数
+
+        #region 信息日志
+
+        /// <summary>
+        /// 信息日志
+        /// </summary>
+        /// <param name="message">日志内容</param>
+        /// <param name="args">字符串格式化参数</param>
+        public static void Info(string message, params object[] args)
+        {
+            StackFrame sf = new StackTrace(true).GetFrame(1);
+            LogMessage logMessage = new LogMessage
+            {
+                Level = LogLevel.Info,
+                Message = string.Format((message.Replace("{", "{{").Replace("}", "}}") ?? "").ReplaceOfRegex("{$1}", @"{{(\d+)}}"), args),
+                StackFrame = sf
+            };
+            _queue.Enqueue(logMessage);
+            _mre.Set();
+        }
+
+        #endregion 信息日志
 
         #region 日志初始化
 

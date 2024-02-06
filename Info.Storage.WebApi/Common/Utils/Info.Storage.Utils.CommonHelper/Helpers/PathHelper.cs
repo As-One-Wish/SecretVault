@@ -1,4 +1,6 @@
 ﻿using Info.Storage.Utils.CommonHelper.Extensions;
+using System;
+using System.IO;
 
 namespace Info.Storage.Utils.CommonHelper.Helpers
 {
