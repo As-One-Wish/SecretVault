@@ -1,3 +1,4 @@
+using Info.Storage.Infa.Entity.Shared.Settings;
 
 namespace Info.Storage.HttpApi.Host
 {
@@ -6,6 +7,9 @@ namespace Info.Storage.HttpApi.Host
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Configuration.AddJsonFile("localAppsettings.json");
+
+            DbConnectionOptionConfig? oDbConnectionOptionConfig = builder.Configuration.GetSection("DbConnectionStrings:DbOtherPostgresqlConnectionString").Get<DbConnectionOptionConfig>();
 
             // Add services to the container.
 
@@ -26,7 +30,6 @@ namespace Info.Storage.HttpApi.Host
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
