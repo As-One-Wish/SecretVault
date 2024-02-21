@@ -19,6 +19,15 @@ namespace Info.Storage.Domain.Service.Shared
         }
 
         /// <summary>
+        /// 初始化FreeSql
+        /// </summary>
+        /// <param name="fsql"></param>
+        public void InitFreeSql(IFreeSql fsql)
+        {
+            this._freeSql = fsql;
+        }
+
+        /// <summary>
         /// 获取IFreeSql
         /// </summary>
         /// <returns></returns>

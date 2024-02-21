@@ -16,6 +16,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Common\Utils\Info.Storage.Utils.CommonHelper\Info.Storage.Utils.CommonHelper.csproj" />
+		<ProjectReference Include="..\..\Domain\Info.Store.Domain.Service\Info.Storage.Domain.Service.csproj" />
 		<ProjectReference Include="..\..\Infrastructure\Info.Store.Infa.Entity\Info.Storage.Infa.Entity.csproj" />
 		<ProjectReference Include="..\..\Infrastructure\Info.Store.Infa.Repository\Info.Storage.Infa.Repository.csproj" />
 	</ItemGroup>

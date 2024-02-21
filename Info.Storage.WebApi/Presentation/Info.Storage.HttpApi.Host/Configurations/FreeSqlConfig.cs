@@ -20,7 +20,7 @@ namespace Info.Storage.HttpApi.Host.Configurations
             if (services == null) throw new ArgumentNullException(nameof(services));
             var singleFreeSql = new SingleFreeSql();
             singleFreeSql.RegisterFreeSql(configuration);
-            services.AddSingleton<IBaseSingleFreeSql<string>>(singleFreeSql);
+            services.AddSingleton<IBaseSingleFreeSql<DbEnum>>(singleFreeSql);
         }
     }
 }

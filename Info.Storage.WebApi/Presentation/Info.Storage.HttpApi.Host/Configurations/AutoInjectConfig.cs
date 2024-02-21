@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using Info.Storage.Domain.Service.Shared;
+using Info.Storage.Infa.Entity.Shared.Attributes;
+using System.Reflection;
 
 namespace Info.Storage.HttpApi.Host.Configurations
 {
@@ -23,6 +25,40 @@ namespace Info.Storage.HttpApi.Host.Configurations
             {
                 // 安装 FreeSql.DbContext
                 service.AddFreeRepository(null, assemblies.Where(d => d.FullName != null && d.FullName.Split(",")[0].EndsWith(".Repository")).ToArray());
+                // 注入默认领域服务
+                service.AddScoped(typeof(DefaultDomainService<,>), typeof(DefaultDomainService<,>));
+
+                List<Type> types = assemblies.Where(d => d.FullName != null && (d.FullName.Split(",")[0].EndsWith(".Domain.Service")))
+                    .SelectMany(x => x.GetTypes())
+                    .Where(t => t.IsClass && !t.IsAbstract && t.GetCustomAttributes(typeof(AutoInjectAttribute), false).Length > 0)
+                    .Where(t => injectKeys.Contains(t.GetCustomAttribute<AutoInjectAttribute>()?.Key))
+                    .ToList();
+
+                types.ForEach(impl =>
+                {
+                    // 获取该类所继承的所有接口
+                    Type[] interfaces = impl.GetInterfaces();
+                    // 获取该类注入的生命周期
+                    ServiceLifetime? lifetime = impl.GetCustomAttribute<AutoInjectAttribute>()?.Lifetime;
+
+                    interfaces.ToList().ForEach(i =>
+                    {
+                        switch (lifetime)
+                        {
+                            case ServiceLifetime.Singleton:
+                                service.AddSingleton(i, impl);
+                                break;
+
+                            case ServiceLifetime.Transient:
+                                service.AddTransient(i, impl);
+                                break;
+
+                            case ServiceLifetime.Scoped:
+                                service.AddScoped(i, impl);
+                                break;
+                        }
+                    });
+                });
             }
         }
     }
