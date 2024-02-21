@@ -1,5 +1,4 @@
 using Info.Storage.HttpApi.Host.Configurations;
-using Info.Storage.Infa.Entity.Shared.Settings;
 
 namespace Info.Storage.HttpApi.Host
 {
