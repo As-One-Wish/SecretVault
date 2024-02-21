@@ -1,4 +1,5 @@
 ﻿using Info.Storage.Infa.Entity.Shared.Settings;
+using Info.Storage.Infa.Repository.Extension;
 using Info.Storage.Infa.Repository.Shared;
 using Info.Storage.Utils.CommonHelper.Helpers;
 
@@ -18,7 +19,8 @@ namespace Info.Storage.HttpApi.Host.Configurations
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
             var singleFreeSql = new SingleFreeSql();
-            services.AddSingleton(singleFreeSql.RegisterFreeSql(configuration));
+            singleFreeSql.RegisterFreeSql(configuration);
+            services.AddSingleton<IBaseSingleFreeSql<string>>(singleFreeSql);
         }
     }
 }
