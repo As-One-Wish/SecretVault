@@ -1,3 +1,4 @@
+using Info.Storage.HttpApi.Host.Configurations;
 using Info.Storage.Infa.Entity.Shared.Settings;
 
 namespace Info.Storage.HttpApi.Host
@@ -9,7 +10,7 @@ namespace Info.Storage.HttpApi.Host
             var builder = WebApplication.CreateBuilder(args);
             builder.Configuration.AddJsonFile("localAppsettings.json");
 
-            DbConnectionOptionConfig? oDbConnectionOptionConfig = builder.Configuration.GetSection("DbConnectionStrings:DbOtherPostgresqlConnectionString").Get<DbConnectionOptionConfig>();
+            //DbConnectionOptionConfig? oDbConnectionOptionConfig = builder.Configuration.GetSection("DbConnectionStrings:DbOtherPostgresqlConnectionString").Get<DbConnectionOptionConfig>();
 
             // Add services to the container.
 
@@ -17,6 +18,8 @@ namespace Info.Storage.HttpApi.Host
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            // ≈‰÷√ FreeSql
+            builder.Services.AddFreeSqlConfiguration(builder.Configuration);
 
             var app = builder.Build();
 

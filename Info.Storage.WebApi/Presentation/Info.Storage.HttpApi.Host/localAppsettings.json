@@ -7,7 +7,7 @@
   },
   "AllowedHosts": "*",
   "DbConnectionStrings": {
-    "DbOtherPostgresqlConnectionString": {
+    "DbAppPostgresqlConnectionString": {
       "MasterConnection": "Host=192.168.149.128;Port=5432;Username=postgres;Password=postgres;Database=info_storage;Pooling=true;Maximum Pool Size=5",
       "SlaveConnections": [
         "Host=192.168.149.128;Port=5432;Username=postgres;Password=postgres;Database=info_storage;Pooling=true;Maximum Pool Size=5"
