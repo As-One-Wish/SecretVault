@@ -68,6 +68,23 @@ namespace Info.Storage.Utils.CommonHelper.Helpers
 
         #endregion 信息日志
 
+        #region 错误日志
+
+        public static void Error(string message, params object[] args)
+        {
+            StackFrame sf = new StackTrace(true).GetFrame(1);
+            LogMessage logMessage = new LogMessage
+            {
+                Level = LogLevel.Error,
+                Message = string.Format((message?.Replace("{", "{{").Replace("}", "}}") ?? "").ReplaceOfRegex("{$1}", @"{{(\d+)}}"), args),
+                StackFrame = sf
+            };
+            _queue.Enqueue(logMessage);
+            _mre.Set();
+        }
+
+        #endregion 错误日志
+
         #region 日志初始化
 
         private static void Initalize()
