@@ -1,22 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Databases\Repositories\" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FreeSql" Version="3.2.812" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FreeSql" Version="3.2.812" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Info.Store.Infa.Entity\Info.Storage.Infa.Entity.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\Extensions\Info.Storage.Infa.Repository.Extension\Info.Storage.Infa.Repository.Extension.csproj" />
+		<ProjectReference Include="..\Info.Store.Infa.Entity\Info.Storage.Infa.Entity.csproj" />
+	</ItemGroup>
 
 </Project>
