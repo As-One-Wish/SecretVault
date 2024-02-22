@@ -9,8 +9,6 @@
 		<Folder Include="ModuleAuthorization\" />
 		<Folder Include="ModuleInfoManagement\Dtos\" />
 		<Folder Include="ModuleInfoManagement\Params\" />
-		<Folder Include="ModuleUserManagement\Dtos\" />
-		<Folder Include="ModuleUserManagement\Params\" />
 	</ItemGroup>
 
 	<ItemGroup>
