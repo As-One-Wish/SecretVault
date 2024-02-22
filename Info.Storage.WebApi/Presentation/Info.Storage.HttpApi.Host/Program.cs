@@ -17,8 +17,13 @@ namespace Info.Storage.HttpApi.Host
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // ≈‰÷√◊‘∂Ø◊¢»Î
+            builder.Services.AddAutoInjectConfiguration();
             // ≈‰÷√ FreeSql
             builder.Services.AddFreeSqlConfiguration(builder.Configuration);
+            // ≈‰÷√ AutoMapper
+            builder.Services.AddAutoMapperConfiguration();
 
             var app = builder.Build();
 
