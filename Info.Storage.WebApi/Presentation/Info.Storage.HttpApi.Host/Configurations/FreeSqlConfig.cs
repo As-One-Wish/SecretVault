@@ -1,7 +1,5 @@
-﻿using Info.Storage.Infa.Entity.Shared.Settings;
-using Info.Storage.Infa.Repository.Extension;
+﻿using Info.Storage.Infa.Repository.Extension;
 using Info.Storage.Infa.Repository.Shared;
-using Info.Storage.Utils.CommonHelper.Helpers;
 
 namespace Info.Storage.HttpApi.Host.Configurations
 {
