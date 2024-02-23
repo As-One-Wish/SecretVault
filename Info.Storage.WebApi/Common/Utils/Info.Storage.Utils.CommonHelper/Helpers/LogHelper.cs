@@ -70,12 +70,45 @@ namespace Info.Storage.Utils.CommonHelper.Helpers
 
         #region 错误日志
 
+        /// <summary>
+        /// 错误日志
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="message"></param>
+        /// <param name="args"></param>
         public static void Error(string message, params object[] args)
         {
             StackFrame sf = new StackTrace(true).GetFrame(1);
             LogMessage logMessage = new LogMessage
             {
                 Level = LogLevel.Error,
+                Message = string.Format((message?.Replace("{", "{{").Replace("}", "}}") ?? "").ReplaceOfRegex("{$1}", @"{{(\d+)}}"), args),
+                StackFrame = sf
+            };
+            _queue.Enqueue(logMessage);
+            _mre.Set();
+        }
+
+        /// <summary>
+        /// 错误日志
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="args"></param>
+        public static void Error(Exception ex, string message = "", params object[] args)
+        {
+            StackFrame sf = null;
+            if (ex != null)
+            {
+                StackFrame[] frames = new StackTrace(ex, true).GetFrames();
+                sf = frames[frames.Length - 1];
+            }
+            else
+                sf = new StackTrace(true).GetFrame(1);
+
+            LogMessage logMessage = new LogMessage
+            {
+                Level = LogLevel.Error,
+                Exception = ex,
                 Message = string.Format((message?.Replace("{", "{{").Replace("}", "}}") ?? "").ReplaceOfRegex("{$1}", @"{{(\d+)}}"), args),
                 StackFrame = sf
             };
