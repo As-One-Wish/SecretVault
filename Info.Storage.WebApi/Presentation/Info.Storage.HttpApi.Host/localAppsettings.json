@@ -13,5 +13,14 @@
         "Host=192.168.149.128;Port=5432;Username=postgres;Password=postgres;Database=info_storage;Pooling=true;Maximum Pool Size=5"
       ]
     }
-  }
+  },
+
+  "Jwt": {
+    "SecretKey": "",
+    "Issuer": "Info.Storage",
+    "Audience": "Info.Storage",
+    "ExpireMinutes": "10080"
+  },
+
+  "EnableSwagger": true
 }

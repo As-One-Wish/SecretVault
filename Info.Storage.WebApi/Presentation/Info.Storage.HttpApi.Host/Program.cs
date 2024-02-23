@@ -13,10 +13,10 @@ namespace Info.Storage.HttpApi.Host
 
             // Add services to the container.
 
+            bool enableSwagger = bool.Parse(builder.Configuration["EnableSwagger"] ?? "false");
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             // ≈‰÷√◊‘∂Ø◊¢»Î
             builder.Services.AddAutoInjectConfiguration();
@@ -26,15 +26,14 @@ namespace Info.Storage.HttpApi.Host
             builder.Services.AddAutoMapperConfiguration();
             // ≈‰÷√∆‰À˚“¿¿µ
             builder.Services.AddOtherConfiguration(builder.Configuration);
+            // ≈‰÷√Swagger
+            builder.Services.AddSwaggerConfiguration(enableSwagger);
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+                app.UseSwaggerSetup(enableSwagger);
 
             app.UseHttpsRedirection();
 
