@@ -24,6 +24,8 @@ namespace Info.Storage.HttpApi.Host
             builder.Services.AddFreeSqlConfiguration(builder.Configuration);
             // ≈‰÷√ AutoMapper
             builder.Services.AddAutoMapperConfiguration();
+            // ≈‰÷√∆‰À˚“¿¿µ
+            builder.Services.AddOtherConfiguration(builder.Configuration);
 
             var app = builder.Build();
 

@@ -5,9 +5,9 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Application", "1-Application", "{D4E75E42-1148-47A0-B462-400846BD1E81}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.AutoMapper", "Application\Info.Store.WebApi.AutoMapper\Info.Storage.AutoMapper.csproj", "{44837161-6817-4B95-95B4-0CBA4090158B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Application.AutoMapper", "Application\Info.Store.WebApi.Application.AutoMapper\Info.Storage.Application.AutoMapper.csproj", "{44837161-6817-4B95-95B4-0CBA4090158B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Validator", "Application\Info.Store.WebApi.Validator\Info.Storage.Validator.csproj", "{B3D079D3-4CF7-4095-A81C-0EB6DD10FBCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Application.Validator", "Application\Info.Store.WebApi.Application.Validator\Info.Storage.Application.Validator.csproj", "{B3D079D3-4CF7-4095-A81C-0EB6DD10FBCF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Application", "Application\Info.Store.WebApi.Application\Info.Storage.Application.csproj", "{52B5AE7E-CEEB-4EAB-BA2C-3EF8A45A4194}"
 EndProject
@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.HttpApi.Host",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Utils.CommonHelper", "Common\Utils\Info.Storage.Utils.CommonHelper\Info.Storage.Utils.CommonHelper.csproj", "{F2638394-96F0-403E-B425-E21B9232DB14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Info.Storage.Infa.Repository.Extension", "Common\Extensions\Info.Storage.Infa.Repository.Extension\Info.Storage.Infa.Repository.Extension.csproj", "{49F39BB8-9A06-42EE-8A0F-5EAA2C1F0615}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Infa.Repository.Extension", "Common\Extensions\Info.Storage.Infa.Repository.Extension\Info.Storage.Infa.Repository.Extension.csproj", "{49F39BB8-9A06-42EE-8A0F-5EAA2C1F0615}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

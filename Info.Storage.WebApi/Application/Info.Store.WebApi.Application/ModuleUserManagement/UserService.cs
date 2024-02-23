@@ -1,8 +1,12 @@
-﻿using Info.Storage.Domain.Service.ModuleUserManagement;
+﻿using AutoMapper;
+using Info.Storage.Domain.Service.ModuleUserManagement;
 using Info.Storage.Infa.Entity.ModuleUserManagement.Dtos;
 using Info.Storage.Infa.Entity.ModuleUserManagement.Params;
 using Info.Storage.Infa.Entity.Shared.Attributes;
+using Info.Storage.Infa.Entity.Shared.Constants;
 using Info.Storage.Infa.Entity.Shared.Dtos;
+using Info.Storage.Infa.Repository.Databases.Entities;
+using Info.Storage.Utils.CommonHelper.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Info.Storage.Application.ModuleUserManagement
@@ -57,15 +61,35 @@ namespace Info.Storage.Application.ModuleUserManagement
     public class UserService : IUserService
     {
         private readonly IUserDomainService _userDomainService;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserDomainService userDomainService)
+        public UserService(IUserDomainService userDomainService, IMapper mapper)
         {
             this._userDomainService = userDomainService;
+            this._mapper = mapper;
         }
 
-        public Task<BaseResult<UserDto?>> AddUser(UserDto userDto, bool responseData = false)
+        public async Task<BaseResult<UserDto?>> AddUser(UserDto userDto, bool responseData = false)
         {
-            throw new NotImplementedException();
+            try
+            {
+                BaseResult<UserDto?> br = new BaseResult<UserDto?>();
+                userDto.UserId = Yitter.IdGenerator.YitIdHelper.NextId();
+                // 默认AutoMapper转换规则
+                AppUser oAppUser = this._mapper.Map<UserDto, AppUser>(userDto);
+                AppUser result = await this._userDomainService.AddUserAsync(oAppUser);
+                bool isNullResult = result == null;
+                br.IsSuccess = !isNullResult;
+                if (responseData && !isNullResult)
+                    br.Data = userDto;
+                br.Message = isNullResult ? Msg.DbError : Msg.Success;
+                return br;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error(ex);
+                return await Task.FromResult(new BaseResult<UserDto?>(false, null, ex.Message));
+            }
         }
 
         public Task<BaseResult> DelUser(DeleteUserParam deleteUserParam)

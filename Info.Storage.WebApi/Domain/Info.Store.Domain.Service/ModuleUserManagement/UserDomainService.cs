@@ -1,7 +1,9 @@
 ﻿using Info.Storage.Domain.Service.Shared;
 using Info.Storage.Infa.Entity.ModuleUserManagement.Params;
+using Info.Storage.Infa.Entity.Shared.Attributes;
 using Info.Storage.Infa.Repository.Databases.Entities;
 using Info.Storage.Infa.Repository.Databases.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Info.Storage.Domain.Service.ModuleUserManagement
 {
@@ -56,6 +58,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
     /// <summary>
     /// 用户管理领域实现
     /// </summary>
+    [AutoInject(ServiceLifetime.Scoped, "app")]
     public class UserDomainService : BaseDomainService<AppUser, long>, IUserDomainService
     {
         private readonly AppUserRepository _appUserRepository;
