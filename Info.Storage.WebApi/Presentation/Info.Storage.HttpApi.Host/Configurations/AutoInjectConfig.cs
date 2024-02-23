@@ -28,7 +28,7 @@ namespace Info.Storage.HttpApi.Host.Configurations
                 // 注入默认领域服务
                 service.AddScoped(typeof(DefaultDomainService<,>), typeof(DefaultDomainService<,>));
 
-                List<Type> types = assemblies.Where(d => d.FullName != null && (d.FullName.Split(",")[0].EndsWith(".Domain.Service")))
+                List<Type> types = assemblies.Where(d => d.FullName != null && (d.FullName.Split(",")[0].EndsWith(".Domain.Service") || d.FullName.Split(",")[0].EndsWith(".Application")))
                     .SelectMany(x => x.GetTypes())
                     .Where(t => t.IsClass && !t.IsAbstract && t.GetCustomAttributes(typeof(AutoInjectAttribute), false).Length > 0)
                     .Where(t => injectKeys.Contains(t.GetCustomAttribute<AutoInjectAttribute>()?.Key))
