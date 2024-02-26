@@ -12,6 +12,8 @@ namespace Info.Storage.Infa.Entity.ModuleUserManagement.Dtos
             Gender = GenderEnum.U;
             Phone = string.Empty;
             Avatar = string.Empty;
+            RoleId = null;
+            RoleName = null;
             Password = string.Empty;
             UpdateTime = DateTime.Now;
         }
@@ -44,6 +46,12 @@ namespace Info.Storage.Infa.Entity.ModuleUserManagement.Dtos
         /// 用户性别
         /// </summary>
         public GenderEnum Gender { get; set; }
+
+        /// <summary>
+        /// 用户角色ID
+        /// </summary>
+        public long? RoleId { get; set; }
+        public string RoleName { get; set; }
         /// <summary>
         /// 更新时间
         /// </summary>

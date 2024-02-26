@@ -53,6 +53,11 @@ namespace Info.Storage.Infa.Repository.Databases.Entities
         public GenderEnum UserGender { get; set; } = GenderEnum.U;
 
         /// <summary>
+        /// 用户角色ID
+        /// </summary>
+        public long RoleId { get; set; }
+
+        /// <summary>
         /// 是否删除标记
         /// </summary>
         [JsonProperty, Column(Name = "deleted")]
