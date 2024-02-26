@@ -16,7 +16,7 @@
   },
 
   "Jwt": {
-    "SecretKey": "",
+    "SecurityKey": "111",
     "Issuer": "Info.Storage",
     "Audience": "Info.Storage",
     "ExpireMinutes": "10080"

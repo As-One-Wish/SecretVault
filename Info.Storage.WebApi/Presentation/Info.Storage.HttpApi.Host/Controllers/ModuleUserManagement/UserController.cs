@@ -1,11 +1,13 @@
 ﻿using Info.Storage.Application.ModuleUserManagement;
 using Info.Storage.Infa.Entity.ModuleUserManagement.Dtos;
 using Info.Storage.Infa.Entity.Shared.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
 {
     [Route("api/[controller]")]
+    [Authorize(Policy = "Policy.Default")]
     [ApiController]
     public class UserController : ControllerBase
     {

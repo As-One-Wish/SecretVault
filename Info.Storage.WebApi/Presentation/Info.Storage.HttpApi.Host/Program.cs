@@ -24,6 +24,8 @@ namespace Info.Storage.HttpApi.Host
             builder.Services.AddFreeSqlConfiguration(builder.Configuration);
             // 配置 AutoMapper
             builder.Services.AddAutoMapperConfiguration();
+            // 配置Jwt身份验证
+            builder.Services.AddJwtConfiguration(builder.Configuration);
             // 配置其他依赖
             builder.Services.AddOtherConfiguration(builder.Configuration);
             // 配置Swagger

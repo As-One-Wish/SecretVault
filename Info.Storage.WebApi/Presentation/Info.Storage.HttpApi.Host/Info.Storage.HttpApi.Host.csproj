@@ -12,7 +12,9 @@
 		<PackageReference Include="FreeSql" Version="3.2.812" />
 		<PackageReference Include="FreeSql.DbContext" Version="3.2.812" />
 		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.812" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
 	</ItemGroup>
 
 	<ItemGroup>
