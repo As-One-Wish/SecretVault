@@ -10,12 +10,16 @@ namespace Info.Storage.Domain.Service.Shared
     /// <typeparam name="TKey"></typeparam>
     public class DefaultDomainService<TEntity, TKey> : BaseDomainService<TEntity, TKey> where TEntity : class
     {
+        #region Initialize
+
         private readonly IBaseSingleFreeSql<DbEnum> _singleFreeSql;
 
         public DefaultDomainService(IBaseSingleFreeSql<DbEnum> singleFreeSql) : base()
         {
             _singleFreeSql = singleFreeSql;
         }
+
+        #endregion Initialize
 
         /// <summary>
         /// 初始化数据库枚举

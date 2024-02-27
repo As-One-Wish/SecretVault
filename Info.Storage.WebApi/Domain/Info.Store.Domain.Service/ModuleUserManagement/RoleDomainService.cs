@@ -53,12 +53,18 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
     [AutoInject(ServiceLifetime.Scoped, "app")]
     public class RoleDomainService : BaseDomainService<AppRole, long>, IRoleDomainService
     {
+        #region Initialize
+
         private readonly AppRoleRepository _appRoleRepository;
 
         public RoleDomainService(AppRoleRepository appRoleRepository)
         {
             _appRoleRepository = appRoleRepository;
         }
+
+        #endregion Initialize
+
+        #region Implements
 
         public async Task<AppRole> AddRoleAsync(AppRole role)
         {
@@ -120,5 +126,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
             int effectRows = await this._appRoleRepository.UpdateAsync(appRole);
             return effectRows;
         }
+
+        #endregion Implements
     }
 }

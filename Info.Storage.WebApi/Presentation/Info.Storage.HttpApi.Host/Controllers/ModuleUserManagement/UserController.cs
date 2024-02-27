@@ -11,6 +11,8 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
     [ApiController]
     public class UserController : ControllerBase
     {
+        #region Initialize
+
         private readonly IUserService _userService;
 
         /// <summary>
@@ -21,6 +23,8 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         {
             _userService = userService;
         }
+
+        #endregion Initialize
 
         [HttpPost]
         [Route("AddUser")]

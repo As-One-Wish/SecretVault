@@ -28,6 +28,8 @@
     /// <typeparam name="TDBKey"></typeparam>
     public class BaseSingleFreeSql<TDBKey> : IBaseSingleFreeSql<TDBKey>
     {
+        #region Initialize
+
         /// <summary>
         /// 空闲对象管理器
         /// </summary>
@@ -38,6 +40,8 @@
             _ib = new IdleBus<TDBKey, IFreeSql>(TimeSpan.MaxValue);
             _ib.Notice += (_, __) => { };
         }
+
+        #endregion Initialize
 
         public IFreeSql Get(TDBKey key)
         {

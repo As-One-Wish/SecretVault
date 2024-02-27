@@ -61,12 +61,18 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
     [AutoInject(ServiceLifetime.Scoped, "app")]
     public class UserDomainService : BaseDomainService<AppUser, long>, IUserDomainService
     {
+        #region Initialize
+
         private readonly AppUserRepository _appUserRepository;
 
         public UserDomainService(AppUserRepository appUserRepository)
         {
             this._appUserRepository = appUserRepository;
         }
+
+        #endregion Initialize
+
+        #region Implements
 
         public async Task<AppUser> AddUserAsync(AppUser appUser)
         {
@@ -145,5 +151,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
             lstResult = await oSelect.ToListAsync();
             return (dataCount, lstResult);
         }
+
+        #endregion Implements
     }
 }

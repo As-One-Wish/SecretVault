@@ -9,6 +9,8 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
     [ApiController]
     public class RoleController : ControllerBase
     {
+        #region Initialize
+
         private readonly IRoleService _roleService;
 
         /// <summary>
@@ -19,6 +21,8 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         {
             _roleService = roleService;
         }
+
+        #endregion Initialize
 
         [HttpPost]
         [Route("AddRole")]
