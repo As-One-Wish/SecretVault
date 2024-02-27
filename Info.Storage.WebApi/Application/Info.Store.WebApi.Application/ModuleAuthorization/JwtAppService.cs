@@ -56,6 +56,25 @@ namespace Info.Storage.Application.ModuleAuthorization
                     new Claim("userName",jwtUserDto.UserName),
                     new Claim("roleId",jwtUserDto.RoleId.ToString()),
                 };
+                // 签发一个加密后的用户信息凭证，用来标识用户身份
+                SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims), // 创建声明信息
+                    Issuer = _configuration["Jwt:Issuer"], // Jwt token 的签发者
+                    Audience = _configuration["Jwt:Audience"], // Jwt token 的接受者
+                    Expires = expireTime, // 过期时间
+                    SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256), // 创建 token
+                };
+
+                var token = jwtSecurityTokenHandler.CreateToken(tokenDescriptor);
+                // 存储token信息
+                var jwt = new JwtAuthorizationDto
+                {
+                    Token = jwtSecurityTokenHandler.WriteToken(token),
+                    AuthTime = new DateTimeOffset(authTime).ToUnixTimeSeconds(),
+                    ExpireTime = new DateTimeOffset(expireTime).ToUnixTimeSeconds(),
+                };
+                return jwt;
             }
             catch (Exception ex)
             {

@@ -1,9 +1,11 @@
 ﻿using Info.Storage.Infa.Entity.ModuleAuthorization.Dtos;
 using Info.Storage.Infa.Entity.ModuleAuthorization.Params;
+using Info.Storage.Infa.Entity.Shared.Attributes;
 using Info.Storage.Infa.Entity.Shared.Constants;
 using Info.Storage.Infa.Repository.Databases.Entities;
 using Info.Storage.Infa.Repository.Databases.Repositories;
 using Info.Storage.Utils.CommonHelper.Helpers;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Info.Storage.Domain.Service.ModuleAuthorization
 {
@@ -23,6 +25,7 @@ namespace Info.Storage.Domain.Service.ModuleAuthorization
     /// <summary>
     /// 安全领域实现
     /// </summary>
+    [AutoInject(ServiceLifetime.Scoped, "app")]
     public class SecretDomainService : ISecretDomainService
     {
         #region Initialize

@@ -9,7 +9,7 @@
         {
             UserId = -1;
             UserName = string.Empty;
-            RoleId = null;
+            RoleId = -1;
         }
         /// <summary>
         /// 主键
@@ -22,7 +22,7 @@
         /// <summary>
         /// 角色ID
         /// </summary>
-        public long? RoleId { get; set; }
+        public long RoleId { get; set; }
     }
 
     public record struct JwtAuthorizationDto
