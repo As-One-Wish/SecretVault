@@ -1,7 +1,9 @@
 ﻿using Info.Storage.Domain.Service.Shared;
 using Info.Storage.Infa.Entity.ModuleUserManagement.Params;
+using Info.Storage.Infa.Entity.Shared.Attributes;
 using Info.Storage.Infa.Repository.Databases.Entities;
 using Info.Storage.Infa.Repository.Databases.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Info.Storage.Domain.Service.ModuleUserManagement
 {
@@ -45,6 +47,10 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
         Task<(long, IEnumerable<AppRole>)> GetRolesAsync(QueryRoleParam queryRoleParam);
     }
 
+    /// <summary>
+    /// 角色管理领域实现
+    /// </summary>
+    [AutoInject(ServiceLifetime.Scoped, "app")]
     public class RoleDomainService : BaseDomainService<AppRole, long>, IRoleDomainService
     {
         private readonly AppRoleRepository _appRoleRepository;
@@ -54,29 +60,65 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
             _appRoleRepository = appRoleRepository;
         }
 
-        public Task<AppRole> AddRoleAsync(AppRole role)
+        public async Task<AppRole> AddRoleAsync(AppRole role)
         {
-            throw new NotImplementedException();
+            AppRole appRole = await this._appRoleRepository.InsertAsync(role);
+            return appRole;
         }
 
-        public Task<int> DelRoleAsync(DeleteRoleParam deleteRoleParam)
+        public async Task<int> DelRoleAsync(DeleteRoleParam deleteRoleParam)
         {
-            throw new NotImplementedException();
+            int effectRows = -1;
+            if (deleteRoleParam.RoleId != null)
+                effectRows = await this._appRoleRepository.DeleteAsync(deleteRoleParam.RoleId.Value);
+            if (deleteRoleParam.RoleIds != null && deleteRoleParam.RoleIds.Length > 0)
+                effectRows = await this._appRoleRepository.DeleteAsync(id => deleteRoleParam.RoleIds.Contains(id.RoleId));
+
+            return effectRows;
         }
 
-        public Task<AppRole> GetRoleAsync(long roleId)
+        public async Task<AppRole> GetRoleAsync(long roleId)
         {
-            throw new NotImplementedException();
+            AppRole result = await this._appRoleRepository.Where(d => d.RoleId == roleId).ToOneAsync();
+            return result;
         }
 
-        public Task<(long, IEnumerable<AppRole>)> GetRolesAsync(QueryRoleParam queryRoleParam)
+        public async Task<(long, IEnumerable<AppRole>)> GetRolesAsync(QueryRoleParam queryRoleParam)
         {
-            throw new NotImplementedException();
+            List<AppRole> lstResult = null;
+            long dataCount = -1;
+            var select = this._appRoleRepository.Select;
+
+            #region 条件查询
+
+            select.WhereIf(!string.IsNullOrWhiteSpace(queryRoleParam.SearchText), d => d.RoleName.Contains(queryRoleParam.SearchText));
+            select.WhereIf(queryRoleParam.RoleId != null, d => d.RoleId.Equals(queryRoleParam.RoleId));
+
+            #endregion 条件查询
+
+            #region 排序
+
+            select.OrderBy(!string.IsNullOrWhiteSpace(queryRoleParam.OrderBy),
+                "a." + queryRoleParam.OrderBy + (string.IsNullOrWhiteSpace(queryRoleParam.OrderByType) ?
+                " asc" : queryRoleParam.OrderByType == "ascend" ? " asc" : " desc"));
+
+            #endregion 排序
+
+            #region 分页
+
+            if (queryRoleParam.PageIndex != null && queryRoleParam.PageSize != null)
+                select.Count(out dataCount).Page(queryRoleParam.PageIndex.Value, queryRoleParam.PageSize.Value);
+
+            #endregion 分页
+
+            lstResult = await select.ToListAsync();
+            return (dataCount, lstResult);
         }
 
-        public Task<int> UpdateRoleAsync(AppRole appRole)
+        public async Task<int> UpdateRoleAsync(AppRole appRole)
         {
-            throw new NotImplementedException();
+            int effectRows = await this._appRoleRepository.UpdateAsync(appRole);
+            return effectRows;
         }
     }
 }
