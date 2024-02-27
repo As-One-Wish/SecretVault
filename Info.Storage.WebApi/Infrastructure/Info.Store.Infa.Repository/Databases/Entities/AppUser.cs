@@ -55,6 +55,7 @@ namespace Info.Storage.Infa.Repository.Databases.Entities
         /// <summary>
         /// 用户角色ID
         /// </summary>
+        [JsonProperty, Column(Name = "role_id", DbType = "int8")]
         public long RoleId { get; set; }
 
         /// <summary>

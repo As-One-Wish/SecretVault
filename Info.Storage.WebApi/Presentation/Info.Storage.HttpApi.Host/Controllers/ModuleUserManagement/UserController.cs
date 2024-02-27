@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
 {
     [Route("api/[controller]")]
-    [Authorize(Policy = "Policy.Default")]
+    //[Authorize(Policy = "Policy.Default")]
     [ApiController]
     public class UserController : ControllerBase
     {

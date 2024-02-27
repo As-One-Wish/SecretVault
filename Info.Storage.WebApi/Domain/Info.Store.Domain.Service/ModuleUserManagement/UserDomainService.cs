@@ -102,7 +102,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
         public async Task<AppUser> GetUserAsync(long userId)
         {
             // TODO 缓存
-            AppUser result = await this._appUserRepository.Where(d => d.UserId == userId).ToOneAsync();
+            AppUser result = await this._appUserRepository.Where(d => d.UserId == userId && !d.IsDeleted).ToOneAsync();
             return result;
         }
 
@@ -121,6 +121,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
 
             oSelect.WhereIf(!string.IsNullOrWhiteSpace(queryUserParam.SearchText), d => d.UserName.Contains(queryUserParam.SearchText));
             oSelect.WhereIf(queryUserParam.UserId != null, d => d.UserId.Equals(queryUserParam.UserId));
+            oSelect.Where(d => !d.IsDeleted);
 
             #endregion 条件查询
 
