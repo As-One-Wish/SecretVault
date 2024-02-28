@@ -33,6 +33,16 @@
         public static readonly string NotValid = "验证无效！";
 
         /// <summary>
+        /// 未授权
+        /// </summary>
+        public static readonly string NoAuth = "未授权！";
+
+        /// <summary>
+        /// 该授权无权限
+        /// </summary>
+        public static readonly string AuthNotPermission = "该授权无权限！";
+
+        /// <summary>
         /// 参数错误
         /// </summary>
         public static readonly string ParamError = "参数错误！";

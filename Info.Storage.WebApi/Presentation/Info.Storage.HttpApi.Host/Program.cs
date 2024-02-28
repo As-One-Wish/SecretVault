@@ -38,8 +38,9 @@ namespace Info.Storage.HttpApi.Host
                 app.UseSwaggerSetup(enableSwagger);
 
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
+            app.UseRouting();
+            app.UseAuthentication(); // 鉴权-读取请求方所带用户信息
+            app.UseAuthorization(); // 授权-根据用户信息检测用户权限
 
             app.MapControllers();
 

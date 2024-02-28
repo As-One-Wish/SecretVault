@@ -55,6 +55,8 @@ namespace Info.Storage.Application.ModuleAuthorization
                     new Claim("userId",jwtUserDto.UserId.ToString()),
                     new Claim("userName",jwtUserDto.UserName),
                     new Claim("roleId",jwtUserDto.RoleId.ToString()),
+                    new Claim("account",jwtUserDto.Account),
+                    new Claim("roleName", jwtUserDto.RoleName)
                 };
                 // 签发一个加密后的用户信息凭证，用来标识用户身份
                 SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor

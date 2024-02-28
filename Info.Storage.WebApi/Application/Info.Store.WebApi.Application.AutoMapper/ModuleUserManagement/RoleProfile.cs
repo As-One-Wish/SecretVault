@@ -8,7 +8,7 @@ namespace Info.Storage.Application.AutoMapper.ModuleUserManagement
     {
         public RoleProfile()
         {
-            CreateMap<RoleDto, AppRole>();
+            CreateMap<RoleDto, AppRole>().ForMember(dst => dst.RoleRemark, opt => opt.MapFrom(src => src.Remark));
             CreateMap<AppRole, RoleDto>();
         }
     }

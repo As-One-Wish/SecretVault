@@ -47,16 +47,18 @@ namespace Info.Storage.Domain.Service.ModuleAuthorization
 
             if (jwtLoginParam == default) return (null, Msg.ParamError);
 
-            AppUser appUser = await this._appUserRepository
-                    .Where(d => d.UserName == jwtLoginParam.UserName && d.UserPwd == CryptHelper.Encrypt(jwtLoginParam.Password, "Info", true))
-                    .ToOneAsync();
-            if (appUser != null)
+            bool userExists = await this._appUserRepository.Select
+                .AnyAsync(d => d.UserAccount == jwtLoginParam.Account && d.UserPwd == CryptHelper.Encrypt(jwtLoginParam.Password, "Info", true));
+            if (userExists)
             {
+                (AppUser appUser, AppRole appRole) userLoginRelatedInfo = await this._appUserRepository.GetUserLoginFullInformation(jwtLoginParam);
                 JwtUserDto jwtUserDto = new JwtUserDto
                 {
-                    UserName = appUser.UserName,
-                    UserId = appUser.UserId,
-                    RoleId = appUser.RoleId
+                    UserName = userLoginRelatedInfo.appUser.UserName,
+                    Account = userLoginRelatedInfo.appUser.UserAccount,
+                    UserId = userLoginRelatedInfo.appUser.UserId,
+                    RoleId = userLoginRelatedInfo.appUser.RoleId,
+                    RoleName = userLoginRelatedInfo.appRole.RoleName
                 };
                 result.jwtUserDto = jwtUserDto;
             }

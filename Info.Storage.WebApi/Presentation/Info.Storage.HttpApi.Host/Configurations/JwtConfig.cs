@@ -1,5 +1,4 @@
-﻿using Info.Storage.HttpApi.Host.Handler;
-using Info.Storage.HttpApi.Host.Handlers;
+﻿using Info.Storage.HttpApi.Host.Handlers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
@@ -31,7 +30,8 @@ namespace Info.Storage.HttpApi.Host.Configurations
             // Jwt相关配置
             services.AddAuthorization(options => // 1.配置授权策略
             {
-                options.AddPolicy("Policy.Default", policy => policy.Requirements.Add(new PolicyRequirement()));
+                options.AddPolicy("Policy.Default", policy => policy.Requirements.Add(new PolicyRequirement("Default")));
+                options.AddPolicy("Policy.Admin", policy => policy.Requirements.Add(new PolicyRequirement("Admin")));
             }).AddAuthentication(s =>  // 2.配置身份验证
             {
                 // 在身份验证成功后，默认使用的身份验证方案
@@ -40,13 +40,13 @@ namespace Info.Storage.HttpApi.Host.Configurations
                 s.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 // 在发生身份验证挑战时使用的默认身份验证方案
                 s.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(s => // 3.配置Jwt Bearer
+            }).AddJwtBearer(s => // 3.配置Jwt Bearer (Token的鉴权逻辑)
             {
                 // 配置 Jwt Bearer 的验证参数
                 s.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = issuer, // 颁发者的有效性
-                    ValidAudience = audience, // 受众的有效性
+                    ValidIssuer = issuer, // 颁发者的有效值
+                    ValidAudience = audience, // 受众的有效值
                     IssuerSigningKey = key, // 用于验证签名的密钥
                     ClockSkew = expiration, //允许的时钟偏差
                     ValidateLifetime = true, // 是否验证令牌的生命周期

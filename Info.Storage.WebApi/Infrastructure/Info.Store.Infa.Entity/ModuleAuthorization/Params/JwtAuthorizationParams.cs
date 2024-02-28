@@ -3,9 +3,9 @@
     public record JwtLoginParam
     {
         /// <summary>
-        /// 登录用户名
+        /// 登录账号
         /// </summary>
-        public string UserName { get; set; }
+        public string Account { get; set; }
         /// <summary>
         /// 登录密码
         /// </summary>

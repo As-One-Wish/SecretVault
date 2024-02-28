@@ -2,6 +2,7 @@
 using Info.Storage.Infa.Entity.ModuleAuthorization.Dtos;
 using Info.Storage.Infa.Entity.ModuleAuthorization.Params;
 using Info.Storage.Infa.Entity.Shared.Dtos;
+using Info.Storage.Utils.CommonHelper.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleAuthorization
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorizationController:ControllerBase
+    public class AuthorizationController : ControllerBase
     {
         #region Initialize
 
@@ -24,8 +25,9 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleAuthorization
             this._secretAppService = secretAppService;
             this._jwtAppService = jwtAppService;
         }
-        
+
         #endregion Initialize
+
         /// <summary>
         /// 获取Jwt授权数据
         /// </summary>
@@ -34,7 +36,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleAuthorization
         [HttpPost("CreateToken")]
         [ProducesResponseType(typeof(BaseResult<JwtAuthorizationDto?>), StatusCodes.Status200OK)]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateToken([FromBody] JwtLoginParam jwtLoginParam) 
+        public async Task<IActionResult> CreateToken([FromBody] JwtLoginParam jwtLoginParam)
         {
             (JwtUserDto? JwtUserDto, string Msg) userInfo = await _secretAppService.GetJwtUserAsync(jwtLoginParam);
             if (userInfo.JwtUserDto == null)
@@ -44,8 +46,6 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleAuthorization
                 JwtAuthorizationDto jwt = _jwtAppService.CreateJwt(userInfo.JwtUserDto.Value);
                 return Ok(new BaseResult(!jwt.Equals(default), jwt));
             }
-
         }
-
     }
 }
