@@ -2,8 +2,15 @@ using Info.Storage.HttpApi.Host.Configurations;
 
 namespace Info.Storage.HttpApi.Host
 {
+    /// <summary>
+    /// 主程序
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// 程序入口
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

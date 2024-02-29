@@ -21,7 +21,7 @@ namespace Info.Storage.HttpApi.Host.Configurations
             {
                 services.AddSwaggerGen(options =>
                 {
-                    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                     {
                         // 描述信息
                         Description = "请输入带有Bearer的Token，形如\"Bearer {Token}\"",
@@ -30,7 +30,11 @@ namespace Info.Storage.HttpApi.Host.Configurations
                         // 验证信息
                         Type = SecuritySchemeType.ApiKey,
                         // 设置 API 密钥位置
-                        In = ParameterLocation.Header
+                        In = ParameterLocation.Header,
+                        // Bearer Token的格式
+                        BearerFormat = "JWT",
+                        // 身份验证方案的名称
+                        Scheme = "Bearer"
                     });
                     // 指定方案应用范围
                     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -41,7 +45,7 @@ namespace Info.Storage.HttpApi.Host.Configurations
                                 Reference = new OpenApiReference
                                 {
                                     Type = ReferenceType.SecurityScheme,
-                                    Id = "oauth2"
+                                    Id = "Bearer"
                                 }
                             },
                             new []
@@ -55,6 +59,9 @@ namespace Info.Storage.HttpApi.Host.Configurations
                     options.OperationFilter<SwaggerFileOperationFilter>();
                     // 添加并指定Swagger文档信息
                     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Info.Storage.HttpApi.Host", Version = "v1" });
+                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Info.Storage.HttpApi.Host.xml");
+
+                    options.IncludeXmlComments(path, true); // 显示控制器层注释
 
                     options.OrderActionsBy(o => o.RelativePath); // 对action的名称进行排序
                 });

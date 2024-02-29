@@ -47,5 +47,19 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleAuthorization
                 return Ok(new BaseResult(!jwt.Equals(default), jwt));
             }
         }
+
+        /// <summary>
+        /// 刷新Jwt授权数据
+        /// </summary>
+        /// <param name="refreshCode"></param>
+        /// <returns></returns>
+        [HttpPost("RefreshToken")]
+        [ProducesResponseType(typeof(BaseResult<JwtAuthorizationDto?>), StatusCodes.Status200OK)]
+        public IActionResult RefreshToken([FromBody] long refreshCode)
+        {
+            // 用之前的ExpireTime作为验证码
+            BaseResult<JwtAuthorizationDto?> refreshToken = _jwtAppService.RefreshJwt(Request.Headers["Authorization"], refreshCode);
+            return Ok(refreshToken);
+        }
     }
 }

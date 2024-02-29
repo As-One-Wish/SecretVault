@@ -3,9 +3,13 @@ using Info.Storage.Infa.Entity.ModuleUserManagement.Dtos;
 using Info.Storage.Infa.Entity.Shared.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
 {
+    /// <summary>
+    /// 用户控制器
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize(Policy = "Policy.Default")]
     [ApiController]
@@ -26,6 +30,12 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
 
         #endregion Initialize
 
+        /// <summary>
+        /// 添加用户
+        /// </summary>
+        /// <param name="userDto"></param>
+        /// <param name="responseData"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("AddUser")]
         [ProducesResponseType(typeof(BaseResult<UserDto?>), StatusCodes.Status200OK)]

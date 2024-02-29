@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
 {
+    /// <summary>
+    /// 角色控制器
+    /// </summary>
     [Route("api/[controller]")]
     [Authorize(Policy = "Policy.Admin")]
     [ApiController]
@@ -26,6 +29,12 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
 
         #endregion Initialize
 
+        /// <summary>
+        /// 添加角色
+        /// </summary>
+        /// <param name="roleDto"></param>
+        /// <param name="responseData"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("AddRole")]
         [ProducesResponseType(typeof(BaseResult<RoleDto?>), StatusCodes.Status200OK)]
