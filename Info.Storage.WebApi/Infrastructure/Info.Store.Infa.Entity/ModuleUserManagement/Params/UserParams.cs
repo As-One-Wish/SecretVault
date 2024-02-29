@@ -14,7 +14,7 @@ namespace Info.Storage.Infa.Entity.ModuleUserManagement.Params
         /// <summary>
         /// 是否显示头像
         /// </summary>
-        public bool ShowAvatar { get; set; }
+        public bool ShowAvatar { get; set; } = false;
         /// <summary>
         /// 查询文本
         /// </summary>

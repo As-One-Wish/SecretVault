@@ -37,6 +37,6 @@ namespace Info.Storage.Infa.Repository.Databases.Entities
         /// 更新时间
         /// </summary>
         [JsonProperty, Column(Name = "update_time", ServerTime = DateTimeKind.Local)] // 写入数据库时使用本地时间
-        public DateTime? UpdateTime { get; set; }
+        public DateTime UpdateTime { get; set; }
     }
 }

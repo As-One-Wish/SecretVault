@@ -1,4 +1,5 @@
 ﻿using Info.Storage.Domain.Service.Shared;
+using Info.Storage.Infa.Entity.ModuleUserManagement.Dtos;
 using Info.Storage.Infa.Entity.ModuleUserManagement.Params;
 using Info.Storage.Infa.Entity.Shared.Attributes;
 using Info.Storage.Infa.Repository.Databases.Entities;
@@ -41,18 +42,18 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
         Task<AppUser> GetUserAsync(long userId);
 
         /// <summary>
-        /// 判断用户名是否存在
+        /// 判断账号是否存在
         /// </summary>
-        /// <param name="userName"></param>
+        /// <param name="userAccount"></param>
         /// <returns></returns>
-        Task<bool> IsUserNameExistAsync(string userName);
+        Task<bool> IsUserAccountExistAsync(string userAccount);
 
         /// <summary>
         /// 获取用户集合
         /// </summary>
         /// <param name="queryUserParam"></param>
         /// <returns>(数据条数，实体集合)</returns>
-        Task<(long, IEnumerable<AppUser>)> GetUsersAsync(QueryUserParam queryUserParam);
+        Task<(long, IEnumerable<UserDto>)> GetUsersAsync(QueryUserParam queryUserParam);
     }
 
     /// <summary>
@@ -112,14 +113,14 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
             return result;
         }
 
-        public async Task<bool> IsUserNameExistAsync(string userName)
+        public async Task<bool> IsUserAccountExistAsync(string userAccount)
         {
-            return await this._appUserRepository.Select.AnyAsync(d => d.UserName == userName);
+            return await this._appUserRepository.Select.AnyAsync(d => d.UserAccount == userAccount);
         }
 
-        public async Task<(long, IEnumerable<AppUser>)> GetUsersAsync(QueryUserParam queryUserParam)
+        public async Task<(long, IEnumerable<UserDto>)> GetUsersAsync(QueryUserParam queryUserParam)
         {
-            List<AppUser> lstResult = null;
+            List<UserDto> lstResult = null;
             long dataCount = -1;
             var oSelect = this._appUserRepository.Select;
 
@@ -148,7 +149,15 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
             #endregion 分页
 
             // TODO AutoMapper转换
-            lstResult = await oSelect.ToListAsync();
+            lstResult = await oSelect.From<AppRole>((a, b) => a.LeftJoin(a => a.RoleId == b.RoleId))
+                .ToListAsync((a, b) => new UserDto
+                {
+                    Avatar = queryUserParam.ShowAvatar ? a.UserAvatar : null,
+                    RoleName = b.RoleName,
+                    Account = a.UserAccount,
+                    Password = a.UserPwd,
+                    Phone = a.UserPhone
+                });
             return (dataCount, lstResult);
         }
 
