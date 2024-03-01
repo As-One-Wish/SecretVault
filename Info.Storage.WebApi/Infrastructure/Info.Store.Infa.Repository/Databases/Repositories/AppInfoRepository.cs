@@ -4,9 +4,9 @@ using Info.Storage.Infa.Repository.Shared;
 
 namespace Info.Storage.Infa.Repository.Databases.Repositories
 {
-    public class AppRoleRepository : BaseRepositoryExtend<AppRole, long>
+    public class AppInfoRepository : BaseRepositoryExtend<AppInfo, long>
     {
-        public AppRoleRepository(IBaseSingleFreeSql<DbEnum> singleFreeSql) : base(singleFreeSql.Get(DbEnum.DbApp), null, null)
+        public AppInfoRepository(IBaseSingleFreeSql<DbEnum> singleFreeSql) : base(singleFreeSql.Get(DbEnum.DbApp), null, null)
         {
         }
     }

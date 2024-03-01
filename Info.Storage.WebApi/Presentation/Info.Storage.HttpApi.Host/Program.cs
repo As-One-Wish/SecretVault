@@ -16,15 +16,12 @@ namespace Info.Storage.HttpApi.Host
             var builder = WebApplication.CreateBuilder(args);
             builder.Configuration.AddJsonFile("localAppsettings.json");
 
-            //DbConnectionOptionConfig? oDbConnectionOptionConfig = builder.Configuration.GetSection("DbConnectionStrings:DbOtherPostgresqlConnectionString").Get<DbConnectionOptionConfig>();
-
-            // Add services to the container.
-
             bool enableSwagger = bool.Parse(builder.Configuration["EnableSwagger"] ?? "false");
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            #region Add services to the container.
 
+            // 添加控制器服务
+            builder.Services.AddControllers();
             // 配置自动注入
             builder.Services.AddAutoInjectConfiguration();
             // 配置 FreeSql
@@ -37,6 +34,8 @@ namespace Info.Storage.HttpApi.Host
             builder.Services.AddOtherConfiguration(builder.Configuration);
             // 配置Swagger
             builder.Services.AddSwaggerConfiguration(enableSwagger);
+
+            #endregion Add services to the container.
 
             var app = builder.Build();
 

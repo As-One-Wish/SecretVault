@@ -107,7 +107,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
                     user.IsDeleted = true;
                     await this._appUserRepository.UpdateAsync(user);
                 }
-            return usersToDel == null ? -1 : usersToDel.Count;
+            return usersToDel.Count > 0 ? -1 : usersToDel.Count;
         }
 
         public async Task<int> UpdateUserAsync(AppUser appUser)
@@ -160,7 +160,6 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
 
             #endregion 分页
 
-            // TODO AutoMapper转换
             lstResult = await oSelect.From<AppRole>((a, b) => a.LeftJoin(a => a.RoleId == b.RoleId))
                 .ToListAsync((a, b) => new UserDto
                 {

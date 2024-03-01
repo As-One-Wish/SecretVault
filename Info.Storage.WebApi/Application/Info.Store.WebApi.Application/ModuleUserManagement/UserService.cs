@@ -153,7 +153,7 @@ namespace Info.Storage.Application.ModuleUserManagement
                 br.DataCount = br.IsSuccess ? 1 : -1;
                 if (!isNullResult)
                     br.Data = this._mapper.Map<AppUser, UserDto>(appUser);
-                br.Message = isNullResult ? Msg.DbError : Msg.Success;
+                br.Message = isNullResult ? Msg.DataNotFound : Msg.Success;
                 return br;
             }
             catch (Exception ex)

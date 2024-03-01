@@ -5,7 +5,6 @@ using Info.Storage.Utils.CommonHelper.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using MySqlX.XDevAPI.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

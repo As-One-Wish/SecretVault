@@ -121,7 +121,7 @@ namespace Info.Storage.Application.ModuleUserManagement
                 br.IsSuccess = !isNullResult;
                 if (!isNullResult)
                     br.Data = this._mapper.Map<AppRole, RoleDto>(appRole);
-                br.Message = isNullResult ? Msg.DbError : Msg.Success;
+                br.Message = isNullResult ? Msg.DataNotFound : Msg.Success;
                 return br;
             }
             catch (Exception ex)
