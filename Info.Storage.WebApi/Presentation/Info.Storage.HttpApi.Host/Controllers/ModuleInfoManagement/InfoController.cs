@@ -11,6 +11,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleInfoManagement
     /// 信息控制器
     /// </summary>
     [Route("api/[controller]")]
+    [Authorize(Policy = "Policy.Default")]
     [ApiController]
     public class InfoController : ControllerBase
     {
