@@ -28,6 +28,12 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
         Task<int> DelUserAsync(DeleteUserParam deleteUserParam);
 
         /// <summary>
+        /// 物理删除用户
+        /// </summary>
+        /// <returns></returns>
+        Task<int> DelUserPhysicallyAsync();
+
+        /// <summary>
         /// 异步更新用户
         /// </summary>
         /// <param name="appUser"></param>
@@ -84,18 +90,24 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
 
         public async Task<int> DelUserAsync(DeleteUserParam deleteUserParam)
         {
-            int effectRows = -1;
+            List<AppUser> usersToDel = new List<AppUser>();
             if (deleteUserParam.UserId != null)
             {
-                effectRows = await this._appUserRepository.DeleteAsync(deleteUserParam.UserId.Value);
+                usersToDel = await this._appUserRepository.Where(user => user.UserId == deleteUserParam.UserId.Value && !user.IsDeleted).ToListAsync();
                 // TODO 缓存
             }
             if (deleteUserParam.UserIds != null && deleteUserParam.UserIds.Length > 0)
             {
-                effectRows = await this._appUserRepository.DeleteAsync(d => deleteUserParam.UserIds.Contains(d.UserId));
+                usersToDel = await this._appUserRepository.Where(user => deleteUserParam.UserIds.Contains(user.UserId) && !user.IsDeleted).ToListAsync();
                 // TODO 缓存
             }
-            return effectRows;
+            if (usersToDel != null && usersToDel.Count() > 0)
+                foreach (AppUser user in usersToDel)
+                {
+                    user.IsDeleted = true;
+                    await this._appUserRepository.UpdateAsync(user);
+                }
+            return usersToDel == null ? -1 : usersToDel.Count;
         }
 
         public async Task<int> UpdateUserAsync(AppUser appUser)
@@ -159,6 +171,12 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
                     Phone = a.UserPhone
                 });
             return (dataCount, lstResult);
+        }
+
+        public async Task<int> DelUserPhysicallyAsync()
+        {
+            int effectRows = await this._appUserRepository.DeleteAsync(user => user.IsDeleted);
+            return effectRows;
         }
 
         #endregion Implements

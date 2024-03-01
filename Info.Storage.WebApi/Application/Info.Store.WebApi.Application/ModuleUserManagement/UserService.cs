@@ -29,6 +29,12 @@ namespace Info.Storage.Application.ModuleUserManagement
         Task<BaseResult> DelUser(DeleteUserParam deleteUserParam);
 
         /// <summary>
+        /// 清除逻辑删除用户-管理员权限
+        /// </summary>
+        /// <returns></returns>
+        Task<BaseResult> ClearUser();
+
+        /// <summary>
         /// 更新用户
         /// </summary>
         /// <param name="userDto"></param>
@@ -81,6 +87,7 @@ namespace Info.Storage.Application.ModuleUserManagement
             {
                 BaseResult<UserDto?> br = new BaseResult<UserDto?>();
                 userDto.UserId = Yitter.IdGenerator.YitIdHelper.NextId();
+
                 // 默认AutoMapper转换规则
                 AppUser oAppUser = this._mapper.Map<UserDto, AppUser>(userDto);
                 AppUser result = await this._userDomainService.AddUserAsync(oAppUser);
@@ -95,6 +102,24 @@ namespace Info.Storage.Application.ModuleUserManagement
             {
                 LogHelper.Error(ex);
                 return await Task.FromResult(new BaseResult<UserDto?>(false, null, ex.Message));
+            }
+        }
+
+        public async Task<BaseResult> ClearUser()
+        {
+            try
+            {
+                BaseResult br = new BaseResult();
+                int effectRows = await this._userDomainService.DelUserPhysicallyAsync();
+                br.IsSuccess = effectRows > 0;
+                br.DataCount = effectRows;
+                br.Message = br.IsSuccess ? Msg.Success : Msg.DbError;
+                return br;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error(ex);
+                return await Task.FromResult(new BaseResult(false, null, ex.Message));
             }
         }
 
@@ -125,7 +150,7 @@ namespace Info.Storage.Application.ModuleUserManagement
                 AppUser appUser = await this._userDomainService.GetUserAsync(userId);
                 bool isNullResult = appUser == null;
                 br.IsSuccess = !isNullResult;
-
+                br.DataCount = br.IsSuccess ? 1 : -1;
                 if (!isNullResult)
                     br.Data = this._mapper.Map<AppUser, UserDto>(appUser);
                 br.Message = isNullResult ? Msg.DbError : Msg.Success;

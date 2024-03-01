@@ -4,7 +4,6 @@ using Info.Storage.Infa.Entity.ModuleUserManagement.Params;
 using Info.Storage.Infa.Entity.Shared.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
 {
@@ -55,6 +54,19 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         public async Task<IActionResult> DelUser([FromBody] DeleteUserParam deleteUserParam)
         {
             BaseResult br = await this._userService.DelUser(deleteUserParam);
+            return Ok(br);
+        }
+
+        /// <summary>
+        /// 清空已逻辑删除用户(管理员权限)
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete("ClearUser")]
+        [Authorize(Policy = "Policy.Admin")]
+        [ProducesResponseType(typeof(BaseResult), StatusCodes.Status200OK)]
+        public async Task<IActionResult> ClearUser()
+        {
+            BaseResult br = await this._userService.ClearUser();
             return Ok(br);
         }
 

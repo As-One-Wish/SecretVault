@@ -2,6 +2,9 @@
 
 namespace Info.Storage.Infa.Entity.ModuleUserManagement.Dtos
 {
+    /// <summary>
+    /// AppUser对应实体
+    /// </summary>
     public record struct UserDto
     {
         public UserDto()
@@ -51,6 +54,9 @@ namespace Info.Storage.Infa.Entity.ModuleUserManagement.Dtos
         /// 用户角色ID
         /// </summary>
         public long? RoleId { get; set; }
+        /// <summary>
+        /// 关联AppRole中的RoleName字段
+        /// </summary>
         public string RoleName { get; set; }
         /// <summary>
         /// 更新时间
