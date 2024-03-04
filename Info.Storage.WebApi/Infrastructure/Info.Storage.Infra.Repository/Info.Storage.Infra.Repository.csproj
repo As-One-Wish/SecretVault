@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FreeSql" Version="3.2.812" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\Extensions\Info.Storage.Infra.Repository.Extension\Info.Storage.Infra.Repository.Extension.csproj" />
+		<ProjectReference Include="..\..\Common\Utils\Info.Storage.Utils.CommonHelper\Info.Storage.Utils.CommonHelper.csproj" />
+		<ProjectReference Include="..\Info.Storage.Infra.Entity\Info.Storage.Infra.Entity.csproj" />
+	</ItemGroup>
+
+</Project>

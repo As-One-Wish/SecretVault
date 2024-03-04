@@ -1,5 +1,5 @@
-﻿using Info.Storage.Infa.Repository.Extension;
-using Info.Storage.Infa.Repository.Shared;
+﻿using Info.Storage.Infra.Repository.Shared;
+using Info.Storage.Infra.Repository.Extension;
 
 namespace Info.Storage.HttpApi.Host.Configurations
 {

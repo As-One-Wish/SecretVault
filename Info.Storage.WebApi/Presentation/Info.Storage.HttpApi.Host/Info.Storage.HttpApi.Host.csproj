@@ -20,12 +20,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Application\Info.Store.WebApi.Application.AutoMapper\Info.Storage.Application.AutoMapper.csproj" />
-		<ProjectReference Include="..\..\Application\Info.Store.WebApi.Application\Info.Storage.Application.csproj" />
+		<ProjectReference Include="..\..\Application\Info.Storage.WebApi.Application.AutoMapper\Info.Storage.Application.AutoMapper.csproj" />
+		<ProjectReference Include="..\..\Application\Info.Storage.WebApi.Application\Info.Storage.Application.csproj" />
 		<ProjectReference Include="..\..\Common\Utils\Info.Storage.Utils.CommonHelper\Info.Storage.Utils.CommonHelper.csproj" />
-		<ProjectReference Include="..\..\Domain\Info.Store.Domain.Service\Info.Storage.Domain.Service.csproj" />
-		<ProjectReference Include="..\..\Infrastructure\Info.Store.Infa.Entity\Info.Storage.Infa.Entity.csproj" />
-		<ProjectReference Include="..\..\Infrastructure\Info.Store.Infa.Repository\Info.Storage.Infa.Repository.csproj" />
+		<ProjectReference Include="..\..\Common\Utils\Info.Storage.Utils.RedisHelper\Info.Storage.Utils.RedisHelper.csproj" />
+		<ProjectReference Include="..\..\Domain\Info.Storage.Domain.Service\Info.Storage.Domain.Service.csproj" />
+		<ProjectReference Include="..\..\Infrastructure\Info.Storage.Infra.Entity\Info.Storage.Infra.Entity.csproj" />
+		<ProjectReference Include="..\..\Infrastructure\Info.Storage.Infra.Repository\Info.Storage.Infra.Repository.csproj" />
 	</ItemGroup>
 
 

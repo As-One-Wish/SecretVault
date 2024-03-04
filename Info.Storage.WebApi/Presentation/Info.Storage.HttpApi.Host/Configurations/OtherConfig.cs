@@ -1,4 +1,5 @@
-﻿using Yitter.IdGenerator;
+﻿using Info.Storage.Utils.RedisHelper;
+using Yitter.IdGenerator;
 
 namespace Info.Storage.HttpApi.Host.Configurations
 {
@@ -19,6 +20,10 @@ namespace Info.Storage.HttpApi.Host.Configurations
             // 1.雪花算法 ID生成器
             var options = new IdGeneratorOptions(1); // 可将WorkId抽象为枚举，方便扩展
             YitIdHelper.SetIdGenerator(options);
+
+            // 2.Redis初始化连接
+            string? strRedisConnection = configuration.GetValue<string>("RedisConnectionSettings:redis-server");
+            RedisServerHelper.Init(strRedisConnection);
         }
     }
 }

@@ -22,5 +22,9 @@
     "ExpireMinutes": "10080"
   },
 
-  "EnableSwagger": true
+  "EnableSwagger": true,
+
+  "RedisConnectionSettings": {
+    "redis-server": "nosentinel|192.168.149.128:6379,password=redis,prefix=Info:Storage:"
+  }
 }

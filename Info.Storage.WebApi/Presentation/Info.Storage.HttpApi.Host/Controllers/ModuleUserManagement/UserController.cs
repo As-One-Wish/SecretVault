@@ -1,7 +1,7 @@
 ﻿using Info.Storage.Application.ModuleUserManagement;
-using Info.Storage.Infa.Entity.ModuleUserManagement.Dtos;
-using Info.Storage.Infa.Entity.ModuleUserManagement.Params;
-using Info.Storage.Infa.Entity.Shared.Dtos;
+using Info.Storage.Infra.Entity.ModuleUserManagement.Dtos;
+using Info.Storage.Infra.Entity.ModuleUserManagement.Params;
+using Info.Storage.Infra.Entity.Shared.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

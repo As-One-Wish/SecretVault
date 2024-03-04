@@ -1,5 +1,5 @@
 ﻿using Info.Storage.Domain.Service.Shared;
-using Info.Storage.Infa.Entity.Shared.Attributes;
+using Info.Storage.Infra.Entity.Shared.Attributes;
 using System.Reflection;
 
 namespace Info.Storage.HttpApi.Host.Configurations

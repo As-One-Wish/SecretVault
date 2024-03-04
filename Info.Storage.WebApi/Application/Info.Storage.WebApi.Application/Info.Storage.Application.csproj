@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Domain\Info.Storage.Domain.Service\Info.Storage.Domain.Service.csproj" />
+		<ProjectReference Include="..\..\Infrastructure\Info.Storage.Infra.Entity\Info.Storage.Infra.Entity.csproj" />
+	</ItemGroup>
+
+</Project>

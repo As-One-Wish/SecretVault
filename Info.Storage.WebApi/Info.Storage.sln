@@ -5,15 +5,15 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Application", "1-Application", "{D4E75E42-1148-47A0-B462-400846BD1E81}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Application.AutoMapper", "Application\Info.Store.WebApi.Application.AutoMapper\Info.Storage.Application.AutoMapper.csproj", "{44837161-6817-4B95-95B4-0CBA4090158B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Application.AutoMapper", "Application\Info.Storage.WebApi.Application.AutoMapper\Info.Storage.Application.AutoMapper.csproj", "{44837161-6817-4B95-95B4-0CBA4090158B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Application.Validator", "Application\Info.Store.WebApi.Application.Validator\Info.Storage.Application.Validator.csproj", "{B3D079D3-4CF7-4095-A81C-0EB6DD10FBCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Application.Validator", "Application\Info.Storage.WebApi.Application.Validator\Info.Storage.Application.Validator.csproj", "{B3D079D3-4CF7-4095-A81C-0EB6DD10FBCF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Application", "Application\Info.Store.WebApi.Application\Info.Storage.Application.csproj", "{52B5AE7E-CEEB-4EAB-BA2C-3EF8A45A4194}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Application", "Application\Info.Storage.WebApi.Application\Info.Storage.Application.csproj", "{52B5AE7E-CEEB-4EAB-BA2C-3EF8A45A4194}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Domain", "2-Domain", "{A910834E-C4A0-4171-ABBB-6463F3406FF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Domain.Service", "Domain\Info.Store.Domain.Service\Info.Storage.Domain.Service.csproj", "{3790B3DC-817D-4F28-B0A6-04D03AAC7BAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Domain.Service", "Domain\Info.Storage.Domain.Service\Info.Storage.Domain.Service.csproj", "{3790B3DC-817D-4F28-B0A6-04D03AAC7BAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Infrastructure.Core", "3-Infrastructure.Core", "{723200DF-D206-43BE-B14F-4BEAC129E804}"
 EndProject
@@ -21,9 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infrastructure.Common", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Presentation", "5-Presentation", "{9141AF02-D201-4C4A-B8C1-B22CD194F9E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Infa.Entity", "Infrastructure\Info.Store.Infa.Entity\Info.Storage.Infa.Entity.csproj", "{9AF81C46-ABF2-494D-8486-CFA8B30004F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Infra.Entity", "Infrastructure\Info.Storage.Infra.Entity\Info.Storage.Infra.Entity.csproj", "{9AF81C46-ABF2-494D-8486-CFA8B30004F9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Infa.Repository", "Infrastructure\Info.Store.Infa.Repository\Info.Storage.Infa.Repository.csproj", "{7CD7A4D6-6C13-43F1-98D2-CC49264C2F3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Infra.Repository", "Infrastructure\Info.Storage.Infra.Repository\Info.Storage.Infra.Repository.csproj", "{7CD7A4D6-6C13-43F1-98D2-CC49264C2F3C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info.Storage.Extensions", "Info.Storage.Extensions", "{C9552DFD-56AD-4A9D-B92F-4E0616A5DE22}"
 EndProject
@@ -33,7 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.HttpApi.Host",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Utils.CommonHelper", "Common\Utils\Info.Storage.Utils.CommonHelper\Info.Storage.Utils.CommonHelper.csproj", "{F2638394-96F0-403E-B425-E21B9232DB14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Infa.Repository.Extension", "Common\Extensions\Info.Storage.Infa.Repository.Extension\Info.Storage.Infa.Repository.Extension.csproj", "{49F39BB8-9A06-42EE-8A0F-5EAA2C1F0615}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Infra.Repository.Extension", "Common\Extensions\Info.Storage.Infra.Repository.Extension\Info.Storage.Infra.Repository.Extension.csproj", "{49F39BB8-9A06-42EE-8A0F-5EAA2C1F0615}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Info.Storage.Utils.RedisHelper", "Common\Utils\Info.Storage.Utils.RedisHelper\Info.Storage.Utils.RedisHelper.csproj", "{C9686165-3970-46F9-99E7-C04DF7A92728}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Info.Storage.Infra.Cache", "Infrastructure\Info.Storage.Infra.Cache\Info.Storage.Infra.Cache.csproj", "{0938579C-E487-46BB-87A5-7E26024ADFAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +81,14 @@ Global
 		{49F39BB8-9A06-42EE-8A0F-5EAA2C1F0615}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49F39BB8-9A06-42EE-8A0F-5EAA2C1F0615}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49F39BB8-9A06-42EE-8A0F-5EAA2C1F0615}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9686165-3970-46F9-99E7-C04DF7A92728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9686165-3970-46F9-99E7-C04DF7A92728}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9686165-3970-46F9-99E7-C04DF7A92728}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9686165-3970-46F9-99E7-C04DF7A92728}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0938579C-E487-46BB-87A5-7E26024ADFAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0938579C-E487-46BB-87A5-7E26024ADFAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0938579C-E487-46BB-87A5-7E26024ADFAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0938579C-E487-46BB-87A5-7E26024ADFAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +105,8 @@ Global
 		{E2E3C9AD-26B5-4651-BFF0-541C053353DC} = {9141AF02-D201-4C4A-B8C1-B22CD194F9E2}
 		{F2638394-96F0-403E-B425-E21B9232DB14} = {F5F330EF-E36B-4321-A555-2C6BB6D0C0E7}
 		{49F39BB8-9A06-42EE-8A0F-5EAA2C1F0615} = {C9552DFD-56AD-4A9D-B92F-4E0616A5DE22}
+		{C9686165-3970-46F9-99E7-C04DF7A92728} = {F5F330EF-E36B-4321-A555-2C6BB6D0C0E7}
+		{0938579C-E487-46BB-87A5-7E26024ADFAC} = {723200DF-D206-43BE-B14F-4BEAC129E804}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B45CA1FC-5E2C-457A-8E68-957F2721ADC1}
