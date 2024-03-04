@@ -1,4 +1,5 @@
 ﻿using Info.Storage.Domain.Service.Shared;
+using Info.Storage.Infra.Cache.ModuleUserManagement;
 using Info.Storage.Infra.Entity.ModuleUserManagement.Dtos;
 using Info.Storage.Infra.Entity.ModuleUserManagement.Params;
 using Info.Storage.Infra.Entity.Shared.Attributes;
@@ -84,7 +85,8 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
         public async Task<AppUser> AddUserAsync(AppUser appUser)
         {
             AppUser oAppUser = await this._appUserRepository.InsertAsync(appUser);
-            // TODO 设置缓存
+            if (oAppUser != null)
+                await UserCache.SetUserCacheAsync(oAppUser);
             return oAppUser;
         }
 
@@ -94,12 +96,14 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
             if (deleteUserParam.UserId != null)
             {
                 usersToDel = await this._appUserRepository.Where(user => user.UserId == deleteUserParam.UserId.Value && !user.IsDeleted).ToListAsync();
-                // TODO 缓存
+                if (usersToDel.Count > 0)
+                    await UserCache.DelUserCacheAsync(deleteUserParam.UserId.Value);
             }
             if (deleteUserParam.UserIds != null && deleteUserParam.UserIds.Length > 0)
             {
                 usersToDel = await this._appUserRepository.Where(user => deleteUserParam.UserIds.Contains(user.UserId) && !user.IsDeleted).ToListAsync();
-                // TODO 缓存
+                if (usersToDel.Count > 0)
+                    UserCache.DelUsersCache(deleteUserParam.UserIds);
             }
             if (usersToDel != null && usersToDel.Count() > 0)
                 foreach (AppUser user in usersToDel)
@@ -113,15 +117,22 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
         public async Task<int> UpdateUserAsync(AppUser appUser)
         {
             int effectRows = await this._appUserRepository.UpdateAsync(appUser);
-            // TODO 缓存
+            if (effectRows > 0)
+                await UserCache.SetUserCacheAsync(appUser);
 
             return effectRows;
         }
 
         public async Task<AppUser> GetUserAsync(long userId)
         {
-            // TODO 缓存
-            AppUser result = await this._appUserRepository.Where(d => d.UserId == userId && !d.IsDeleted).ToOneAsync();
+            // 检查缓存是否存在
+            AppUser result = await UserCache.GetUserCacheAsync(userId);
+            if (result == null)
+            {
+                // 不存在则查询数据库
+                result = await this._appUserRepository.Where(d => d.UserId == userId && !d.IsDeleted).ToOneAsync();
+                await UserCache.SetUserCacheAsync(result);
+            }
             return result;
         }
 

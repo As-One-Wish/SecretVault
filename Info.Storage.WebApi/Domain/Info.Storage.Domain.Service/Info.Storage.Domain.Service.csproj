@@ -6,6 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Infrastructure\Info.Storage.Infra.Cache\Info.Storage.Infra.Cache.csproj" />
 		<ProjectReference Include="..\..\Infrastructure\Info.Storage.Infra.Repository\Info.Storage.Infra.Repository.csproj" />
 	</ItemGroup>
 

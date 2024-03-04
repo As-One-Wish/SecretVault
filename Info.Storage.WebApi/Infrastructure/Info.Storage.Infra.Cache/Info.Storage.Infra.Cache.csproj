@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Utils\Info.Storage.Utils.RedisHelper\Info.Storage.Utils.RedisHelper.csproj" />
+    <ProjectReference Include="..\Info.Storage.Infra.Repository\Info.Storage.Infra.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
