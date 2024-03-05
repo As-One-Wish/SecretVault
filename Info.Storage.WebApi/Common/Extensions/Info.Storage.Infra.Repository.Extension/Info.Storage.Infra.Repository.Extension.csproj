@@ -6,8 +6,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FreeSql" Version="3.2.812" />
-		<PackageReference Include="FreeSql.All" Version="3.2.812" />
+		<PackageReference Include="FreeSql" Version="3.2.815" />
+		<PackageReference Include="FreeSql.All" Version="3.2.815" />
 		<PackageReference Include="IdleBus" Version="1.5.3" />
 	</ItemGroup>
 

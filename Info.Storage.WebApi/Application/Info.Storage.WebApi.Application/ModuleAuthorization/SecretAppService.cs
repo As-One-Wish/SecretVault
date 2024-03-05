@@ -1,9 +1,11 @@
-﻿using Info.Storage.Domain.Service.ModuleAuthorization;
+﻿using Info.Storage.Application.Validator.ModuleUserManagement;
+using Info.Storage.Domain.Service.ModuleAuthorization;
 using Info.Storage.Infra.Entity.ModuleAuthorization.Dtos;
 using Info.Storage.Infra.Entity.ModuleAuthorization.Params;
 using Info.Storage.Infra.Entity.Shared.Attributes;
 using Info.Storage.Utils.CommonHelper.Helpers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Info.Storage.Application.ModuleAuthorization
 {
@@ -37,8 +39,12 @@ namespace Info.Storage.Application.ModuleAuthorization
         {
             try
             {
-                // TODO 参数校验
-                return await _secretDomainService.GetJwtUserAsync(jwtLoginParam);
+                JwtLoginParamValidator validator = new JwtLoginParamValidator();
+                var result = validator.Validate(jwtLoginParam);
+                if (result.IsValid)
+                    return await _secretDomainService.GetJwtUserAsync(jwtLoginParam);
+                else
+                    return await Task.FromResult<(JwtUserDto?, string)>((null, string.Join(";", result.Errors.Select(d => d.ErrorMessage).ToArray())));
             }
             catch (Exception ex)
             {

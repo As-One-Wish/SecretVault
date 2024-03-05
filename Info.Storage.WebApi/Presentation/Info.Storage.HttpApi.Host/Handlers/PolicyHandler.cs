@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Info.Storage.HttpApi.Host.Handlers
 {
+    /// <summary>
+    /// 授权 Handler
+    /// </summary>
     public class PolicyHandler : AuthorizationHandler<PolicyRequirement>
     {
         /// <summary>
@@ -19,6 +22,12 @@ namespace Info.Storage.HttpApi.Host.Handlers
             this.schemes = schemes;
         }
 
+        /// <summary>
+        /// Requirement处理
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="requirement"></param>
+        /// <returns></returns>
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PolicyRequirement requirement)
         {
             HttpContext? httpContext = context.Resource as HttpContext;

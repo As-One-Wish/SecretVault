@@ -34,6 +34,8 @@ namespace Info.Storage.HttpApi.Host
             builder.Services.AddOtherConfiguration(builder.Configuration);
             // ≈‰÷√Swagger
             builder.Services.AddSwaggerConfiguration(enableSwagger);
+            // ≈‰÷√—È÷§∆˜
+            builder.Services.AddValidatorConfiguration();
 
             #endregion Add services to the container.
 

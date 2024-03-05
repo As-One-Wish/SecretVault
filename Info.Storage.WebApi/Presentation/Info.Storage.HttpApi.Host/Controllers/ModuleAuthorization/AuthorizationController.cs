@@ -19,6 +19,11 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleAuthorization
         private readonly ISecretAppService _secretAppService;
         private readonly IJwtAppService _jwtAppService;
 
+        /// <summary>
+        /// 授权控制器构造函数
+        /// </summary>
+        /// <param name="secretAppService"></param>
+        /// <param name="jwtAppService"></param>
         public AuthorizationController(ISecretAppService secretAppService, IJwtAppService jwtAppService)
         {
             this._secretAppService = secretAppService;
