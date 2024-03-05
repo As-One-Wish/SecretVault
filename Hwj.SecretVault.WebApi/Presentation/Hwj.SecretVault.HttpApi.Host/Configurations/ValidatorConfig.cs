@@ -27,7 +27,7 @@ namespace Info.Storage.HttpApi.Host.Configurations
         /// <returns></returns>
         public static IEnumerable<Type> GetFluentValidationValidator()
         {
-            var assemblies = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "Info.*.Validator.dll").Select(Assembly.LoadFrom).ToList();
+            var assemblies = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "Hwj.*.Validator.dll").Select(Assembly.LoadFrom).ToList();
             if (assemblies != null && assemblies.Count > 0)
             {
                 List<Type> types = assemblies.Where(t => t.FullName != null && t.FullName.Split(",")[0].EndsWith("Validator"))

@@ -20,7 +20,7 @@ namespace Info.Storage.HttpApi.Host.Configurations
             string[] injectKeys = ["default", "app"];
             // 反射获取程序所有加载类型
             /* 注：AppDomain.CurrentDomain.GetAssemblies()这个方法获取的是当前应用程序域已经加载的程序集 */
-            var assemblies = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "Info.*.dll").Select(Assembly.LoadFrom).ToList();
+            var assemblies = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "Hwj.*.dll").Select(Assembly.LoadFrom).ToList();
             if (assemblies != null && assemblies.Count > 0)
             {
                 // 安装 FreeSql.DbContext

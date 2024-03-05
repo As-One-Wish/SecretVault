@@ -58,8 +58,8 @@ namespace Info.Storage.HttpApi.Host.Configurations
                     // 允许为每个操作(即 API 方法)动态地添加或修改 Swagger 文档的内容
                     options.OperationFilter<SwaggerFileOperationFilter>();
                     // 添加并指定Swagger文档信息
-                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Info.Storage.HttpApi.Host", Version = "v1" });
-                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Info.Storage.HttpApi.Host.xml");
+                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Hwj.SecretVault.HttpApi.Host", Version = "v1" });
+                    string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Hwj.SecretVault.HttpApi.Host.xml");
 
                     options.IncludeXmlComments(path, true); // 显示控制器层注释
 
@@ -82,7 +82,7 @@ namespace Info.Storage.HttpApi.Host.Configurations
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Info.Storage.HttpApi.Host v1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hwj.SecretVault.HttpApi.Host v1");
                 });
             }
         }
