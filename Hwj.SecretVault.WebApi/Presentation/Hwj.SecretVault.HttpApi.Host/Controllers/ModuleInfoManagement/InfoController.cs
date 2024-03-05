@@ -40,7 +40,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleInfoManagement
         [ProducesResponseType(typeof(BaseResult<InfoDto?>), StatusCodes.Status200OK)]
         public async Task<IActionResult> AddInfo([FromBody] InfoDto infoDto, [FromQuery] bool responseData = false)
         {
-            BaseResult<InfoDto?> result = await this._infoService.AddInfo(infoDto);
+            BaseResult<InfoDto?> result = await this._infoService.AddInfo(infoDto, responseData);
             return Ok(result);
         }
 
