@@ -11,5 +11,10 @@
         /// 角色缓存前缀
         /// </summary>
         public static readonly string AppRoleCachePrefix = "DomainServiceCache:AppRole:Role_";
+
+        /// <summary>
+        /// 信息缓存前缀
+        /// </summary>
+        public static readonly string AppInfoCachePrefix = "DomainServiceCache:AppInfo:Info_";
     }
 }

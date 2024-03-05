@@ -1,4 +1,5 @@
-﻿using Info.Storage.Infra.Entity.ModuleInfoManagement.Params;
+﻿using Info.Storage.Infra.Cache.ModuleInfoManagement;
+using Info.Storage.Infra.Entity.ModuleInfoManagement.Params;
 using Info.Storage.Infra.Entity.Shared.Attributes;
 using Info.Storage.Infra.Repository.Databases.Entities;
 using Info.Storage.Infra.Repository.Databases.Repositories;
@@ -74,6 +75,8 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
         public async Task<AppInfo> AddInfoAsync(AppInfo info)
         {
             AppInfo appInfo = await this._appInfoRepository.InsertAsync(info);
+            if (appInfo != null)
+                await InfoCache.SetInfoCacheAsync(appInfo);
             return appInfo;
         }
 
@@ -89,10 +92,14 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
             if (deleteInfoParam.InfoId != null)
             {
                 infosToDel = await this._appInfoRepository.Where(info => info.InfoId == deleteInfoParam.InfoId.Value && !info.IsDeleted).ToListAsync();
+                if (infosToDel.Count > 0)
+                    await InfoCache.DelInfoCacheAsync(deleteInfoParam.InfoId.Value);
             }
             if (deleteInfoParam.InfoIds != null && deleteInfoParam.InfoIds.Length > 0)
             {
                 infosToDel = await this._appInfoRepository.Where(info => deleteInfoParam.InfoIds.Contains(info.InfoId) && !info.IsDeleted).ToListAsync();
+                if (infosToDel.Count > 0)
+                    InfoCache.DelInfosCache(deleteInfoParam.InfoIds);
             }
             if (infosToDel != null && infosToDel.Count > 0)
                 foreach (AppInfo appInfo in infosToDel)
@@ -105,8 +112,14 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
 
         public async Task<AppInfo> GetInfoAsync(long infoId)
         {
-            AppInfo appInfo = await this._appInfoRepository.Where(info => info.InfoId == infoId && !info.IsDeleted).ToOneAsync();
-            return appInfo;
+            AppInfo result = await InfoCache.GetInfoCacheAsync(infoId);
+            if (result == null)
+            {
+                result = await this._appInfoRepository.Where(info => info.InfoId == infoId && !info.IsDeleted).ToOneAsync();
+                if (result != null)
+                    await InfoCache.SetInfoCacheAsync(result);
+            }
+            return result;
         }
 
         public async Task<(long, IEnumerable<AppInfo>)> GetInfosAsync(QueryInfoParam queryInfoParam)
@@ -155,6 +168,8 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
         public async Task<int> UpdateInfoAsync(AppInfo appInfo)
         {
             int effectRows = await this._appInfoRepository.UpdateAsync(appInfo);
+            if (effectRows > 0)
+                await InfoCache.SetInfoCacheAsync(appInfo);
             return effectRows;
         }
 

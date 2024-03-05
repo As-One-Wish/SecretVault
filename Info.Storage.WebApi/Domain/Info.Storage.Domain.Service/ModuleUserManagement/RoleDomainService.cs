@@ -1,4 +1,5 @@
 ﻿using Info.Storage.Domain.Service.Shared;
+using Info.Storage.Infra.Cache.ModuleUserManagement;
 using Info.Storage.Infra.Entity.ModuleUserManagement.Params;
 using Info.Storage.Infra.Entity.Shared.Attributes;
 using Info.Storage.Infra.Repository.Databases.Entities;
@@ -69,6 +70,8 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
         public async Task<AppRole> AddRoleAsync(AppRole role)
         {
             AppRole appRole = await this._appRoleRepository.InsertAsync(role);
+            if (appRole != null)
+                await RoleCache.SetRoleCacheAsync(appRole);
             return appRole;
         }
 
@@ -76,16 +79,31 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
         {
             int effectRows = -1;
             if (deleteRoleParam.RoleId != null)
+            {
                 effectRows = await this._appRoleRepository.DeleteAsync(deleteRoleParam.RoleId.Value);
+                if (effectRows > 0)
+                    await RoleCache.DelRoleCacheAsync(deleteRoleParam.RoleId.Value);
+            }
             if (deleteRoleParam.RoleIds != null && deleteRoleParam.RoleIds.Length > 0)
+            {
                 effectRows = await this._appRoleRepository.DeleteAsync(id => deleteRoleParam.RoleIds.Contains(id.RoleId));
+                if (effectRows > 0)
+                    RoleCache.DelRolesCache(deleteRoleParam.RoleIds);
+            }
 
             return effectRows;
         }
 
         public async Task<AppRole> GetRoleAsync(long roleId)
         {
-            AppRole result = await this._appRoleRepository.Where(d => d.RoleId == roleId).ToOneAsync();
+            var result = await RoleCache.GetRoleCacheAsync(roleId);
+            if (result == null)
+            {
+                result = await this._appRoleRepository.Where(d => d.RoleId == roleId).ToOneAsync();
+                if (result != null)
+                    await RoleCache.SetRoleCacheAsync(result);
+            }
+
             return result;
         }
 
@@ -124,6 +142,8 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
         public async Task<int> UpdateRoleAsync(AppRole appRole)
         {
             int effectRows = await this._appRoleRepository.UpdateAsync(appRole);
+            if (effectRows > 0)
+                await RoleCache.SetRoleCacheAsync(appRole);
             return effectRows;
         }
 
