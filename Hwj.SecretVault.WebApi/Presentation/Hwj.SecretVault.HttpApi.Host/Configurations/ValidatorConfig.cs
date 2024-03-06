@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using FluentValidation;
+﻿using FluentValidation;
+using System.Reflection;
 
 namespace Hwj.SecretVault.HttpApi.Host.Configurations
 {

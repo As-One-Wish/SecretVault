@@ -1,9 +1,9 @@
 ﻿using Hwj.SecretVault.Domain.Service.Shared;
 using Hwj.SecretVault.Infra.Cache.ModuleUserManagement;
 using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Params;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Hwj.SecretVault.Infra.Repository.Databases.Entities;
 using Hwj.SecretVault.Infra.Repository.Databases.Repositories;
-using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hwj.SecretVault.Domain.Service.ModuleUserManagement
