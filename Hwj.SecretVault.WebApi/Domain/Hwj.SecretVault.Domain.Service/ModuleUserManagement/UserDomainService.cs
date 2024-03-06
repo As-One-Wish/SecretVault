@@ -145,13 +145,13 @@ namespace Hwj.SecretVault.Domain.Service.ModuleUserManagement
         {
             List<UserDto> lstResult = null;
             long dataCount = -1;
-            var oSelect = _appUserRepository.Select;
+            var oSelect = _appUserRepository.Orm.Select<AppUser, AppRole>().LeftJoin((a, b) => a.RoleId == b.RoleId);
 
             #region 条件查询
 
-            oSelect.WhereIf(!string.IsNullOrWhiteSpace(queryUserParam.SearchText), d => d.UserName.Contains(queryUserParam.SearchText));
-            oSelect.WhereIf(queryUserParam.UserId != null, d => d.UserId.Equals(queryUserParam.UserId));
-            oSelect.Where(d => !d.IsDeleted);
+            oSelect.WhereIf(!string.IsNullOrWhiteSpace(queryUserParam.SearchText), (a, b) => a.UserName.Contains(queryUserParam.SearchText));
+            oSelect.WhereIf(queryUserParam.UserId != null, (a, b) => a.UserId.Equals(queryUserParam.UserId));
+            oSelect.Where((a, b) => !a.IsDeleted);
 
             #endregion 条件查询
 
@@ -159,27 +159,28 @@ namespace Hwj.SecretVault.Domain.Service.ModuleUserManagement
 
             // 多表关联，加入默认表别名进行排序
             oSelect.OrderBy(!string.IsNullOrWhiteSpace(queryUserParam.OrderBy),
-                "a." + queryUserParam.OrderBy + (string.IsNullOrWhiteSpace(queryUserParam.OrderByType) ?
-                " asc" : queryUserParam.OrderByType == "ascend" ? " asc" : " desc"));
+                queryUserParam.OrderBy + (string.IsNullOrWhiteSpace(queryUserParam.OrderByType) ? " asc" : " " + queryUserParam.OrderByType));
 
             #endregion 排序
 
             #region 分页
 
             if (queryUserParam.PageIndex != null && queryUserParam.PageSize != null)
-                oSelect.Count(out dataCount).Page(queryUserParam.PageIndex.Value, queryUserParam.PageSize.Value);
+            {
+                dataCount = oSelect.Count();
+                oSelect.Page(queryUserParam.PageIndex.Value, queryUserParam.PageSize.Value);
+            }
 
             #endregion 分页
 
-            lstResult = await oSelect.From<AppRole>((a, b) => a.LeftJoin(a => a.RoleId == b.RoleId))
-                .ToListAsync((a, b) => new UserDto
-                {
-                    Avatar = queryUserParam.ShowAvatar ? a.UserAvatar : null,
-                    RoleName = b.RoleName,
-                    Account = a.UserAccount,
-                    Password = a.UserPwd,
-                    Phone = a.UserPhone
-                });
+            lstResult = await oSelect.ToListAsync((a, b) => new UserDto
+            {
+                Avatar = queryUserParam.ShowAvatar ? a.UserAvatar : null,
+                RoleName = b.RoleName,
+                Account = a.UserAccount,
+                Password = a.UserPwd,
+                Phone = a.UserPhone
+            });
             return (dataCount, lstResult);
         }
 

@@ -126,7 +126,7 @@ namespace Hwj.SecretVault.Domain.Service.ModuleInfoManagement
         {
             List<AppInfo> lstResult = null;
             long dataCount = -1;
-            var select = _appInfoRepository.Select;
+            var select = _appInfoRepository.Orm.Select<AppInfo>();
 
             #region 条件查询
 

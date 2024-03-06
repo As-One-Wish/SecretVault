@@ -111,7 +111,7 @@ namespace Hwj.SecretVault.Domain.Service.ModuleUserManagement
         {
             List<AppRole> lstResult = null;
             long dataCount = -1;
-            var select = _appRoleRepository.Select;
+            var select = _appRoleRepository.Orm.Select<AppRole>();
 
             #region 条件查询
 
