@@ -1,6 +1,6 @@
-﻿using Info.Storage.Infra.Entity.Shared.Params;
+﻿using Hwj.SecretVault.Infra.Entity.Shared.Params;
 
-namespace Info.Storage.Infra.Entity.ModuleUserManagement.Params
+namespace Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Params
 {
     /// <summary>
     /// 角色删除参数

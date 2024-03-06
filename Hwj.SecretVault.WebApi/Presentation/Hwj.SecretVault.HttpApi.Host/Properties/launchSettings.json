@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "Info.Storage.HttpApi.Host": {
+    "Hwj.SecretVault.HttpApi.Host": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchUrl": "swagger",

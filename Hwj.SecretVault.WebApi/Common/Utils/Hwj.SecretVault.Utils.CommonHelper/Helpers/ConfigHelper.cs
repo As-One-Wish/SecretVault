@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace Info.Storage.Utils.CommonHelper.Helpers
+namespace Hwj.SecretVault.Utils.CommonHelper.Helpers
 {
     /// <summary>
     /// Config 工具类

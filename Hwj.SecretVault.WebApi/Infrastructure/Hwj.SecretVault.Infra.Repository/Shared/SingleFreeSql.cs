@@ -1,10 +1,10 @@
-﻿using Info.Storage.Infra.Entity.Shared.Settings;
-using Info.Storage.Infra.Repository.Extension;
-using Info.Storage.Utils.CommonHelper.Helpers;
+﻿using Hwj.SecretVault.Infra.Entity.Shared.Settings;
+using Hwj.SecretVault.Infra.Repository.Extension;
+using Hwj.SecretVault.Utils.CommonHelper.Helpers;
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel.DataAnnotations;
 
-namespace Info.Storage.Infra.Repository.Shared
+namespace Hwj.SecretVault.Infra.Repository.Shared
 {
     public enum DbEnum
     {

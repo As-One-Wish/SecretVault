@@ -1,11 +1,11 @@
-﻿using Info.Storage.Application.ModuleInfoManagement;
-using Info.Storage.Infra.Entity.ModuleInfoManagement.Dtos;
-using Info.Storage.Infra.Entity.ModuleInfoManagement.Params;
-using Info.Storage.Infra.Entity.Shared.Dtos;
+﻿using Hwj.SecretVault.Application.ModuleInfoManagement;
+using Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Dtos;
+using Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Params;
+using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Info.Storage.HttpApi.Host.Controllers.ModuleInfoManagement
+namespace Hwj.SecretVault.HttpApi.Host.Controllers.ModuleInfoManagement
 {
     /// <summary>
     /// 信息控制器
@@ -40,7 +40,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleInfoManagement
         [ProducesResponseType(typeof(BaseResult<InfoDto?>), StatusCodes.Status200OK)]
         public async Task<IActionResult> AddInfo([FromBody] InfoDto infoDto, [FromQuery] bool responseData = false)
         {
-            BaseResult<InfoDto?> result = await this._infoService.AddInfo(infoDto, responseData);
+            BaseResult<InfoDto?> result = await _infoService.AddInfo(infoDto, responseData);
             return Ok(result);
         }
 
@@ -53,7 +53,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleInfoManagement
         [ProducesResponseType(typeof(BaseResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> DelInfo([FromBody] DeleteInfoParam deleteInfoParam)
         {
-            BaseResult result = await this._infoService.DelInfo(deleteInfoParam);
+            BaseResult result = await _infoService.DelInfo(deleteInfoParam);
             return Ok(result);
         }
 
@@ -66,7 +66,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleInfoManagement
         [Authorize(Policy = "Policy.Admin")]
         public async Task<IActionResult> ClearInfo()
         {
-            BaseResult result = await this._infoService.ClearInfo();
+            BaseResult result = await _infoService.ClearInfo();
             return Ok(result);
         }
 
@@ -79,7 +79,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleInfoManagement
         [ProducesResponseType(typeof(BaseResult<InfoDto?>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetInfo([FromQuery] long infoId)
         {
-            BaseResult<InfoDto?> result = await this._infoService.GetInfo(infoId);
+            BaseResult<InfoDto?> result = await _infoService.GetInfo(infoId);
             return Ok(result);
         }
 
@@ -92,7 +92,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleInfoManagement
         [ProducesResponseType(typeof(BaseResult<IEnumerable<InfoDto>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetInfos([FromQuery] QueryInfoParam queryInfoParam)
         {
-            BaseResult<IEnumerable<InfoDto>> result = await this._infoService.GetInfos(queryInfoParam);
+            BaseResult<IEnumerable<InfoDto>> result = await _infoService.GetInfos(queryInfoParam);
             return Ok(result);
         }
 
@@ -106,7 +106,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleInfoManagement
         [ProducesResponseType(typeof(BaseResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateInfo([FromBody] InfoDto infoDto, [FromQuery] bool responseData = false)
         {
-            BaseResult result = await this._infoService.UpdateInfo(infoDto, responseData);
+            BaseResult result = await _infoService.UpdateInfo(infoDto, responseData);
             return Ok(result);
         }
     }

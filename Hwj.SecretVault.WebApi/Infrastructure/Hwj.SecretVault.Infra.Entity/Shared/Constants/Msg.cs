@@ -1,4 +1,4 @@
-﻿namespace Info.Storage.Infra.Entity.Shared.Constants
+﻿namespace Hwj.SecretVault.Infra.Entity.Shared.Constants
 {
     public class Msg
     {

@@ -1,10 +1,10 @@
-﻿using Info.Storage.Infra.Entity.ModuleAuthorization.Params;
-using Info.Storage.Infra.Repository.Databases.Entities;
-using Info.Storage.Infra.Repository.Extension;
-using Info.Storage.Infra.Repository.Shared;
-using Info.Storage.Utils.CommonHelper.Helpers;
+﻿using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Params;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Infra.Repository.Extension;
+using Hwj.SecretVault.Infra.Repository.Shared;
+using Hwj.SecretVault.Utils.CommonHelper.Helpers;
 
-namespace Info.Storage.Infra.Repository.Databases.Repositories
+namespace Hwj.SecretVault.Infra.Repository.Databases.Repositories
 {
     public class AppUserRepository : BaseRepositoryExtend<AppUser, long>
     {

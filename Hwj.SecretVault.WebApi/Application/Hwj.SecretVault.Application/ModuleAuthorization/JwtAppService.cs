@@ -1,7 +1,7 @@
-﻿using Info.Storage.Infra.Entity.ModuleAuthorization.Dtos;
-using Info.Storage.Infra.Entity.Shared.Attributes;
-using Info.Storage.Infra.Entity.Shared.Dtos;
-using Info.Storage.Utils.CommonHelper.Helpers;
+﻿using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos;
+using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
+using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -9,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Info.Storage.Application.ModuleAuthorization
+namespace Hwj.SecretVault.Application.ModuleAuthorization
 {
     /// <summary>
     /// Jwt Token管理接口

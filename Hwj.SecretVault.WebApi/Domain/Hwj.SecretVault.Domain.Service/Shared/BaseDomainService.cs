@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Info.Storage.Domain.Service.Shared
+namespace Hwj.SecretVault.Domain.Service.Shared
 {
     public abstract partial class BaseDomainService<TEntity, TKey> where TEntity : class
     {
@@ -15,7 +15,7 @@ namespace Info.Storage.Domain.Service.Shared
 
         public BaseDomainService(IFreeSql freeSql)
         {
-            this._freeSql = freeSql;
+            _freeSql = freeSql;
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Info.Storage.Domain.Service.Shared
         /// <param name="fsql"></param>
         public void InitFreeSql(IFreeSql fsql)
         {
-            this._freeSql = fsql;
+            _freeSql = fsql;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Info.Storage.Domain.Service.Shared
         /// <returns></returns>
         public IFreeSql GetOrm()
         {
-            return this._freeSql;
+            return _freeSql;
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Info.Storage.Domain.Service.Shared
         /// <param name="fsql"></param>
         public void Init(IFreeSql fsql)
         {
-            this._freeSql = fsql;
+            _freeSql = fsql;
         }
 
         #endregion 初始化部分
@@ -61,7 +61,7 @@ namespace Info.Storage.Domain.Service.Shared
              * AppendData(entity) 将要插入的实体数据追加到插入操作中
              * ExecuteInsertedAsync() 异步执行插入操作，并返回插入的数据(返回的是插入数据的列表)
              */
-            List<TEntity> resultDatas = await this._freeSql.Insert<TEntity>().AppendData(entity).ExecuteInsertedAsync();
+            List<TEntity> resultDatas = await _freeSql.Insert<TEntity>().AppendData(entity).ExecuteInsertedAsync();
 
             if (resultDatas.Count > 0)
             {
@@ -81,7 +81,7 @@ namespace Info.Storage.Domain.Service.Shared
         {
             if (entities != null && entities.Count() > 0)
             {
-                List<TEntity> resultDatas = await this._freeSql.Insert<TEntity>().AppendData(entities).ExecuteInsertedAsync();
+                List<TEntity> resultDatas = await _freeSql.Insert<TEntity>().AppendData(entities).ExecuteInsertedAsync();
                 if (resultDatas.Count > 0)
                 {
                     // TODO 设置缓存
@@ -103,7 +103,7 @@ namespace Info.Storage.Domain.Service.Shared
         /// <returns>影响行数</returns>
         public async Task<int> DeleteEntityAsync(TKey idValue, string primaryFieldName = "id")
         {
-            int effectRows = await this._freeSql.Delete<TEntity>().Where($"{primaryFieldName} = @id", new { id = idValue }).ExecuteAffrowsAsync();
+            int effectRows = await _freeSql.Delete<TEntity>().Where($"{primaryFieldName} = @id", new { id = idValue }).ExecuteAffrowsAsync();
             // TODO 设置缓存
             return effectRows;
         }
@@ -116,7 +116,7 @@ namespace Info.Storage.Domain.Service.Shared
         /// <returns>影响行数</returns>
         public async Task<int> DeleteEntitiesAsync(Expression<Func<TEntity, bool>> exp, bool condition = true)
         {
-            List<TEntity> resultDatas = await this._freeSql.Delete<TEntity>().WhereIf(condition, exp).ExecuteDeletedAsync();
+            List<TEntity> resultDatas = await _freeSql.Delete<TEntity>().WhereIf(condition, exp).ExecuteDeletedAsync();
             // TODO 设置缓存
             return resultDatas.Count;
         }
@@ -128,7 +128,7 @@ namespace Info.Storage.Domain.Service.Shared
         /// <returns></returns>
         public async Task<int> UpdateEntityAsync(TEntity entity)
         {
-            int effectRows = await this._freeSql.Update<TEntity>().SetSource(entity).ExecuteAffrowsAsync();
+            int effectRows = await _freeSql.Update<TEntity>().SetSource(entity).ExecuteAffrowsAsync();
             // TODO 设置缓存
             return effectRows;
         }
@@ -140,7 +140,7 @@ namespace Info.Storage.Domain.Service.Shared
         /// <returns></returns>
         public async Task<int> UpdateEntitiesAsync(IEnumerable<TEntity> entities)
         {
-            int effectRows = await this._freeSql.Update<TEntity>().SetSource(entities).ExecuteAffrowsAsync();
+            int effectRows = await _freeSql.Update<TEntity>().SetSource(entities).ExecuteAffrowsAsync();
             // TODO 设置缓存
             return effectRows;
         }
@@ -152,7 +152,7 @@ namespace Info.Storage.Domain.Service.Shared
         /// <returns></returns>
         public async Task<int> InsertOrUpdateEntityAsync(TEntity entity)
         {
-            int effectRows = await this._freeSql.InsertOrUpdate<TEntity>().SetSource(entity).ExecuteAffrowsAsync();
+            int effectRows = await _freeSql.InsertOrUpdate<TEntity>().SetSource(entity).ExecuteAffrowsAsync();
             // TODO 设置缓存
             return effectRows;
         }
@@ -164,7 +164,7 @@ namespace Info.Storage.Domain.Service.Shared
         /// <returns></returns>
         public async Task<int> InsertOrUpdateEntitiesAsync(IEnumerable<TEntity> entities)
         {
-            int effecRows = await this._freeSql.InsertOrUpdate<TEntity>().SetSource(entities).ExecuteAffrowsAsync();
+            int effecRows = await _freeSql.InsertOrUpdate<TEntity>().SetSource(entities).ExecuteAffrowsAsync();
             // TODO 设置缓存
             return effecRows;
         }
@@ -179,7 +179,7 @@ namespace Info.Storage.Domain.Service.Shared
         {
             // TODO 缓存获取
 
-            TEntity result = await this._freeSql.Select<TEntity>().Where($"{primaryFieldName} = @id", new { id = idValue }).FirstAsync();
+            TEntity result = await _freeSql.Select<TEntity>().Where($"{primaryFieldName} = @id", new { id = idValue }).FirstAsync();
             // TODO 不为空则保存至缓存
             return result;
         }
@@ -199,7 +199,7 @@ namespace Info.Storage.Domain.Service.Shared
         {
             List<TResult> lstResult = null;
             long dataCount = -1;
-            var oSelect = this._freeSql.Select<TEntity>();
+            var oSelect = _freeSql.Select<TEntity>();
             if (where != null && where.Count > 0)
             {
                 foreach (var item in where)
@@ -234,7 +234,7 @@ namespace Info.Storage.Domain.Service.Shared
         {
             List<TResult> lstResult = null;
             long dataCount = -1;
-            var oSelect = this._freeSql.Select<TEntity>();
+            var oSelect = _freeSql.Select<TEntity>();
             if (where != null && where.Count > 0)
             {
                 foreach (var item in where)

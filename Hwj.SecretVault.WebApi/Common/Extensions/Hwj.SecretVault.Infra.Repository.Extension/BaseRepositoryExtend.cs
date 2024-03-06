@@ -1,7 +1,7 @@
 ﻿using FreeSql;
 using System.Linq.Expressions;
 
-namespace Info.Storage.Infra.Repository.Extension
+namespace Hwj.SecretVault.Infra.Repository.Extension
 {
     /// <summary>
     /// 扩展 BaseRepository

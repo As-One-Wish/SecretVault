@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using Info.Storage.Domain.Service.ModuleUserManagement;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Dtos;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Params;
-using Info.Storage.Infra.Entity.Shared.Attributes;
-using Info.Storage.Infra.Entity.Shared.Constants;
-using Info.Storage.Infra.Entity.Shared.Dtos;
-using Info.Storage.Infra.Repository.Databases.Entities;
-using Info.Storage.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Domain.Service.ModuleUserManagement;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Params;
+using Hwj.SecretVault.Infra.Entity.Shared.Constants;
+using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Info.Storage.Application.ModuleUserManagement
+namespace Hwj.SecretVault.Application.ModuleUserManagement
 {
     public interface IRoleService
     {
@@ -75,8 +75,8 @@ namespace Info.Storage.Application.ModuleUserManagement
                 BaseResult<RoleDto?> br = new BaseResult<RoleDto?>();
                 roleDto.RoleId = Yitter.IdGenerator.YitIdHelper.NextId();
 
-                AppRole appRole = this._mapper.Map<RoleDto, AppRole>(roleDto);
-                AppRole result = await this._roleDomainService.AddRoleAsync(appRole);
+                AppRole appRole = _mapper.Map<RoleDto, AppRole>(roleDto);
+                AppRole result = await _roleDomainService.AddRoleAsync(appRole);
 
                 bool isNullResult = result == null;
                 br.IsSuccess = !isNullResult;
@@ -97,7 +97,7 @@ namespace Info.Storage.Application.ModuleUserManagement
             try
             {
                 BaseResult br = new BaseResult();
-                int effectRows = await this._roleDomainService.DelRoleAsync(deleteRoleParam);
+                int effectRows = await _roleDomainService.DelRoleAsync(deleteRoleParam);
                 br.IsSuccess = effectRows > 0;
                 br.DataCount = effectRows;
                 br.Message = !br.IsSuccess ? Msg.DbError : Msg.Success;
@@ -116,11 +116,11 @@ namespace Info.Storage.Application.ModuleUserManagement
             try
             {
                 BaseResult<RoleDto?> br = new BaseResult<RoleDto?>();
-                AppRole appRole = await this._roleDomainService.GetRoleAsync(roleId);
+                AppRole appRole = await _roleDomainService.GetRoleAsync(roleId);
                 bool isNullResult = appRole == null;
                 br.IsSuccess = !isNullResult;
                 if (!isNullResult)
-                    br.Data = this._mapper.Map<AppRole, RoleDto>(appRole);
+                    br.Data = _mapper.Map<AppRole, RoleDto>(appRole);
                 br.Message = isNullResult ? Msg.DataNotFound : Msg.Success;
                 return br;
             }
@@ -136,12 +136,12 @@ namespace Info.Storage.Application.ModuleUserManagement
             try
             {
                 BaseResult<IEnumerable<RoleDto>> br = new BaseResult<IEnumerable<RoleDto>>();
-                (long DataCount, IEnumerable<AppRole> Data) result = await this._roleDomainService.GetRolesAsync(queryRoleParam);
+                (long DataCount, IEnumerable<AppRole> Data) result = await _roleDomainService.GetRolesAsync(queryRoleParam);
                 br.IsSuccess = result.Data != null;
                 br.Message = !br.IsSuccess ? Msg.DataNotFound : Msg.Success;
                 if (br.IsSuccess)
                 {
-                    br.Data = this._mapper.Map<IEnumerable<AppRole>, IEnumerable<RoleDto>>(result.Data);
+                    br.Data = _mapper.Map<IEnumerable<AppRole>, IEnumerable<RoleDto>>(result.Data);
                     br.DataCount = result.DataCount == -1 ? result.Data.Count() : result.DataCount;
                 }
 
@@ -159,10 +159,10 @@ namespace Info.Storage.Application.ModuleUserManagement
             try
             {
                 BaseResult br = new BaseResult();
-                AppRole appRole = this._mapper.Map<RoleDto, AppRole>(roleDto);
+                AppRole appRole = _mapper.Map<RoleDto, AppRole>(roleDto);
                 roleDto.UpdateTime = appRole.UpdateTime;
 
-                int effectRows = await this._roleDomainService.UpdateRoleAsync(appRole);
+                int effectRows = await _roleDomainService.UpdateRoleAsync(appRole);
                 br.IsSuccess = effectRows > 0;
                 br.DataCount = effectRows;
                 if (responseData && br.IsSuccess)

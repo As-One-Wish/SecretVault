@@ -1,7 +1,7 @@
-﻿using Info.Storage.Utils.RedisHelper;
+﻿using Hwj.SecretVault.Utils.RedisHelper;
 using Yitter.IdGenerator;
 
-namespace Info.Storage.HttpApi.Host.Configurations
+namespace Hwj.SecretVault.HttpApi.Host.Configurations
 {
     /// <summary>
     /// 其他配置

@@ -1,4 +1,4 @@
-﻿using Info.Storage.Utils.CommonHelper.Extensions;
+﻿using Hwj.SecretVault.Utils.CommonHelper.Extensions;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Info.Storage.Utils.CommonHelper.Helpers
+namespace Hwj.SecretVault.Utils.CommonHelper.Helpers
 {
     /// <summary>
     /// 日志工具类

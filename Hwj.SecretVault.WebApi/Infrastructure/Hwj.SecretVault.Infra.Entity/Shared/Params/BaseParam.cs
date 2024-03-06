@@ -1,4 +1,4 @@
-﻿namespace Info.Storage.Infra.Entity.Shared.Params
+﻿namespace Hwj.SecretVault.Infra.Entity.Shared.Params
 {
     public record BaseParam
     {

@@ -1,12 +1,12 @@
-﻿using Info.Storage.Domain.Service.Shared;
-using Info.Storage.Infra.Cache.ModuleUserManagement;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Params;
-using Info.Storage.Infra.Entity.Shared.Attributes;
-using Info.Storage.Infra.Repository.Databases.Entities;
-using Info.Storage.Infra.Repository.Databases.Repositories;
+﻿using Hwj.SecretVault.Domain.Service.Shared;
+using Hwj.SecretVault.Infra.Cache.ModuleUserManagement;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Params;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Infra.Repository.Databases.Repositories;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Info.Storage.Domain.Service.ModuleUserManagement
+namespace Hwj.SecretVault.Domain.Service.ModuleUserManagement
 {
     /// <summary>
     /// 角色管理领域接口
@@ -69,7 +69,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
 
         public async Task<AppRole> AddRoleAsync(AppRole role)
         {
-            AppRole appRole = await this._appRoleRepository.InsertAsync(role);
+            AppRole appRole = await _appRoleRepository.InsertAsync(role);
             if (appRole != null)
                 await RoleCache.SetRoleCacheAsync(appRole);
             return appRole;
@@ -80,13 +80,13 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
             int effectRows = -1;
             if (deleteRoleParam.RoleId != null)
             {
-                effectRows = await this._appRoleRepository.DeleteAsync(deleteRoleParam.RoleId.Value);
+                effectRows = await _appRoleRepository.DeleteAsync(deleteRoleParam.RoleId.Value);
                 if (effectRows > 0)
                     await RoleCache.DelRoleCacheAsync(deleteRoleParam.RoleId.Value);
             }
             if (deleteRoleParam.RoleIds != null && deleteRoleParam.RoleIds.Length > 0)
             {
-                effectRows = await this._appRoleRepository.DeleteAsync(id => deleteRoleParam.RoleIds.Contains(id.RoleId));
+                effectRows = await _appRoleRepository.DeleteAsync(id => deleteRoleParam.RoleIds.Contains(id.RoleId));
                 if (effectRows > 0)
                     RoleCache.DelRolesCache(deleteRoleParam.RoleIds);
             }
@@ -99,7 +99,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
             var result = await RoleCache.GetRoleCacheAsync(roleId);
             if (result == null)
             {
-                result = await this._appRoleRepository.Where(d => d.RoleId == roleId).ToOneAsync();
+                result = await _appRoleRepository.Where(d => d.RoleId == roleId).ToOneAsync();
                 if (result != null)
                     await RoleCache.SetRoleCacheAsync(result);
             }
@@ -111,7 +111,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
         {
             List<AppRole> lstResult = null;
             long dataCount = -1;
-            var select = this._appRoleRepository.Select;
+            var select = _appRoleRepository.Select;
 
             #region 条件查询
 
@@ -141,7 +141,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
 
         public async Task<int> UpdateRoleAsync(AppRole appRole)
         {
-            int effectRows = await this._appRoleRepository.UpdateAsync(appRole);
+            int effectRows = await _appRoleRepository.UpdateAsync(appRole);
             if (effectRows > 0)
                 await RoleCache.SetRoleCacheAsync(appRole);
             return effectRows;

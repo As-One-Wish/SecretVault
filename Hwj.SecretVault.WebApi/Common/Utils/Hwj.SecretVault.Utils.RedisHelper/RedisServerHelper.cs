@@ -1,6 +1,6 @@
 ﻿using CSRedis;
 
-namespace Info.Storage.Utils.RedisHelper
+namespace Hwj.SecretVault.Utils.RedisHelper
 {
     /// <summary>
     /// RedisServerHelper

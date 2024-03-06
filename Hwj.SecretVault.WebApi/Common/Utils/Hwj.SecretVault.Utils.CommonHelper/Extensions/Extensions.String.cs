@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Info.Storage.Utils.CommonHelper.Extensions
+namespace Hwj.SecretVault.Utils.CommonHelper.Extensions
 {
     /// <summary>
     /// string 扩展类

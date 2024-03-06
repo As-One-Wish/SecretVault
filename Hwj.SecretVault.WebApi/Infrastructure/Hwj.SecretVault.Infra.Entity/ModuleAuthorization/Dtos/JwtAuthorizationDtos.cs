@@ -1,4 +1,4 @@
-﻿namespace Info.Storage.Infra.Entity.ModuleAuthorization.Dtos
+﻿namespace Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos
 {
     public record struct JwtUserDto
     {

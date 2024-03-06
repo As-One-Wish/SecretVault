@@ -1,11 +1,11 @@
-﻿using Info.Storage.Application.ModuleUserManagement;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Dtos;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Params;
-using Info.Storage.Infra.Entity.Shared.Dtos;
+﻿using Hwj.SecretVault.Application.ModuleUserManagement;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Params;
+using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
+namespace Hwj.SecretVault.HttpApi.Host.Controllers.ModuleUserManagement
 {
     /// <summary>
     /// 角色控制器
@@ -40,7 +40,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult<RoleDto?>), StatusCodes.Status200OK)]
         public async Task<IActionResult> AddRole([FromBody] RoleDto roleDto, [FromQuery] bool responseData = false)
         {
-            BaseResult<RoleDto?> br = await this._roleService.AddRole(roleDto, responseData);
+            BaseResult<RoleDto?> br = await _roleService.AddRole(roleDto, responseData);
             return Ok(br);
         }
 
@@ -53,7 +53,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> DelRole([FromBody] DeleteRoleParam deleteRoleParam)
         {
-            BaseResult br = await this._roleService.DelRole(deleteRoleParam);
+            BaseResult br = await _roleService.DelRole(deleteRoleParam);
             return Ok(br);
         }
 
@@ -66,7 +66,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult<RoleDto?>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetRole([FromQuery] long roleId)
         {
-            BaseResult<RoleDto?> br = await this._roleService.GetRole(roleId);
+            BaseResult<RoleDto?> br = await _roleService.GetRole(roleId);
             return Ok(br);
         }
 
@@ -79,7 +79,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult<IEnumerable<RoleDto>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetRoles([FromQuery] QueryRoleParam queryRoleParam)
         {
-            BaseResult<IEnumerable<RoleDto>> br = await this._roleService.GetRoles(queryRoleParam);
+            BaseResult<IEnumerable<RoleDto>> br = await _roleService.GetRoles(queryRoleParam);
             return Ok(br);
         }
 
@@ -93,7 +93,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateRole([FromBody] RoleDto roleDto, [FromQuery] bool responseData = false)
         {
-            BaseResult br = await this._roleService.UpdateRole(roleDto, responseData);
+            BaseResult br = await _roleService.UpdateRole(roleDto, responseData);
             return Ok(br);
         }
     }

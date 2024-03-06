@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using Info.Storage.Domain.Service.ModuleUserManagement;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Dtos;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Params;
-using Info.Storage.Infra.Entity.Shared.Attributes;
-using Info.Storage.Infra.Entity.Shared.Constants;
-using Info.Storage.Infra.Entity.Shared.Dtos;
-using Info.Storage.Infra.Repository.Databases.Entities;
-using Info.Storage.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Domain.Service.ModuleUserManagement;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Params;
+using Hwj.SecretVault.Infra.Entity.Shared.Constants;
+using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Info.Storage.Application.ModuleUserManagement
+namespace Hwj.SecretVault.Application.ModuleUserManagement
 {
     public interface IUserService
     {
@@ -73,8 +73,8 @@ namespace Info.Storage.Application.ModuleUserManagement
 
         public UserService(IUserDomainService userDomainService, IMapper mapper)
         {
-            this._userDomainService = userDomainService;
-            this._mapper = mapper;
+            _userDomainService = userDomainService;
+            _mapper = mapper;
         }
 
         #endregion Initialize
@@ -89,8 +89,8 @@ namespace Info.Storage.Application.ModuleUserManagement
                 userDto.UserId = Yitter.IdGenerator.YitIdHelper.NextId();
 
                 // 默认AutoMapper转换规则
-                AppUser oAppUser = this._mapper.Map<UserDto, AppUser>(userDto);
-                AppUser result = await this._userDomainService.AddUserAsync(oAppUser);
+                AppUser oAppUser = _mapper.Map<UserDto, AppUser>(userDto);
+                AppUser result = await _userDomainService.AddUserAsync(oAppUser);
                 bool isNullResult = result == null;
                 br.IsSuccess = !isNullResult;
                 if (responseData && !isNullResult)
@@ -110,7 +110,7 @@ namespace Info.Storage.Application.ModuleUserManagement
             try
             {
                 BaseResult br = new BaseResult();
-                int effectRows = await this._userDomainService.DelUserPhysicallyAsync();
+                int effectRows = await _userDomainService.DelUserPhysicallyAsync();
                 br.IsSuccess = effectRows > 0;
                 br.DataCount = effectRows;
                 br.Message = br.IsSuccess ? Msg.Success : Msg.DbError;
@@ -128,7 +128,7 @@ namespace Info.Storage.Application.ModuleUserManagement
             try
             {
                 BaseResult br = new BaseResult();
-                int effectRows = await this._userDomainService.DelUserAsync(deleteUserParam);
+                int effectRows = await _userDomainService.DelUserAsync(deleteUserParam);
                 br.IsSuccess = effectRows > 0;
                 br.DataCount = effectRows;
                 br.Message = br.IsSuccess ? Msg.Success : Msg.DbError;
@@ -147,12 +147,12 @@ namespace Info.Storage.Application.ModuleUserManagement
             try
             {
                 BaseResult<UserDto?> br = new BaseResult<UserDto?>();
-                AppUser appUser = await this._userDomainService.GetUserAsync(userId);
+                AppUser appUser = await _userDomainService.GetUserAsync(userId);
                 bool isNullResult = appUser == null;
                 br.IsSuccess = !isNullResult;
                 br.DataCount = br.IsSuccess ? 1 : -1;
                 if (!isNullResult)
-                    br.Data = this._mapper.Map<AppUser, UserDto>(appUser);
+                    br.Data = _mapper.Map<AppUser, UserDto>(appUser);
                 br.Message = isNullResult ? Msg.DataNotFound : Msg.Success;
                 return br;
             }
@@ -168,7 +168,7 @@ namespace Info.Storage.Application.ModuleUserManagement
             try
             {
                 BaseResult<IEnumerable<UserDto>> br = new BaseResult<IEnumerable<UserDto>>();
-                (long DataCount, IEnumerable<UserDto> Data) result = await this._userDomainService.GetUsersAsync(queryUserParam);
+                (long DataCount, IEnumerable<UserDto> Data) result = await _userDomainService.GetUsersAsync(queryUserParam);
                 br.IsSuccess = result.Data != null;
                 br.Message = !br.IsSuccess ? Msg.DataNotFound : Msg.Success;
                 if (br.IsSuccess)
@@ -194,7 +194,7 @@ namespace Info.Storage.Application.ModuleUserManagement
                 if (!string.IsNullOrWhiteSpace(userAccount))
                 {
                     // 用户名存在则返回False
-                    br.IsSuccess = !await this._userDomainService.IsUserAccountExistAsync(userAccount);
+                    br.IsSuccess = !await _userDomainService.IsUserAccountExistAsync(userAccount);
                     br.Message = br.IsSuccess ? Msg.Success : Msg.ExistAccount;
                 }
                 else
@@ -216,10 +216,10 @@ namespace Info.Storage.Application.ModuleUserManagement
             try
             {
                 BaseResult br = new BaseResult();
-                AppUser appUser = this._mapper.Map<UserDto, AppUser>(userDto);
+                AppUser appUser = _mapper.Map<UserDto, AppUser>(userDto);
                 userDto.UpdateTime = appUser.UpdateTime;
 
-                int effectRows = await this._userDomainService.UpdateUserAsync(appUser);
+                int effectRows = await _userDomainService.UpdateUserAsync(appUser);
                 br.IsSuccess = effectRows > 0;
                 br.DataCount = effectRows;
 

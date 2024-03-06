@@ -1,4 +1,4 @@
-﻿namespace Info.Storage.Infra.Entity.Shared.Dtos
+﻿namespace Hwj.SecretVault.Infra.Entity.Shared.Dtos
 {
     public record BaseResult<T>
     {

@@ -1,4 +1,4 @@
-﻿namespace Info.Storage.Infra.Entity.ModuleAuthorization.Params
+﻿namespace Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Params
 {
     public record JwtLoginParam
     {

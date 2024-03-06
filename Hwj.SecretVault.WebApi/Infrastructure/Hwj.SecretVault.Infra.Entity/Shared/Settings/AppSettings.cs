@@ -1,4 +1,4 @@
-﻿namespace Info.Storage.Infra.Entity.Shared.Settings
+﻿namespace Hwj.SecretVault.Infra.Entity.Shared.Settings
 {
     public record DbConnectionOptionConfig
     {

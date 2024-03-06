@@ -1,7 +1,7 @@
-﻿using Info.Storage.Infra.Repository.Shared;
-using Info.Storage.Infra.Repository.Extension;
+﻿using Hwj.SecretVault.Infra.Repository.Extension;
+using Hwj.SecretVault.Infra.Repository.Shared;
 
-namespace Info.Storage.Domain.Service.Shared
+namespace Hwj.SecretVault.Domain.Service.Shared
 {
     /// <summary>
     /// 默认DomainService，只适用于单表的增删改查
@@ -27,7 +27,7 @@ namespace Info.Storage.Domain.Service.Shared
         /// <param name="dbEnum"></param>
         public void InitDb(DbEnum dbEnum)
         {
-            base.InitFreeSql(_singleFreeSql.Get(dbEnum));
+            InitFreeSql(_singleFreeSql.Get(dbEnum));
         }
     }
 }

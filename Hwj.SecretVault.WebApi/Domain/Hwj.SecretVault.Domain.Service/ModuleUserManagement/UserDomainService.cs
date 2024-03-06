@@ -1,13 +1,13 @@
-﻿using Info.Storage.Domain.Service.Shared;
-using Info.Storage.Infra.Cache.ModuleUserManagement;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Dtos;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Params;
-using Info.Storage.Infra.Entity.Shared.Attributes;
-using Info.Storage.Infra.Repository.Databases.Entities;
-using Info.Storage.Infra.Repository.Databases.Repositories;
+﻿using Hwj.SecretVault.Domain.Service.Shared;
+using Hwj.SecretVault.Infra.Cache.ModuleUserManagement;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Params;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Infra.Repository.Databases.Repositories;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Info.Storage.Domain.Service.ModuleUserManagement
+namespace Hwj.SecretVault.Domain.Service.ModuleUserManagement
 {
     /// <summary>
     /// 用户管理领域接口
@@ -75,7 +75,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
 
         public UserDomainService(AppUserRepository appUserRepository)
         {
-            this._appUserRepository = appUserRepository;
+            _appUserRepository = appUserRepository;
         }
 
         #endregion Initialize
@@ -84,7 +84,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
 
         public async Task<AppUser> AddUserAsync(AppUser appUser)
         {
-            AppUser oAppUser = await this._appUserRepository.InsertAsync(appUser);
+            AppUser oAppUser = await _appUserRepository.InsertAsync(appUser);
             if (oAppUser != null)
                 await UserCache.SetUserCacheAsync(oAppUser);
             return oAppUser;
@@ -95,13 +95,13 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
             List<AppUser> usersToDel = new List<AppUser>();
             if (deleteUserParam.UserId != null)
             {
-                usersToDel = await this._appUserRepository.Where(user => user.UserId == deleteUserParam.UserId.Value && !user.IsDeleted).ToListAsync();
+                usersToDel = await _appUserRepository.Where(user => user.UserId == deleteUserParam.UserId.Value && !user.IsDeleted).ToListAsync();
                 if (usersToDel.Count > 0)
                     await UserCache.DelUserCacheAsync(deleteUserParam.UserId.Value);
             }
             if (deleteUserParam.UserIds != null && deleteUserParam.UserIds.Length > 0)
             {
-                usersToDel = await this._appUserRepository.Where(user => deleteUserParam.UserIds.Contains(user.UserId) && !user.IsDeleted).ToListAsync();
+                usersToDel = await _appUserRepository.Where(user => deleteUserParam.UserIds.Contains(user.UserId) && !user.IsDeleted).ToListAsync();
                 if (usersToDel.Count > 0)
                     UserCache.DelUsersCache(deleteUserParam.UserIds);
             }
@@ -109,14 +109,14 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
                 foreach (AppUser user in usersToDel)
                 {
                     user.IsDeleted = true;
-                    await this._appUserRepository.UpdateAsync(user);
+                    await _appUserRepository.UpdateAsync(user);
                 }
-            return usersToDel.Count > 0 ? -1 : usersToDel.Count;
+            return usersToDel.Count > 0 ? usersToDel.Count : -1;
         }
 
         public async Task<int> UpdateUserAsync(AppUser appUser)
         {
-            int effectRows = await this._appUserRepository.UpdateAsync(appUser);
+            int effectRows = await _appUserRepository.UpdateAsync(appUser);
             if (effectRows > 0)
                 await UserCache.SetUserCacheAsync(appUser);
 
@@ -130,7 +130,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
             if (result == null)
             {
                 // 不存在则查询数据库
-                result = await this._appUserRepository.Where(d => d.UserId == userId && !d.IsDeleted).ToOneAsync();
+                result = await _appUserRepository.Where(d => d.UserId == userId && !d.IsDeleted).ToOneAsync();
                 await UserCache.SetUserCacheAsync(result);
             }
             return result;
@@ -138,14 +138,14 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
 
         public async Task<bool> IsUserAccountExistAsync(string userAccount)
         {
-            return await this._appUserRepository.Select.AnyAsync(d => d.UserAccount == userAccount);
+            return await _appUserRepository.Select.AnyAsync(d => d.UserAccount == userAccount);
         }
 
         public async Task<(long, IEnumerable<UserDto>)> GetUsersAsync(QueryUserParam queryUserParam)
         {
             List<UserDto> lstResult = null;
             long dataCount = -1;
-            var oSelect = this._appUserRepository.Select;
+            var oSelect = _appUserRepository.Select;
 
             #region 条件查询
 
@@ -185,7 +185,7 @@ namespace Info.Storage.Domain.Service.ModuleUserManagement
 
         public async Task<int> DelUserPhysicallyAsync()
         {
-            int effectRows = await this._appUserRepository.DeleteAsync(user => user.IsDeleted);
+            int effectRows = await _appUserRepository.DeleteAsync(user => user.IsDeleted);
             return effectRows;
         }
 

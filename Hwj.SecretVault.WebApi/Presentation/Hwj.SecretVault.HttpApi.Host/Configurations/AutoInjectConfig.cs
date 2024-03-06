@@ -1,8 +1,8 @@
-﻿using Info.Storage.Domain.Service.Shared;
-using Info.Storage.Infra.Entity.Shared.Attributes;
+﻿using Hwj.SecretVault.Domain.Service.Shared;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using System.Reflection;
 
-namespace Info.Storage.HttpApi.Host.Configurations
+namespace Hwj.SecretVault.HttpApi.Host.Configurations
 {
     /// <summary>
     /// 领域服务配置

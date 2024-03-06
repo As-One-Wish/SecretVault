@@ -1,7 +1,7 @@
-﻿using Info.Storage.HttpApi.Host.Filters;
+﻿using Hwj.SecretVault.HttpApi.Host.Filters;
 using Microsoft.OpenApi.Models;
 
-namespace Info.Storage.HttpApi.Host.Configurations
+namespace Hwj.SecretVault.HttpApi.Host.Configurations
 {
     /// <summary>
     /// Swagger配置

@@ -1,10 +1,10 @@
-﻿using Info.Storage.HttpApi.Host.Handlers;
+﻿using Hwj.SecretVault.HttpApi.Host.Handlers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Info.Storage.HttpApi.Host.Configurations
+namespace Hwj.SecretVault.HttpApi.Host.Configurations
 {
     /// <summary>
     /// Jwt配置

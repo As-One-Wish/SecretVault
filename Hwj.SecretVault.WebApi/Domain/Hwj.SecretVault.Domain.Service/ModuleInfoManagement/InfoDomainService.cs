@@ -1,11 +1,11 @@
-﻿using Info.Storage.Infra.Cache.ModuleInfoManagement;
-using Info.Storage.Infra.Entity.ModuleInfoManagement.Params;
-using Info.Storage.Infra.Entity.Shared.Attributes;
-using Info.Storage.Infra.Repository.Databases.Entities;
-using Info.Storage.Infra.Repository.Databases.Repositories;
+﻿using Hwj.SecretVault.Infra.Cache.ModuleInfoManagement;
+using Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Params;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Infra.Repository.Databases.Repositories;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Info.Storage.Domain.Service.ModuleInfoManagement
+namespace Hwj.SecretVault.Domain.Service.ModuleInfoManagement
 {
     /// <summary>
     /// 信息管理领域接口
@@ -74,7 +74,7 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
 
         public async Task<AppInfo> AddInfoAsync(AppInfo info)
         {
-            AppInfo appInfo = await this._appInfoRepository.InsertAsync(info);
+            AppInfo appInfo = await _appInfoRepository.InsertAsync(info);
             if (appInfo != null)
                 await InfoCache.SetInfoCacheAsync(appInfo);
             return appInfo;
@@ -82,7 +82,7 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
 
         public async Task<int> DelInfoPhysicallyAsync()
         {
-            int effectRows = await this._appInfoRepository.DeleteAsync(info => info.IsDeleted);
+            int effectRows = await _appInfoRepository.DeleteAsync(info => info.IsDeleted);
             return effectRows;
         }
 
@@ -91,13 +91,13 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
             List<AppInfo> infosToDel = new List<AppInfo>();
             if (deleteInfoParam.InfoId != null)
             {
-                infosToDel = await this._appInfoRepository.Where(info => info.InfoId == deleteInfoParam.InfoId.Value && !info.IsDeleted).ToListAsync();
+                infosToDel = await _appInfoRepository.Where(info => info.InfoId == deleteInfoParam.InfoId.Value && !info.IsDeleted).ToListAsync();
                 if (infosToDel.Count > 0)
                     await InfoCache.DelInfoCacheAsync(deleteInfoParam.InfoId.Value);
             }
             if (deleteInfoParam.InfoIds != null && deleteInfoParam.InfoIds.Length > 0)
             {
-                infosToDel = await this._appInfoRepository.Where(info => deleteInfoParam.InfoIds.Contains(info.InfoId) && !info.IsDeleted).ToListAsync();
+                infosToDel = await _appInfoRepository.Where(info => deleteInfoParam.InfoIds.Contains(info.InfoId) && !info.IsDeleted).ToListAsync();
                 if (infosToDel.Count > 0)
                     InfoCache.DelInfosCache(deleteInfoParam.InfoIds);
             }
@@ -105,7 +105,7 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
                 foreach (AppInfo appInfo in infosToDel)
                 {
                     appInfo.IsDeleted = true;
-                    await this._appInfoRepository.UpdateAsync(appInfo);
+                    await _appInfoRepository.UpdateAsync(appInfo);
                 }
             return infosToDel.Count > 0 ? infosToDel.Count : -1;
         }
@@ -115,7 +115,7 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
             AppInfo result = await InfoCache.GetInfoCacheAsync(infoId);
             if (result == null)
             {
-                result = await this._appInfoRepository.Where(info => info.InfoId == infoId && !info.IsDeleted).ToOneAsync();
+                result = await _appInfoRepository.Where(info => info.InfoId == infoId && !info.IsDeleted).ToOneAsync();
                 if (result != null)
                     await InfoCache.SetInfoCacheAsync(result);
             }
@@ -126,7 +126,7 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
         {
             List<AppInfo> lstResult = null;
             long dataCount = -1;
-            var select = this._appInfoRepository.Select;
+            var select = _appInfoRepository.Select;
 
             #region 条件查询
 
@@ -138,6 +138,8 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
                 info.InfoContent.Contains(queryInfoParam.SearchText));
             // 根据Id
             select.WhereIf(queryInfoParam.InfoId != null, info => info.InfoId.Equals(queryInfoParam.InfoId.Value));
+            // 根据所属用户
+            select.WhereIf(queryInfoParam.UserId != null, info => info.UserId.Equals(queryInfoParam.UserId.Value));
             // 按照分类
             select.WhereIf(queryInfoParam.InfoType != null, info => info.InfoType.Equals(queryInfoParam.InfoType.Value));
             select.Where(info => !info.IsDeleted);
@@ -167,7 +169,7 @@ namespace Info.Storage.Domain.Service.ModuleInfoManagement
 
         public async Task<int> UpdateInfoAsync(AppInfo appInfo)
         {
-            int effectRows = await this._appInfoRepository.UpdateAsync(appInfo);
+            int effectRows = await _appInfoRepository.UpdateAsync(appInfo);
             if (effectRows > 0)
                 await InfoCache.SetInfoCacheAsync(appInfo);
             return effectRows;

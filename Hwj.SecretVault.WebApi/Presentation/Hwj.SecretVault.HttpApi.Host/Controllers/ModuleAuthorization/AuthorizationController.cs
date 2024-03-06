@@ -1,11 +1,11 @@
-﻿using Info.Storage.Application.ModuleAuthorization;
-using Info.Storage.Infra.Entity.ModuleAuthorization.Dtos;
-using Info.Storage.Infra.Entity.ModuleAuthorization.Params;
-using Info.Storage.Infra.Entity.Shared.Dtos;
+﻿using Hwj.SecretVault.Application.ModuleAuthorization;
+using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos;
+using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Params;
+using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Info.Storage.HttpApi.Host.Controllers.ModuleAuthorization
+namespace Hwj.SecretVault.HttpApi.Host.Controllers.ModuleAuthorization
 {
     /// <summary>
     /// 授权控制器
@@ -26,8 +26,8 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleAuthorization
         /// <param name="jwtAppService"></param>
         public AuthorizationController(ISecretAppService secretAppService, IJwtAppService jwtAppService)
         {
-            this._secretAppService = secretAppService;
-            this._jwtAppService = jwtAppService;
+            _secretAppService = secretAppService;
+            _jwtAppService = jwtAppService;
         }
 
         #endregion Initialize

@@ -5,7 +5,7 @@ using System.Text;
 
 using SysMD5 = System.Security.Cryptography.MD5;
 
-namespace Info.Storage.Utils.CommonHelper.Helpers
+namespace Hwj.SecretVault.Utils.CommonHelper.Helpers
 {
     /// <summary>
     /// 加密解密静态工具类

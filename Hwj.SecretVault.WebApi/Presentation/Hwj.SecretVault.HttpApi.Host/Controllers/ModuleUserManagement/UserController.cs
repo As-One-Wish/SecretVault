@@ -1,11 +1,11 @@
-﻿using Info.Storage.Application.ModuleUserManagement;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Dtos;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Params;
-using Info.Storage.Infra.Entity.Shared.Dtos;
+﻿using Hwj.SecretVault.Application.ModuleUserManagement;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Params;
+using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
+namespace Hwj.SecretVault.HttpApi.Host.Controllers.ModuleUserManagement
 {
     /// <summary>
     /// 用户控制器
@@ -40,7 +40,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult<UserDto?>), StatusCodes.Status200OK)]
         public async Task<IActionResult> AddUser([FromBody] UserDto userDto, [FromQuery] bool responseData = false)
         {
-            BaseResult<UserDto?> br = await this._userService.AddUser(userDto, responseData);
+            BaseResult<UserDto?> br = await _userService.AddUser(userDto, responseData);
             return Ok(br);
         }
 
@@ -53,7 +53,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> DelUser([FromBody] DeleteUserParam deleteUserParam)
         {
-            BaseResult br = await this._userService.DelUser(deleteUserParam);
+            BaseResult br = await _userService.DelUser(deleteUserParam);
             return Ok(br);
         }
 
@@ -66,7 +66,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> ClearUser()
         {
-            BaseResult br = await this._userService.ClearUser();
+            BaseResult br = await _userService.ClearUser();
             return Ok(br);
         }
 
@@ -79,7 +79,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult<UserDto?>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUser([FromQuery] long userId)
         {
-            BaseResult<UserDto?> br = await this._userService.GetUser(userId);
+            BaseResult<UserDto?> br = await _userService.GetUser(userId);
             return Ok(br);
         }
 
@@ -92,7 +92,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult<IEnumerable<UserDto>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUsers([FromQuery] QueryUserParam queryUserParam)
         {
-            BaseResult<IEnumerable<UserDto>> br = await this._userService.GetUsers(queryUserParam);
+            BaseResult<IEnumerable<UserDto>> br = await _userService.GetUsers(queryUserParam);
             return Ok(br);
         }
 
@@ -105,7 +105,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> IsUserNameExist([FromBody] string userAccount)
         {
-            BaseResult br = await this._userService.IsUserAccountExist(userAccount);
+            BaseResult br = await _userService.IsUserAccountExist(userAccount);
             return Ok(br);
         }
 
@@ -119,7 +119,7 @@ namespace Info.Storage.HttpApi.Host.Controllers.ModuleUserManagement
         [ProducesResponseType(typeof(BaseResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUser([FromBody] UserDto userDto, [FromQuery] bool responseData = false)
         {
-            BaseResult br = await this._userService.UpdateUser(userDto, responseData);
+            BaseResult br = await _userService.UpdateUser(userDto, responseData);
             return Ok(br);
         }
     }

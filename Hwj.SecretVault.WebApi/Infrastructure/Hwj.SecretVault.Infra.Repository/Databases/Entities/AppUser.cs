@@ -1,8 +1,8 @@
 ﻿using FreeSql.DataAnnotations;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Enums;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Enums;
 using Newtonsoft.Json;
 
-namespace Info.Storage.Infra.Repository.Databases.Entities
+namespace Hwj.SecretVault.Infra.Repository.Databases.Entities
 {
     /// <summary>
     /// 用户信息表

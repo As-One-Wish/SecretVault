@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Info.Storage.HttpApi.Host.Filters
+namespace Hwj.SecretVault.HttpApi.Host.Filters
 {
     /// <summary>
     /// Swaager支持文件上传Filter

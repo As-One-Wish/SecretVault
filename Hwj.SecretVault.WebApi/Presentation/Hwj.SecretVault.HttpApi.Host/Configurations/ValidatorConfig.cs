@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using FluentValidation;
 
-namespace Info.Storage.HttpApi.Host.Configurations
+namespace Hwj.SecretVault.HttpApi.Host.Configurations
 {
     /// <summary>
     /// 验证器注入

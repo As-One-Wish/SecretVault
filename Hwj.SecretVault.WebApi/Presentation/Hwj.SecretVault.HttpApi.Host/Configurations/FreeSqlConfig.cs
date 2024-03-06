@@ -1,7 +1,7 @@
-﻿using Info.Storage.Infra.Repository.Shared;
-using Info.Storage.Infra.Repository.Extension;
+﻿using Hwj.SecretVault.Infra.Repository.Extension;
+using Hwj.SecretVault.Infra.Repository.Shared;
 
-namespace Info.Storage.HttpApi.Host.Configurations
+namespace Hwj.SecretVault.HttpApi.Host.Configurations
 {
     /// <summary>
     /// FreeSql配置

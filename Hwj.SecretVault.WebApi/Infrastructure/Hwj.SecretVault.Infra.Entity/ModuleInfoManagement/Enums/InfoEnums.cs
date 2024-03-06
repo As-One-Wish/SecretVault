@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Info.Storage.Infra.Entity.ModuleInfoManagement.Enums
+namespace Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Enums
 {
     /// <summary>
     /// 信息类型枚举

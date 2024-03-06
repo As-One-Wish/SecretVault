@@ -1,4 +1,4 @@
-﻿namespace Info.Storage.Infra.Repository.Extension
+﻿namespace Hwj.SecretVault.Infra.Repository.Extension
 {
     /// <summary>
     /// SingleFreeSql接口定义

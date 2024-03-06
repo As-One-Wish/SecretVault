@@ -1,6 +1,6 @@
-﻿using Info.Storage.Infra.Entity.ModuleInfoManagement.Enums;
+﻿using Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Enums;
 
-namespace Info.Storage.Infra.Entity.ModuleInfoManagement.Dtos
+namespace Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Dtos
 {
     public record struct InfoDto
     {

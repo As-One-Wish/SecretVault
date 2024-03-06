@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace Info.Storage.HttpApi.Host.Handlers
+namespace Hwj.SecretVault.HttpApi.Host.Handlers
 {
     /// <summary>
     /// 策略声明

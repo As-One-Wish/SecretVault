@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Info.Storage.Infra.Entity.Shared.Attributes
+namespace Hwj.SecretVault.Infra.Entity.Shared.Attributes
 {
     /// <summary>
     /// 自动注入特性

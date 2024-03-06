@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Info.Storage.Infra.Entity.ModuleAuthorization.Params;
+using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Params;
 
-namespace Info.Storage.Application.Validator.ModuleUserManagement
+namespace Hwj.SecretVault.Application.Validator.ModuleUserManagement
 {
     /// <summary>
     /// 登录 Param 验证器

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Info.Storage.Infra.Entity.ModuleUserManagement.Dtos;
-using Info.Storage.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
 
-namespace Info.Storage.Application.AutoMapper.ModuleUserManagement
+namespace Hwj.SecretVault.Application.AutoMapper.ModuleUserManagement
 {
     public class RoleProfile : Profile
     {

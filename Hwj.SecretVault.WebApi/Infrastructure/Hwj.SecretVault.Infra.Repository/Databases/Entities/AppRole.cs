@@ -1,7 +1,7 @@
 ﻿using FreeSql.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace Info.Storage.Infra.Repository.Databases.Entities
+namespace Hwj.SecretVault.Infra.Repository.Databases.Entities
 {
     /// <summary>
     /// 用户角色信息表

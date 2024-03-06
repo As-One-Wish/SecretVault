@@ -1,13 +1,13 @@
-﻿using Info.Storage.Application.Validator.ModuleUserManagement;
-using Info.Storage.Domain.Service.ModuleAuthorization;
-using Info.Storage.Infra.Entity.ModuleAuthorization.Dtos;
-using Info.Storage.Infra.Entity.ModuleAuthorization.Params;
-using Info.Storage.Infra.Entity.Shared.Attributes;
-using Info.Storage.Utils.CommonHelper.Helpers;
+﻿using Hwj.SecretVault.Application.Validator.ModuleUserManagement;
+using Hwj.SecretVault.Domain.Service.ModuleAuthorization;
+using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos;
+using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Params;
+using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Info.Storage.Application.ModuleAuthorization
+namespace Hwj.SecretVault.Application.ModuleAuthorization
 {
     public interface ISecretAppService
     {

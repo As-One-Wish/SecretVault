@@ -1,6 +1,6 @@
-using Info.Storage.HttpApi.Host.Configurations;
+using Hwj.SecretVault.HttpApi.Host.Configurations;
 
-namespace Info.Storage.HttpApi.Host
+namespace Hwj.SecretVault.HttpApi.Host
 {
     /// <summary>
     /// Ö÷³ÌÐò

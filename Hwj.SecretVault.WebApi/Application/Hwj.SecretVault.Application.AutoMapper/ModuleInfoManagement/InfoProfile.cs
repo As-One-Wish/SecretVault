@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Info.Storage.Infra.Entity.ModuleInfoManagement.Dtos;
-using Info.Storage.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Dtos;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
 
-namespace Info.Storage.Application.AutoMapper.ModuleInfoManagement
+namespace Hwj.SecretVault.Application.AutoMapper.ModuleInfoManagement
 {
     public class InfoProfile : Profile
     {

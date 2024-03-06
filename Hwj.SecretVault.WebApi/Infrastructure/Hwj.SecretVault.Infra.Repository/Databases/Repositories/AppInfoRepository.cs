@@ -1,8 +1,8 @@
-﻿using Info.Storage.Infra.Repository.Databases.Entities;
-using Info.Storage.Infra.Repository.Extension;
-using Info.Storage.Infra.Repository.Shared;
+﻿using Hwj.SecretVault.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Infra.Repository.Extension;
+using Hwj.SecretVault.Infra.Repository.Shared;
 
-namespace Info.Storage.Infra.Repository.Databases.Repositories
+namespace Hwj.SecretVault.Infra.Repository.Databases.Repositories
 {
     public class AppInfoRepository : BaseRepositoryExtend<AppInfo, long>
     {

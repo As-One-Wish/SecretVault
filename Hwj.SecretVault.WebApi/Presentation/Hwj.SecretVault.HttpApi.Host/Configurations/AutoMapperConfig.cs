@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Reflection;
 
-namespace Info.Storage.HttpApi.Host.Configurations
+namespace Hwj.SecretVault.HttpApi.Host.Configurations
 {
     /// <summary>
     /// AutoMapper 配置
@@ -40,7 +40,7 @@ namespace Info.Storage.HttpApi.Host.Configurations
             {
                 List<Type> types = assemblies.Where(d => d.FullName != null && d.FullName.Split(',')[0].EndsWith("AutoMapper"))
                     .SelectMany(x => x.GetTypes())
-                    .Where(t => t.IsClass && !t.IsAbstract && (t.BaseType?.FullName == "AutoMapper.Profile"))
+                    .Where(t => t.IsClass && !t.IsAbstract && t.BaseType?.FullName == "AutoMapper.Profile")
                     .ToList();
                 return types;
             }

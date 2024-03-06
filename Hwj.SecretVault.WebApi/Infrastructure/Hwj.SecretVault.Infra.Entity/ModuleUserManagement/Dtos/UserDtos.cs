@@ -1,6 +1,6 @@
-﻿using Info.Storage.Infra.Entity.ModuleUserManagement.Enums;
+﻿using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Enums;
 
-namespace Info.Storage.Infra.Entity.ModuleUserManagement.Dtos
+namespace Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos
 {
     /// <summary>
     /// AppUser对应实体

@@ -1,7 +1,7 @@
-﻿using Info.Storage.Infra.Entity.ModuleInfoManagement.Enums;
-using Info.Storage.Infra.Entity.Shared.Params;
+﻿using Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Enums;
+using Hwj.SecretVault.Infra.Entity.Shared.Params;
 
-namespace Info.Storage.Infra.Entity.ModuleInfoManagement.Params
+namespace Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Params
 {
     /// <summary>
     /// 信息删除参数
@@ -20,6 +20,10 @@ namespace Info.Storage.Infra.Entity.ModuleInfoManagement.Params
         /// 信息Id
         /// </summary>
         public long? InfoId { get; set; }
+        /// <summary>
+        /// 所属用户Id
+        /// </summary>
+        public long? UserId { get; set; }
         /// <summary>
         /// 信息类型
         /// </summary>

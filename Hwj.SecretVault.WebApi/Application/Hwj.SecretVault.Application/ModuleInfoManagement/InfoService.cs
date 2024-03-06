@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using Info.Storage.Domain.Service.ModuleInfoManagement;
-using Info.Storage.Infra.Entity.ModuleInfoManagement.Dtos;
-using Info.Storage.Infra.Entity.ModuleInfoManagement.Params;
-using Info.Storage.Infra.Entity.Shared.Attributes;
-using Info.Storage.Infra.Entity.Shared.Constants;
-using Info.Storage.Infra.Entity.Shared.Dtos;
-using Info.Storage.Infra.Repository.Databases.Entities;
-using Info.Storage.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Domain.Service.ModuleInfoManagement;
+using Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Dtos;
+using Hwj.SecretVault.Infra.Entity.ModuleInfoManagement.Params;
+using Hwj.SecretVault.Infra.Entity.Shared.Constants;
+using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Info.Storage.Application.ModuleInfoManagement
+namespace Hwj.SecretVault.Application.ModuleInfoManagement
 {
     public interface IInfoService
     {
@@ -82,8 +82,8 @@ namespace Info.Storage.Application.ModuleInfoManagement
                 BaseResult<InfoDto?> br = new BaseResult<InfoDto?>();
                 infoDto.InfoId = Yitter.IdGenerator.YitIdHelper.NextId();
 
-                AppInfo appInfo = this._mapper.Map<InfoDto, AppInfo>(infoDto);
-                AppInfo result = await this._infoDomainService.AddInfoAsync(appInfo);
+                AppInfo appInfo = _mapper.Map<InfoDto, AppInfo>(infoDto);
+                AppInfo result = await _infoDomainService.AddInfoAsync(appInfo);
 
                 bool isNullResult = result == null;
                 br.IsSuccess = !isNullResult;
@@ -104,7 +104,7 @@ namespace Info.Storage.Application.ModuleInfoManagement
             try
             {
                 BaseResult br = new BaseResult();
-                int effectRows = await this._infoDomainService.DelInfoPhysicallyAsync();
+                int effectRows = await _infoDomainService.DelInfoPhysicallyAsync();
                 br.IsSuccess = effectRows > 0;
                 br.DataCount = effectRows;
                 br.Message = br.IsSuccess ? Msg.Success : Msg.DbError;
@@ -122,7 +122,7 @@ namespace Info.Storage.Application.ModuleInfoManagement
             try
             {
                 BaseResult br = new BaseResult();
-                int effectRows = await this._infoDomainService.DelInfoAsync(deleteInfoParam);
+                int effectRows = await _infoDomainService.DelInfoAsync(deleteInfoParam);
                 br.IsSuccess = effectRows > 0;
                 br.DataCount = effectRows;
                 br.Message = br.IsSuccess ? Msg.Success : Msg.DbError;
@@ -141,13 +141,13 @@ namespace Info.Storage.Application.ModuleInfoManagement
             try
             {
                 BaseResult<InfoDto?> br = new BaseResult<InfoDto?>();
-                AppInfo appInfo = await this._infoDomainService.GetInfoAsync(infoId);
+                AppInfo appInfo = await _infoDomainService.GetInfoAsync(infoId);
                 bool isNullResult = appInfo == null;
                 br.IsSuccess = !isNullResult;
                 br.Message = isNullResult ? Msg.DataNotFound : Msg.Success;
                 br.DataCount = isNullResult ? -1 : 1;
                 if (!isNullResult)
-                    br.Data = this._mapper.Map<AppInfo, InfoDto>(appInfo);
+                    br.Data = _mapper.Map<AppInfo, InfoDto>(appInfo);
                 return br;
             }
             catch (Exception ex)
@@ -162,12 +162,12 @@ namespace Info.Storage.Application.ModuleInfoManagement
             try
             {
                 BaseResult<IEnumerable<InfoDto>> br = new BaseResult<IEnumerable<InfoDto>>();
-                (long DataCount, IEnumerable<AppInfo> Data) result = await this._infoDomainService.GetInfosAsync(queryInfoParam);
+                (long DataCount, IEnumerable<AppInfo> Data) result = await _infoDomainService.GetInfosAsync(queryInfoParam);
                 br.IsSuccess = result.Data != null;
                 br.Message = br.IsSuccess ? Msg.Success : Msg.DataNotFound;
                 if (br.IsSuccess)
                 {
-                    br.Data = result.Data.Select(this._mapper.Map<AppInfo, InfoDto>);
+                    br.Data = result.Data.Select(_mapper.Map<AppInfo, InfoDto>);
                     br.DataCount = result.DataCount == -1 ? result.Data.Count() : result.DataCount;
                 }
 
@@ -185,9 +185,9 @@ namespace Info.Storage.Application.ModuleInfoManagement
             try
             {
                 BaseResult br = new BaseResult();
-                AppInfo appInfo = this._mapper.Map<InfoDto, AppInfo>(infoDto);
+                AppInfo appInfo = _mapper.Map<InfoDto, AppInfo>(infoDto);
 
-                int effectRows = await this._infoDomainService.UpdateInfoAsync(appInfo);
+                int effectRows = await _infoDomainService.UpdateInfoAsync(appInfo);
                 infoDto.UpdateTime = appInfo.UpdateTime;
                 br.IsSuccess = effectRows > 0;
                 br.DataCount = effectRows;

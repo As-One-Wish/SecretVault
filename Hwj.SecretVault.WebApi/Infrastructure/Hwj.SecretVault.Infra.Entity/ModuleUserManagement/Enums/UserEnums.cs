@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Info.Storage.Infra.Entity.ModuleUserManagement.Enums
+namespace Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Enums
 {
     /// <summary>
     /// 性别枚举

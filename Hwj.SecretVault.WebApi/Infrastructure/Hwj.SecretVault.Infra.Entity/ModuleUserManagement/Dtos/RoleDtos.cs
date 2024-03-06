@@ -1,4 +1,4 @@
-﻿namespace Info.Storage.Infra.Entity.ModuleUserManagement.Dtos
+﻿namespace Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos
 {
     public record struct RoleDto
     {

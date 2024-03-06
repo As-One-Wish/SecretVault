@@ -1,13 +1,13 @@
-﻿using Info.Storage.Infra.Entity.ModuleAuthorization.Dtos;
-using Info.Storage.Infra.Entity.ModuleAuthorization.Params;
-using Info.Storage.Infra.Entity.Shared.Attributes;
-using Info.Storage.Infra.Entity.Shared.Constants;
-using Info.Storage.Infra.Repository.Databases.Entities;
-using Info.Storage.Infra.Repository.Databases.Repositories;
-using Info.Storage.Utils.CommonHelper.Helpers;
+﻿using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos;
+using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Params;
+using Hwj.SecretVault.Infra.Entity.Shared.Constants;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Infra.Repository.Databases.Repositories;
+using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Info.Storage.Domain.Service.ModuleAuthorization
+namespace Hwj.SecretVault.Domain.Service.ModuleAuthorization
 {
     /// <summary>
     /// 安全领域接口
@@ -47,11 +47,11 @@ namespace Info.Storage.Domain.Service.ModuleAuthorization
 
             if (jwtLoginParam == default) return (null, Msg.ParamError);
 
-            bool userExists = await this._appUserRepository.Select
+            bool userExists = await _appUserRepository.Select
                 .AnyAsync(d => d.UserAccount == jwtLoginParam.Account && d.UserPwd == CryptHelper.Encrypt(jwtLoginParam.Password, "Info", true));
             if (userExists)
             {
-                (AppUser appUser, AppRole appRole) userLoginRelatedInfo = await this._appUserRepository.GetUserLoginFullInformation(jwtLoginParam);
+                (AppUser appUser, AppRole appRole) userLoginRelatedInfo = await _appUserRepository.GetUserLoginFullInformation(jwtLoginParam);
                 JwtUserDto jwtUserDto = new JwtUserDto
                 {
                     UserName = userLoginRelatedInfo.appUser.UserName,

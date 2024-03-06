@@ -1,8 +1,8 @@
-﻿using Info.Storage.Infra.Entity.Shared.Constants;
-using Info.Storage.Infra.Repository.Databases.Entities;
-using Info.Storage.Utils.RedisHelper;
+﻿using Hwj.SecretVault.Infra.Entity.Shared.Constants;
+using Hwj.SecretVault.Infra.Repository.Databases.Entities;
+using Hwj.SecretVault.Utils.RedisHelper;
 
-namespace Info.Storage.Infra.Cache.ModuleUserManagement
+namespace Hwj.SecretVault.Infra.Cache.ModuleUserManagement
 {
     /// <summary>
     /// 角色缓存静态类
