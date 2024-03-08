@@ -1,4 +1,6 @@
 using Hwj.SecretVault.HttpApi.Host.Configurations;
+using Hwj.SecretVault.Infra.Entity.Shared.Settings;
+using Winton.Extensions.Configuration.Consul;
 
 namespace Hwj.SecretVault.HttpApi.Host
 {
@@ -14,12 +16,38 @@ namespace Hwj.SecretVault.HttpApi.Host
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Configuration.AddJsonFile("localAppsettings.json");
+
+            #region 方式1：Consul配置
+
+            builder.Configuration.AddJsonFile("consulAppsettings.json");
+
+            ConsulConfigurationAppsetting? consulConfigurationAppsetting = builder.Configuration.GetSection("ConsulConfigurationAppsetting").Get<ConsulConfigurationAppsetting>();
+            if (consulConfigurationAppsetting != null)
+            {
+                foreach (var itemSetting in consulConfigurationAppsetting.DictionarySettingFiles)
+                {
+                    builder.Configuration.AddConsul(itemSetting.Value, op =>
+                    {
+                        op.ConsulConfigurationOptions = cc => cc.Address = new Uri(consulConfigurationAppsetting.Server);
+                        op.ReloadOnChange = true;
+                    });
+                }
+            }
+
+            #endregion 方式1：Consul配置
+
+            #region 方式2：本地json文件配置
+
+            //builder.Configuration.AddJsonFile("localAppsettings.json");
+
+            #endregion 方式2：本地json文件配置
 
             bool enableSwagger = bool.Parse(builder.Configuration["EnableSwagger"] ?? "false");
 
             #region Add services to the container.
 
+            // 配置 Consul-服务发现
+            builder.Services.AddConsulConfiguration(builder.Configuration);
             // 添加控制器服务
             builder.Services.AddControllers();
             // 配置自动注入

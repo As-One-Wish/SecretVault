@@ -1,0 +1,10 @@
+{
+  "urls": "http://127.0.0.1:7142",
+  "tag": "server1",
+  "ConsulConfigurationAppsetting": {
+    "Server": "http://192.168.149.128:8500",
+    "DictionarySettingFiles": {
+      "appSetting": "SecretVault/HttpApi.Host.json"
+    }
+  }
+}

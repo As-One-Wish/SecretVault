@@ -1,4 +1,5 @@
 {
+  "urls": "https://127.0.0.1:7142",
   "Logging": {
     "LogLevel": {
       "Default": "Information",
@@ -26,5 +27,19 @@
 
   "RedisConnectionSettings": {
     "redis-server": "nosentinel|192.168.149.128:6379,password=redis,prefix=Hwj:SecretVault:"
+  },
+  "ConsulSettings": {
+    "Enable": true,
+    "Address": "http://192.168.149.128:8500",
+    "DataCenter": "dc1",
+    "ServiceRegisterConfig": {
+      "Id": "",
+      "GroupName": "Hwj.SecretVault.HttpApi.Others",
+      "Weight": 1,
+      "CheckHealthUrl": "/api/Health/Status",
+      "CheckHealthInterval": 10,
+      "CheckHealthTimeout": 20,
+      "DeregisterAfter": 60
+    }
   }
 }
