@@ -6,7 +6,7 @@ using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Hwj.SecretVault.Infra.Entity.Shared.Constants;
 using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
 using Hwj.SecretVault.Infra.Repository.Databases.Entities;
-using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.Aow.Utils.CommonHelper.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hwj.SecretVault.Application.ModuleUserManagement

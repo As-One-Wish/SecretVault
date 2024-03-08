@@ -1,6 +1,6 @@
 ﻿using Hwj.SecretVault.Infra.Entity.Shared.Settings;
-using Hwj.SecretVault.Infra.Repository.Extension;
-using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.Aow.Infra.Repository.Extension;
+using Hwj.Aow.Utils.CommonHelper.Helpers;
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel.DataAnnotations;
 

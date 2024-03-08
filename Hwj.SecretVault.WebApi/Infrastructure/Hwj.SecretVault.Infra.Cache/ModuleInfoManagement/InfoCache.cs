@@ -1,6 +1,6 @@
 ﻿using Hwj.SecretVault.Infra.Entity.Shared.Constants;
 using Hwj.SecretVault.Infra.Repository.Databases.Entities;
-using Hwj.SecretVault.Utils.RedisHelper;
+using Hwj.Aow.Utils.RedisHelper;
 
 namespace Hwj.SecretVault.Infra.Cache.ModuleInfoManagement
 {

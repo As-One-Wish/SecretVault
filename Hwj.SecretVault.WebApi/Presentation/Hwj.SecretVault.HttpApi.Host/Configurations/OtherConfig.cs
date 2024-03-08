@@ -1,4 +1,4 @@
-﻿using Hwj.SecretVault.Utils.RedisHelper;
+﻿using Hwj.Aow.Utils.RedisHelper;
 using Yitter.IdGenerator;
 
 namespace Hwj.SecretVault.HttpApi.Host.Configurations

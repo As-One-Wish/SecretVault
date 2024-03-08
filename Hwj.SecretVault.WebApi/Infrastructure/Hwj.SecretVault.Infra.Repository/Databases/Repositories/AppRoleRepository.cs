@@ -1,5 +1,5 @@
 ﻿using Hwj.SecretVault.Infra.Repository.Databases.Entities;
-using Hwj.SecretVault.Infra.Repository.Extension;
+using Hwj.Aow.Infra.Repository.Extension;
 using Hwj.SecretVault.Infra.Repository.Shared;
 
 namespace Hwj.SecretVault.Infra.Repository.Databases.Repositories

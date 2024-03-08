@@ -1,4 +1,4 @@
-﻿using Hwj.SecretVault.Infra.Repository.Extension;
+﻿using Hwj.Aow.Infra.Repository.Extension;
 using Hwj.SecretVault.Infra.Repository.Shared;
 
 namespace Hwj.SecretVault.HttpApi.Host.Configurations

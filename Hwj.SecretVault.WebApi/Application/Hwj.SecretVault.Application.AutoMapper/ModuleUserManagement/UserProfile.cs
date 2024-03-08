@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos;
 using Hwj.SecretVault.Infra.Repository.Databases.Entities;
-using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.Aow.Utils.CommonHelper.Helpers;
 
 namespace Hwj.SecretVault.Application.AutoMapper.ModuleUserManagement
 {

@@ -1,7 +1,7 @@
 ﻿using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos;
 using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
 using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
-using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.Aow.Utils.CommonHelper.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;

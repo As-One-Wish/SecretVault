@@ -3,7 +3,7 @@ using Hwj.SecretVault.Domain.Service.ModuleAuthorization;
 using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos;
 using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Params;
 using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
-using Hwj.SecretVault.Utils.CommonHelper.Helpers;
+using Hwj.Aow.Utils.CommonHelper.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hwj.SecretVault.Application.ModuleAuthorization
