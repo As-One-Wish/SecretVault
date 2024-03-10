@@ -34,7 +34,7 @@ module.exports = {
 		// 缩进类型
 		'indent': ['error', 'tab'],
 		// 行结束符类型 unix-LF
-		'linebreak-style': ['error', 'unix'],
+		'linebreak-style': ['error', 'windows'],
 		// 引号类型
 		'quotes': ['error', 'single'],
 		// 结尾分号
