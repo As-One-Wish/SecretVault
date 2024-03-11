@@ -48,6 +48,8 @@ module.exports = {
 		// 对象字面量中冒号的前后空格
 		'key-spacing': [0, { 'beforeColon': false, 'afterColon': true }],
 		// clear eslintvue/comment-directive 错误解决
-		'vue/comment-directive': 'off'
+		'vue/comment-directive': 'off',
+		// 设置html缩进为两个
+		'vue/html-indent':['error', 2]
 	}
 }
