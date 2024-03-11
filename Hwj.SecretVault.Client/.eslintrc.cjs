@@ -44,12 +44,24 @@ module.exports = {
 		// 数组对象之间的空格
 		'array-bracket-spacing': ['error', 'never'],
 		// 中缀操作符之间是否需要空格
-		'space-infix-ops': 'Error',
+		'space-infix-ops': ['error'],
 		// 对象字面量中冒号的前后空格
-		'key-spacing': [0, { 'beforeColon': false, 'afterColon': true }],
+		'key-spacing': ['error', { 'beforeColon': false, 'afterColon': true }],
 		// clear eslintvue/comment-directive 错误解决
 		'vue/comment-directive': 'off',
 		// 设置html缩进为两个
-		'vue/html-indent':['error', 2]
+		'vue/html-indent': ['error', 'tab'],
+		// 配置ts参数声明类型格式冒号前后空格
+		'@typescript-eslint/type-annotation-spacing': ['error', {
+			'before': false,
+			'after': true
+		}],
+		// 不能有多余的空格
+		'no-multi-spaces': ['error'],
+		// 不能有不规则的空格
+		'no-irregular-whitespace': ['error'],
+		//生成器函数*的前后空格
+		'generator-star-spacing': ['error']
 	}
 }
+
