@@ -33,7 +33,7 @@ module.exports = {
 	'rules': {
 		// 缩进类型
 		'indent': ['error', 'tab'],
-		// 行结束符类型 unix-LF
+		// 行结束符类型 windows-CRLF
 		'linebreak-style': ['error', 'windows'],
 		// 引号类型
 		'quotes': ['error', 'single'],
@@ -46,6 +46,8 @@ module.exports = {
 		// 中缀操作符之间是否需要空格
 		'space-infix-ops': 'Error',
 		// 对象字面量中冒号的前后空格
-		'key-spacing': [0, { 'beforeColon': false, 'afterColon': true }]
+		'key-spacing': [0, { 'beforeColon': false, 'afterColon': true }],
+		// clear eslintvue/comment-directive 错误解决
+		'vue/comment-directive': 'off'
 	}
 }
