@@ -1,21 +1,39 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import Components from 'unplugin-vue-components/vite'
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
-import { resolve } from 'path'
+import { defineApplicationConfig } from '@vben/vite-config'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-	plugins: [
-		vue(),
-		Components({
-			resolvers: [AntDesignVueResolver({ importStyle: 'less' })]
-		})
-	],
-	resolve: {
-		alias: {
-			'@': resolve(__dirname, 'src'),
-			'#': resolve(__dirname, 'types')
+export default defineApplicationConfig({
+	overrides: {
+		optimizeDeps: {
+			include: [
+				'echarts/core',
+				'echarts/charts',
+				'echarts/components',
+				'echarts/renderers',
+				'qrcode',
+				'@iconify/iconify',
+				'ant-design-vue/es/locale/zh_CN',
+				'ant-design-vue/es/locale/en_US'
+			]
+		},
+		server: {
+			proxy: {
+				'/basic-api': {
+					target: 'http://localhost:3000',
+					changeOrigin: true,
+					ws: true,
+					rewrite: (path) => path.replace(new RegExp('^/basic-api'), '')
+					// only https
+					// secure: false
+				},
+				'/upload': {
+					target: 'http://localhost:3300/upload',
+					changeOrigin: true,
+					ws: true,
+					rewrite: (path) => path.replace(new RegExp('^/upload'), '')
+				}
+			},
+			warmup: {
+				clientFiles: ['./index.html', './src/{views,components}/*']
+			}
 		}
 	}
 })

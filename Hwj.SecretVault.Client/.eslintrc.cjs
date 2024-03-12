@@ -28,7 +28,8 @@ module.exports = {
 	},
 	'plugins': [
 		'@typescript-eslint',
-		'vue'
+		'vue',
+		'prettier'
 	],
 	'rules': {
 		// 缩进类型
@@ -38,7 +39,7 @@ module.exports = {
 		// 引号类型
 		'quotes': ['error', 'single'],
 		// 结尾分号
-		'semi': ['error','never'],
+		'semi': ['error', 'never'],
 		// 数组和对象键值对最后一个逗号
 		'comma-dangle': ['error', 'never'],
 		// 数组对象之间的空格
@@ -54,14 +55,31 @@ module.exports = {
 		// 配置ts参数声明类型格式冒号前后空格
 		'@typescript-eslint/type-annotation-spacing': ['error', {
 			'before': false,
-			'after': true
+			'after': true,
+			'overrides': {
+				'arrow': { 'before': true, 'after': true }
+			}
 		}],
 		// 不能有多余的空格
 		'no-multi-spaces': ['error'],
 		// 不能有不规则的空格
 		'no-irregular-whitespace': ['error'],
 		//生成器函数*的前后空格
-		'generator-star-spacing': ['error']
+		'generator-star-spacing': ['error'],
+		// 关闭 ts any 类型警告
+		'@typescript-eslint/no-explicit-any': ['off'],
+		// 允许 {} 的使用
+		'@typescript-eslint/ban-types': [
+			'error',
+			{
+				'extendDefaults': true,
+				'types': {
+					'{}': false,
+					'Object': false
+				}
+			}],
+		// 关闭禁用未声明的变量
+		'no-undef': 'off'
 	}
 }
 
