@@ -1,0 +1,67 @@
+{
+  "compilerOptions": {
+    // 设置编译后的 JavaScript 代码目标版本为 ESNext
+    "target": "ESNext",
+    // 指定生成的模块系统类型为 ESNext 模块
+    "module": "ESNext",
+    // 指定模块解析策略为 Node.js 模块解析
+    "moduleResolution": "Node",
+    // 不从默认库文件（lib.d.ts）中排除任何类型
+    "noLib": false,
+    // 开启所有严格的类型检查选项
+    "strict": true,
+    // 允许编译 JavaScript 文件
+    "allowJs": true,
+    // 允许导入 JSON 文件作为模块
+    "resolveJsonModule": true,
+    // 允许导入没有默认导出的模块时，使用默认导出
+    "allowSyntheticDefaultImports": true,
+    // 生成源映射文件
+    "sourceMap": true,
+    // 启用 ES 模块导入和导出的Interop
+    "esModuleInterop": true,
+    // 检查未使用的局部变量
+    "noUnusedParameters": true,
+    // 检查未使用的函数参数
+    "noUnusedLocals": true,
+    // 跳过对声明文件的检查
+    "skipLibCheck": true,
+    // 移除编译后的 JavaScript 文件中的注释
+    "removeComments": true,
+    // 不允许隐式的any类型
+    "noImplicitAny": true,
+    // 保留JSX代码，不进行转换
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "declaration": false,
+    "types": [
+      "vite/client"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "#/*": [
+        "types/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "types/**/*.d.ts",
+    "types/**/*.ts",
+    "build/**/*.ts",
+    "build/**/*.d.ts",
+    "mock/**/*.ts",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "tests/server/**/*.ts",
+    "dist",
+    "**/*.js"
+  ]
+}
