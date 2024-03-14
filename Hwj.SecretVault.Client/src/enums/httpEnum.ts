@@ -1,10 +1,3 @@
-/*
- * @Author: arcchen
- * @Description:
- * @Date: 2022-09-01 16:44:07
- * @LastEditTime: 2022-09-08 09:18:20
- * @FilePath: \adf_app_webclient\src\enums\httpEnum.ts
- */
 /**
  * @description: Request result set
  */

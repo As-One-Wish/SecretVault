@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {
+    "compilerOptions": {
     // 设置编译后的 JavaScript 代码目标版本为 ESNext
     "target": "ESNext",
     // 指定生成的模块系统类型为 ESNext 模块
@@ -29,9 +29,13 @@
     // 移除编译后的 JavaScript 文件中的注释
     "removeComments": true,
     // 不允许隐式的any类型
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     // 保留JSX代码，不进行转换
     "jsx": "preserve",
+    // 关闭对函数参数的严格检测
+    "strictFunctionTypes": false,
+    // 启用实验性的装饰器支持
+    "experimentalDecorators": true,
     "baseUrl": ".",
     "declaration": false,
     "types": [
@@ -47,6 +51,7 @@
     }
   },
   "include": [
+    "tests/**/*.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
@@ -58,10 +63,5 @@
     "mock/**/*.ts",
     "vite.config.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "tests/server/**/*.ts",
-    "dist",
-    "**/*.js"
-  ]
+  "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
 }

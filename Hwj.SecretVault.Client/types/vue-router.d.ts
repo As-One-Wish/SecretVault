@@ -1,54 +1,45 @@
-/*
- * @Author: arcchen
- * @Description: 
- * @Date: 2022-09-01 16:44:07
- * @LastEditTime: 2022-09-15 14:44:12
- * @FilePath: \adf_app_webclient\types\vue-router.d.ts
- */
 export {}
 
 declare module 'vue-router' {
   interface RouteMeta extends Record<string | number | symbol, unknown> {
-    orderNo?: number;
+    orderNo?: number
     // title
-    title: string;
+    title: string
     // dynamic router level.
-    dynamicLevel?: number;
+    dynamicLevel?: number
     // dynamic router real route path (For performance).
-    realPath?: string;
+    realPath?: string
     // Whether to ignore permissions
-    ignoreAuth?: boolean;
+    ignoreAuth?: boolean
     // role info
-    roles?: RoleEnum[];
+    roles?: RoleEnum[]
     // Whether not to cache
-    ignoreKeepAlive?: boolean;
+    ignoreKeepAlive?: boolean
     // Is it fixed on tab
-    affix?: boolean;
+    affix?: boolean
     // icon on tab
-    icon?: string;
-    frameSrc?: string;
+    icon?: string
+    frameSrc?: string
     // current page transition
-    transitionName?: string;
+    transitionName?: string
     // Whether the route has been dynamically added
-    hideBreadcrumb?: boolean;
+    hideBreadcrumb?: boolean
     // Hide submenu
-    hideChildrenInMenu?: boolean;
+    hideChildrenInMenu?: boolean
     // Carrying parameters
-    carryParam?: boolean;
+    carryParam?: boolean
     // Used internally to mark single-level menus
-    single?: boolean;
+    single?: boolean
     // Currently active menu
-    currentActiveMenu?: string;
+    currentActiveMenu?: string
     // Never show in tab
-    hideTab?: boolean;
+    hideTab?: boolean
     // Never show in menu
-    hideMenu?: boolean;
-    isLink?: boolean;
+    hideMenu?: boolean
+    isLink?: boolean
     // only build for Menu
-    ignoreRoute?: boolean;
+    ignoreRoute?: boolean
     // Hide path for children
-    hidePathForChildren?: boolean;
-    // Show Type
-    layerConfig?: any;
+    hidePathForChildren?: boolean
   }
 }

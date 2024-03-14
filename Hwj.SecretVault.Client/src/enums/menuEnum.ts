@@ -1,10 +1,3 @@
-/*
- * @Author: arcchen
- * @Description:
- * @Date: 2022-09-01 16:44:07
- * @LastEditTime: 2022-12-29 17:35:15
- * @FilePath: \CastcZhy.Tmp.WebClient.VbenAdmin\src\enums\menuEnum.ts
- */
 /**
  * @description: menu type
  */
@@ -29,13 +22,13 @@ export enum TriggerEnum {
   HEADER = 'HEADER',
 }
 
-export type Mode = 'vertical' | 'horizontal';
+export type Mode = 'vertical' | 'vertical-right' | 'horizontal' | 'inline'
 
 // menu mode
 export enum MenuModeEnum {
-  VERTICAL = 'vertical', //垂直菜单menu sider,显示
-  HORIZONTAL = 'horizontal', //水平菜单
-  // VERTICAL_RIGHT = 'vertical-right',
+  VERTICAL = 'vertical',
+  HORIZONTAL = 'horizontal',
+  VERTICAL_RIGHT = 'vertical-right',
   INLINE = 'inline',
 }
 
