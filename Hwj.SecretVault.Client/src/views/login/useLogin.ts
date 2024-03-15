@@ -65,13 +65,6 @@ export function useFormRules(formData?: Recordable) {
 	const getFormRules = computed((): { [k: string]: ValidationRule | ValidationRule[] } => {
 		const accountFormRule = unref(getAccountFormRule)
 		const passwordFormRule = unref(getPasswordFormRule)
-		const smsFormRule = unref(getSmsFormRule)
-		const mobileFormRule = unref(getMobileFormRule)
-
-		const mobileRule = {
-			sms: smsFormRule,
-			mobile: mobileFormRule
-		}
 		switch (unref(currentState)) {
 		// register form rules
 		case LoginStateEnum.REGISTER:
@@ -81,20 +74,14 @@ export function useFormRules(formData?: Recordable) {
 				confirmPassword: [
 					{ validator: validateConfirmPassword(formData?.password), trigger: 'change' }
 				],
-				policy: [{ validator: validatePolicy, trigger: 'change' }],
-				...mobileRule
+				policy: [{ validator: validatePolicy, trigger: 'change' }]
 			}
 
 			// reset password form rules
 		case LoginStateEnum.RESET_PASSWORD:
 			return {
-				account: accountFormRule,
-				...mobileRule
+				account: accountFormRule
 			}
-
-			// mobile form rules
-		case LoginStateEnum.MOBILE:
-			return mobileRule
 
 			// login form rules
 		default:

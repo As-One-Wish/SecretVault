@@ -48,22 +48,8 @@
 			<Button type="primary" size="large" block @click="handleLogin" :loading="loading">
 				{{ t('sys.login.loginButton') }}
 			</Button>
-			<!-- <Button size="large" class="mt-4 enter-x" block @click="handleRegister">
-        {{ t('sys.login.registerButton') }}
-      </Button> -->
 		</FormItem>
-		<ARow class="enter-x">
-			<ACol :md="8" :xs="24">
-				<Button block @click="setLoginState(LoginStateEnum.MOBILE)">
-					{{ t('sys.login.mobileSignInFormTitle') }}
-				</Button>
-			</ACol>
-			<ACol :md="6" :xs="24">
-				<Button block @click="setLoginState(LoginStateEnum.REGISTER)">
-					{{ t('sys.login.registerButton') }}
-				</Button>
-			</ACol>
-		</ARow>
+
 	</Form>
 </template>
 <script lang="ts" setup>
@@ -78,7 +64,7 @@ import { useMessage } from '@/hooks/web/useMessage'
 import { useUserStore } from '@/store/modules/user'
 import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin'
 import { useDesign } from '@/hooks/web/useDesign'
-//import { onKeyStroke } from '@vueuse/core';
+import { onKeyStroke } from '@vueuse/core'
 
 const ACol = Col
 const ARow = Row
@@ -97,13 +83,13 @@ const loading = ref(false)
 const rememberMe = ref(false)
 
 const formData = reactive({
-	account: 'vben',
+	account: 'secret',
 	password: '123456'
 })
 
 const { validForm } = useFormValid(formRef)
 
-//onKeyStroke('Enter', handleLogin);
+onKeyStroke('Enter', handleLogin)
 
 const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN)
 

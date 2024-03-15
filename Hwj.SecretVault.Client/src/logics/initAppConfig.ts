@@ -24,46 +24,46 @@ import { ThemeEnum } from '@/enums/appEnum'
 
 // Initial project configuration
 export function initAppConfigStore() {
-  const localeStore = useLocaleStore()
-  const appStore = useAppStore()
-  let projCfg: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig
-  projCfg = deepMerge(projectSetting, projCfg || {})
-  const darkMode = appStore.getDarkMode
-  const {
-    colorWeak,
-    grayMode,
-    themeColor,
+	const localeStore = useLocaleStore()
+	const appStore = useAppStore()
+	let projCfg: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig
+	projCfg = deepMerge(projectSetting, projCfg || {})
+	const darkMode = appStore.getDarkMode
+	const {
+		colorWeak,
+		grayMode,
+		themeColor,
 
-    headerSetting: { bgColor: headerBgColor } = {},
-    menuSetting: { bgColor } = {},
-  } = projCfg
-  try {
-    if (themeColor && themeColor !== primaryColor) {
-      changeTheme(themeColor)
-    }
+		headerSetting: { bgColor: headerBgColor } = {},
+		menuSetting: { bgColor } = {}
+	} = projCfg
+	try {
+		if (themeColor && themeColor !== primaryColor) {
+			changeTheme(themeColor)
+		}
 
-    grayMode && updateGrayMode(grayMode)
-    colorWeak && updateColorWeak(colorWeak)
-  } catch (error) {
-    console.log(error)
-  }
-  appStore.setProjectConfig(projCfg)
+		grayMode && updateGrayMode(grayMode)
+		colorWeak && updateColorWeak(colorWeak)
+	} catch (error) {
+		console.log(error)
+	}
+	appStore.setProjectConfig(projCfg)
 
-  // init dark mode
-  updateDarkTheme(darkMode)
-  if (darkMode === ThemeEnum.DARK) {
-    updateHeaderBgColor()
-    updateSidebarBgColor()
-  } else {
-    headerBgColor && updateHeaderBgColor(headerBgColor)
-    bgColor && updateSidebarBgColor(bgColor)
-  }
-  // init store
-  localeStore.initLocale()
+	// init dark mode
+	updateDarkTheme(darkMode)
+	if (darkMode === ThemeEnum.DARK) {
+		updateHeaderBgColor()
+		updateSidebarBgColor()
+	} else {
+		headerBgColor && updateHeaderBgColor(headerBgColor)
+		bgColor && updateSidebarBgColor(bgColor)
+	}
+	// init store
+	localeStore.initLocale()
 
-  setTimeout(() => {
-    clearObsoleteStorage()
-  }, 16)
+	setTimeout(() => {
+		clearObsoleteStorage()
+	}, 16)
 }
 
 /**
@@ -71,14 +71,14 @@ export function initAppConfigStore() {
  * This method is used to delete useless keys
  */
 export function clearObsoleteStorage() {
-  const commonPrefix = getCommonStoragePrefix()
-  const shortPrefix = getStorageShortName()
+	const commonPrefix = getCommonStoragePrefix()
+	const shortPrefix = getStorageShortName()
 
   ;[localStorage, sessionStorage].forEach((item: Storage) => {
-    Object.keys(item).forEach((key) => {
-      if (key && key.startsWith(commonPrefix) && !key.startsWith(shortPrefix)) {
-        item.removeItem(key)
-      }
-    })
-  })
+		Object.keys(item).forEach((key) => {
+			if (key && key.startsWith(commonPrefix) && !key.startsWith(shortPrefix)) {
+				item.removeItem(key)
+			}
+		})
+	})
 }
