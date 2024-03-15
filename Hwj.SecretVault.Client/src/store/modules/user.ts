@@ -1,14 +1,12 @@
-import type { UserInfo } from '#/store'
 import type { ErrorMessageMode } from '#/axios'
 import { defineStore } from 'pinia'
 import { store } from '@/store'
 import { RoleEnum } from '@/enums/roleEnum'
 import { PageEnum } from '@/enums/pageEnum'
-import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum'
+import { ROLE_KEY, TOKEN_EXPIRE_TIME_KEY, TOKEN_KEY, USER_KEY } from '@/enums/cacheEnum'
 import { getAuthCache, setAuthCache } from '@/utils/auth'
-import { GetUserInfoModel, LoginParams } from '@/api/sys/model/userModel'
 import { doLogout, getUserInfo, loginApi } from '@/api/sys/user'
-import { useI18n } from '@/hooks/web/useI18n'
+import { t, useI18n } from '@/hooks/web/useI18n'
 import { useMessage } from '@/hooks/web/useMessage'
 import { router } from '@/router'
 import { usePermissionStore } from '@/store/modules/permission'
@@ -16,44 +14,47 @@ import { RouteRecordRaw } from 'vue-router'
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic'
 import { isArray } from '@/utils/is'
 import { h } from 'vue'
+import { JwtLoginParam, UserDto } from '@/api/sysManagement/model/userModel'
+import { RoleDto } from '@/api/sysManagement/model/roleModel'
+import { createToken, getUser } from '@/api/sysManagement/service/userService'
 
 interface UserState {
-  userInfo: Nullable<UserInfo>
+  user: Nullable<UserDto>
   token?: string
-  roleList: RoleEnum[]
+  role: Nullable<RoleDto>
   sessionTimeout?: boolean
-  lastUpdateTime: number
+  expireTokenTime: number
 }
 
 export const useUserStore = defineStore({
 	id: 'app-user',
 	state: (): UserState => ({
-		// user info
-		userInfo: null,
+		// user 用户信息
+		user: null,
 		// token
 		token: undefined,
-		// roleList
-		roleList: [],
+		// role 角色信息
+		role: null,
 		// Whether the login expired
 		sessionTimeout: false,
-		// Last fetch time
-		lastUpdateTime: 0
+		// token expire time Token过期时间
+		expireTokenTime: 0
 	}),
 	getters: {
-		getUserInfo(): UserInfo {
-			return this.userInfo || getAuthCache<UserInfo>(USER_INFO_KEY) || {}
+		getUser(): UserDto {
+			return this.user || getAuthCache<UserDto>(USER_KEY) || {}
 		},
 		getToken(): string {
 			return this.token || getAuthCache<string>(TOKEN_KEY)
 		},
-		getRoleList(): RoleEnum[] {
-			return this.roleList.length > 0 ? this.roleList : getAuthCache<RoleEnum[]>(ROLES_KEY)
+		getRole(): RoleDto {
+			return this.role || getAuthCache<RoleDto>(ROLE_KEY) || {}
 		},
 		getSessionTimeout(): boolean {
 			return !!this.sessionTimeout
 		},
-		getLastUpdateTime(): number {
-			return this.lastUpdateTime
+		getExpireTokenTime(): number {
+			return this.expireTokenTime == 0 ? getAuthCache<number>(TOKEN_EXPIRE_TIME_KEY) : this.expireTokenTime
 		}
 	},
 	actions: {
@@ -61,46 +62,54 @@ export const useUserStore = defineStore({
 			this.token = info ? info : '' // for null or undefined value
 			setAuthCache(TOKEN_KEY, info)
 		},
-		setRoleList(roleList: RoleEnum[]) {
-			this.roleList = roleList
-			setAuthCache(ROLES_KEY, roleList)
+		setRole(role: RoleDto | undefined | null) {
+			if(role){
+				this.role = role
+				setAuthCache(ROLE_KEY, role)
+			}
 		},
-		setUserInfo(info: UserInfo | null) {
-			this.userInfo = info
-			this.lastUpdateTime = new Date().getTime()
-			setAuthCache(USER_INFO_KEY, info)
+		setUser(user: UserDto|undefined | null) {
+			if(user){
+				this.user = user
+				setAuthCache(USER_KEY, user)
+			}
 		},
 		setSessionTimeout(flag: boolean) {
 			this.sessionTimeout = flag
 		},
+		setExpireTokenTime(time: number |undefined){
+			this.expireTokenTime = time ? time : 0
+			setAuthCache(TOKEN_EXPIRE_TIME_KEY, time)
+		},
 		resetState() {
-			this.userInfo = null
+			this.user = null
 			this.token = ''
-			this.roleList = []
+			this.role = null
 			this.sessionTimeout = false
 		},
 		/**
      * @description: login
      */
 		async login(
-			params: LoginParams & {
+			params: JwtLoginParam & {
         goHome?: boolean
         mode?: ErrorMessageMode
       }
-		): Promise<GetUserInfoModel | null> {
+		): Promise<UserDto | null> {
 			try {
-				const { goHome = true, mode, ...loginParams } = params
-				const data = await loginApi(loginParams, mode)
-				const { token } = data
+				const { goHome = true, mode, ...jwtLoginParam } = params
+				const result = await createToken(jwtLoginParam, mode)
+				const { data } = result
 
 				// save token
-				this.setToken(token)
+				this.setToken(data?.token)
+				this.setExpireTokenTime(data?.expireTime)
 				return this.afterLoginAction(goHome)
 			} catch (error) {
 				return Promise.reject(error)
 			}
 		},
-		async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
+		async afterLoginAction(goHome?: boolean): Promise<UserDto | null> {
 			if (!this.getToken) return null
 			// get user info
 			const userInfo = await this.getUserInfoAction()
@@ -122,9 +131,9 @@ export const useUserStore = defineStore({
 			}
 			return userInfo
 		},
-		async getUserInfoAction(): Promise<UserInfo | null> {
+		async getUserAction(): Promise<UserDto | null> {
 			if (!this.getToken) return null
-			const userInfo = await getUserInfo()
+			const userInfo = await getUser()
 			const { roles = [] } = userInfo
 			if (isArray(roles)) {
 				const roleList = roles.map((item) => item.value) as RoleEnum[]

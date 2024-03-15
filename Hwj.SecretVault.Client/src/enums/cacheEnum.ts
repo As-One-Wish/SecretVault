@@ -1,10 +1,14 @@
 // token key
 export const TOKEN_KEY = 'TOKEN__'
+export const TOKEN_EXPIRE_TIME_KEY = 'TOKEN_EXPIRE_TIME__KEY__'
 
 export const LOCALE_KEY = 'LOCALE__'
 
-// user info key
-export const USER_INFO_KEY = 'USER__INFO__'
+// user key
+export const USER_KEY = 'USER__KEY__'
+
+// role key
+export const ROLE_KEY = 'ROLE__KEY__'
 
 // role info key
 export const ROLES_KEY = 'ROLES__KEY__'
