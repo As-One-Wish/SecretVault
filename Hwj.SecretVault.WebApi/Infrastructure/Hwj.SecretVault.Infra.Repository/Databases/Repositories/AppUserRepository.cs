@@ -25,5 +25,18 @@ namespace Hwj.SecretVault.Infra.Repository.Databases.Repositories
                 .ToOneAsync((a, b) => new { a, b });
             return (obj.a, obj.b);
         }
+
+        /// <summary>
+        /// 获取用户登录相关信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task<(AppUser, AppRole)> GetUserLoginRelated(long userId)
+        {
+            dynamic obj = await Orm.Select<AppUser, AppRole>()
+                .LeftJoin((a, b) => a.RoleId == b.RoleId)
+                .Where((a, b) => a.UserId == userId).ToOneAsync((a, b) => new { a, b });
+            return (obj.a, obj.b);
+        }
     }
 }

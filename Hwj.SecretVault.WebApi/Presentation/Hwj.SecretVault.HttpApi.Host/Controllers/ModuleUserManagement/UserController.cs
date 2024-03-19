@@ -1,4 +1,6 @@
-﻿using Hwj.SecretVault.Application.ModuleUserManagement;
+﻿using Hwj.SecretVault.Application.ModuleAuthorization;
+using Hwj.SecretVault.Application.ModuleUserManagement;
+using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos;
 using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos;
 using Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Params;
 using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
@@ -18,14 +20,17 @@ namespace Hwj.SecretVault.HttpApi.Host.Controllers.ModuleUserManagement
         #region Initialize
 
         private readonly IUserService _userService;
+        private readonly IJwtAppService _jwtAppService;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="userService"></param>
-        public UserController(IUserService userService)
+        /// <param name="jwtAppService"></param>
+        public UserController(IUserService userService, IJwtAppService jwtAppService)
         {
             _userService = userService;
+            _jwtAppService = jwtAppService;
         }
 
         #endregion Initialize
@@ -121,6 +126,24 @@ namespace Hwj.SecretVault.HttpApi.Host.Controllers.ModuleUserManagement
         {
             BaseResult br = await _userService.UpdateUser(userDto, responseData);
             return Ok(br);
+        }
+
+        /// <summary>
+        /// 根据Request中的token获取用户信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GEtUserLoginRelated")]
+        [ProducesResponseType(typeof(BaseResult<UserDto?>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetUserLoginRelated()
+        {
+            BaseResult<(long useId, JwtAuthorizationDto?)> brJwt = this._jwtAppService.DecodeJwt(Request.Headers["Authorization"]);
+            if (brJwt.IsSuccess && brJwt.Data.useId != -1)
+            {
+                BaseResult<UserDto?> br = await this._userService.GetUserLoginRelated(brJwt.Data.useId);
+                return Ok(br);
+            }
+            else
+                return Ok(brJwt);
         }
     }
 }

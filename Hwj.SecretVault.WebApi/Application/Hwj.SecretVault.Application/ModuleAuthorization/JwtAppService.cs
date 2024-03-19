@@ -1,7 +1,9 @@
-﻿using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos;
-using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
-using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
+﻿using Hwj.Aow.Utils.CommonHelper.Extensions;
 using Hwj.Aow.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos;
+using Hwj.SecretVault.Infra.Entity.Shared.Attributes;
+using Hwj.SecretVault.Infra.Entity.Shared.Constants;
+using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -30,6 +32,13 @@ namespace Hwj.SecretVault.Application.ModuleAuthorization
         /// <param name="oldExpireTime"></param>
         /// <returns></returns>
         BaseResult<JwtAuthorizationDto?> RefreshJwt(string oldToken, long oldExpireTime);
+
+        /// <summary>
+        /// 解析Token
+        /// </summary>
+        /// <param name="jwtToken"></param>
+        /// <returns></returns>
+        BaseResult<(long, JwtAuthorizationDto?)> DecodeJwt(string jwtToken);
     }
 
     [AutoInject(ServiceLifetime.Scoped, "app")]
@@ -152,6 +161,45 @@ namespace Hwj.SecretVault.Application.ModuleAuthorization
             {
                 LogHelper.Error(ex);
                 return new BaseResult<JwtAuthorizationDto?>(false, null, ex.Message);
+            }
+        }
+
+        public BaseResult<(long, JwtAuthorizationDto?)> DecodeJwt(string jwtToken)
+        {
+            try
+            {
+                BaseResult<(long, JwtAuthorizationDto?)> result = new BaseResult<(long, JwtAuthorizationDto?)>();
+                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+                JwtSecurityToken jst = tokenHandler.ReadJwtToken(jwtToken.Replace("Bearer ", ""));
+                // 解析UserID
+                Claim userIdClaim = jst.Claims.Where(a => a.Type == "userId").First();
+                Claim authTimeClaim = jst.Claims.Where(a => a.Type == "iat").First();
+                Claim expireTimeClaim = jst.Claims.Where(a => a.Type == "exp").First();
+
+                if (userIdClaim != null && authTimeClaim != null && expireTimeClaim != null)
+                {
+                    bool isExpired = Convert.ToInt64(expireTimeClaim.Value) < DateTime.Now.ToUnixTime();
+                    if (isExpired)
+                        result = new BaseResult<(long, JwtAuthorizationDto?)>(false, (-1, null), Msg.AuthExpire);
+                    else
+                    {
+                        long userId = Convert.ToInt64(userIdClaim.Value);
+                        JwtAuthorizationDto jwtAuthorizationDto = new JwtAuthorizationDto();
+                        jwtAuthorizationDto.AuthTime = Convert.ToInt64(authTimeClaim.Value);
+                        jwtAuthorizationDto.ExpireTime = Convert.ToInt64(expireTimeClaim.Value);
+                        jwtAuthorizationDto.Token = jwtToken.Replace("Bearer", "");
+
+                        result = new BaseResult<(long, JwtAuthorizationDto?)>(true, (userId, jwtAuthorizationDto));
+                    }
+                }
+                else
+                    result = new BaseResult<(long, JwtAuthorizationDto?)>(false, (-1, null), Msg.Exception);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error(ex);
+                return new BaseResult<(long, JwtAuthorizationDto?)>(false, (-1, null), ex.Message);
             }
         }
 

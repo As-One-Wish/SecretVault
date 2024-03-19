@@ -96,5 +96,10 @@
         /// 未找到资源
         /// </summary>
         public static readonly string NotFound = "未找到资源！";
+
+        /// <summary>
+        /// 授权到期
+        /// </summary>
+        public static readonly string AuthExpire = "授权到期！";
     }
 }

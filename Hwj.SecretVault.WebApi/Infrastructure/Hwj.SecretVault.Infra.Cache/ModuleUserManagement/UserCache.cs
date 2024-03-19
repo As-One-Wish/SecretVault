@@ -96,5 +96,18 @@ namespace Hwj.SecretVault.Infra.Cache.ModuleUserManagement
             });
             return redisPipeDatas.Length;
         }
+
+        /// <summary>
+        /// 获取用户登录相关信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static (AppUser, AppRole) GetUserLoginRelatedCache(long userId)
+        {
+            AppUser appUser = RedisServerHelper.Get<AppUser>($"{CacheKeyPrefix.AppUserCachePrefix}{userId}");
+            AppRole appRole = RedisServerHelper.Get<AppRole>($"{CacheKeyPrefix.AppRoleCachePrefix}{appUser.RoleId}");
+
+            return (appUser, appRole);
+        }
     }
 }

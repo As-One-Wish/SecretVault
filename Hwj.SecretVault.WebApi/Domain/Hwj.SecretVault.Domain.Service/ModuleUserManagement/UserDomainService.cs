@@ -61,6 +61,13 @@ namespace Hwj.SecretVault.Domain.Service.ModuleUserManagement
         /// <param name="queryUserParam"></param>
         /// <returns>(数据条数，实体集合)</returns>
         Task<(long, IEnumerable<UserDto>)> GetUsersAsync(QueryUserParam queryUserParam);
+
+        /// <summary>
+        /// 获取用户登录相关信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<(AppUser, AppRole)> GetUserLoginRelatedAsync(long userId);
     }
 
     /// <summary>
@@ -188,6 +195,17 @@ namespace Hwj.SecretVault.Domain.Service.ModuleUserManagement
         {
             int effectRows = await _appUserRepository.DeleteAsync(user => user.IsDeleted);
             return effectRows;
+        }
+
+        public async Task<(AppUser, AppRole)> GetUserLoginRelatedAsync(long userId)
+        {
+            // 优先读取缓存
+            (AppUser appUser, AppRole appRole) result = UserCache.GetUserLoginRelatedCache(userId);
+            if (result.appUser == null || result.appRole == null)
+                // 缓存不存在则读数据库
+                return await this._appUserRepository.GetUserLoginRelated(userId);
+            else
+                return result;
         }
 
         #endregion Implements

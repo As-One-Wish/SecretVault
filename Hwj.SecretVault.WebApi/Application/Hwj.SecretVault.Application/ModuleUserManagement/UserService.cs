@@ -61,6 +61,13 @@ namespace Hwj.SecretVault.Application.ModuleUserManagement
         /// <param name="userAccount"></param>
         /// <returns></returns>
         Task<BaseResult> IsUserAccountExist(string userAccount);
+
+        /// <summary>
+        /// 获取用户登录相关信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<BaseResult<UserDto?>> GetUserLoginRelated(long userId);
     }
 
     [AutoInject(serviceLifetime: ServiceLifetime.Scoped, key: "app")]
@@ -154,6 +161,30 @@ namespace Hwj.SecretVault.Application.ModuleUserManagement
                 if (!isNullResult)
                     br.Data = _mapper.Map<AppUser, UserDto>(appUser);
                 br.Message = isNullResult ? Msg.DataNotFound : Msg.Success;
+                return br;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error(ex);
+                return await Task.FromResult(new BaseResult<UserDto?>(false, null, ex.Message));
+            }
+        }
+
+        public async Task<BaseResult<UserDto?>> GetUserLoginRelated(long userId)
+        {
+            try
+            {
+                BaseResult<UserDto?> br = new BaseResult<UserDto?>();
+                (AppUser User, AppRole Role) result = await this._userDomainService.GetUserLoginRelatedAsync(userId);
+                UserDto userDto = new UserDto();
+                if (result.User != null)
+                    userDto = this._mapper.Map<AppUser, UserDto>(result.User);
+                if (result.Role != null)
+                    userDto.RoleName = result.Role.RoleName;
+
+                br.IsSuccess = userDto != default;
+                br.Message = !br.IsSuccess ? Msg.DataNotFound : Msg.Success;
+                if (br.IsSuccess) br.Data = userDto;
                 return br;
             }
             catch (Exception ex)
