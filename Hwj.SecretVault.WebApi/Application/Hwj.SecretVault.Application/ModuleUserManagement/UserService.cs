@@ -67,7 +67,7 @@ namespace Hwj.SecretVault.Application.ModuleUserManagement
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<BaseResult<UserDto?>> GetUserLoginRelated(long userId);
+        Task<BaseResult<UserLoginRelatedDto?>> GetUserLoginRelated(long userId);
     }
 
     [AutoInject(serviceLifetime: ServiceLifetime.Scoped, key: "app")]
@@ -170,27 +170,27 @@ namespace Hwj.SecretVault.Application.ModuleUserManagement
             }
         }
 
-        public async Task<BaseResult<UserDto?>> GetUserLoginRelated(long userId)
+        public async Task<BaseResult<UserLoginRelatedDto?>> GetUserLoginRelated(long userId)
         {
             try
             {
-                BaseResult<UserDto?> br = new BaseResult<UserDto?>();
+                BaseResult<UserLoginRelatedDto?> br = new BaseResult<UserLoginRelatedDto?>();
                 (AppUser User, AppRole Role) result = await this._userDomainService.GetUserLoginRelatedAsync(userId);
-                UserDto userDto = new UserDto();
+                UserLoginRelatedDto userLoginRelated = new UserLoginRelatedDto();
                 if (result.User != null)
-                    userDto = this._mapper.Map<AppUser, UserDto>(result.User);
+                    userLoginRelated.User = this._mapper.Map<AppUser, UserDto>(result.User);
                 if (result.Role != null)
-                    userDto.RoleName = result.Role.RoleName;
+                    userLoginRelated.Role = this._mapper.Map<AppRole, RoleDto>(result.Role);
 
-                br.IsSuccess = userDto != default;
+                br.IsSuccess = userLoginRelated != default;
                 br.Message = !br.IsSuccess ? Msg.DataNotFound : Msg.Success;
-                if (br.IsSuccess) br.Data = userDto;
+                if (br.IsSuccess) br.Data = userLoginRelated;
                 return br;
             }
             catch (Exception ex)
             {
                 LogHelper.Error(ex);
-                return await Task.FromResult(new BaseResult<UserDto?>(false, null, ex.Message));
+                return await Task.FromResult(new BaseResult<UserLoginRelatedDto?>(false, null, ex.Message));
             }
         }
 

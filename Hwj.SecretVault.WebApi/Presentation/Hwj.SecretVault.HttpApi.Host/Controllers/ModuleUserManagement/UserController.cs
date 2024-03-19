@@ -132,14 +132,14 @@ namespace Hwj.SecretVault.HttpApi.Host.Controllers.ModuleUserManagement
         /// 根据Request中的token获取用户信息
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GEtUserLoginRelated")]
-        [ProducesResponseType(typeof(BaseResult<UserDto?>), StatusCodes.Status200OK)]
+        [HttpGet("GetUserLoginRelated")]
+        [ProducesResponseType(typeof(BaseResult<UserLoginRelatedDto?>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUserLoginRelated()
         {
             BaseResult<(long useId, JwtAuthorizationDto?)> brJwt = this._jwtAppService.DecodeJwt(Request.Headers["Authorization"]);
             if (brJwt.IsSuccess && brJwt.Data.useId != -1)
             {
-                BaseResult<UserDto?> br = await this._userService.GetUserLoginRelated(brJwt.Data.useId);
+                BaseResult<UserLoginRelatedDto?> br = await this._userService.GetUserLoginRelated(brJwt.Data.useId);
                 return Ok(br);
             }
             else

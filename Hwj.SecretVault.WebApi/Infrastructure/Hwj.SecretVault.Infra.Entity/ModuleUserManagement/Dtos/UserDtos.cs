@@ -63,4 +63,18 @@ namespace Hwj.SecretVault.Infra.Entity.ModuleUserManagement.Dtos
         /// </summary>
         public DateTime? UpdateTime { get; set; }
     }
+    /// <summary>
+    /// 用户登录相关Dto
+    /// </summary>
+    public record struct UserLoginRelatedDto
+    {
+        public UserLoginRelatedDto()
+        {
+            User = null;
+            Role = null;
+        }
+
+        public UserDto? User;
+        public RoleDto? Role;
+    }
 }
