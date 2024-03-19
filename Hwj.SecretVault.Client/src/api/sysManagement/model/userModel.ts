@@ -1,5 +1,6 @@
 import { BaseParam, BaseResult } from '@/api/common/model/baseModel'
 import { GenderEnum } from '@/enums/userEnum'
+import { RoleDto } from './roleModel'
 
 /**
  * @description: 用户登录参数
@@ -48,4 +49,11 @@ export type UserDto = {
   roleName?: string,
   updateTime: Date,
   homePath?: string
+}
+/**
+ * @description 用户登录相关Dto
+ */
+export type UserLoginRelatedDto = {
+  user?: UserDto,
+  role?: RoleDto
 }

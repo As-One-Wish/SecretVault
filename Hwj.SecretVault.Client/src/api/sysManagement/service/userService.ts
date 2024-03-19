@@ -5,6 +5,8 @@ import { AesEncryption, EncryptionParams } from '@/utils/cipher'
 import { cacheCipher } from '@/settings/encryptionSetting'
 import { defHttp } from '@/utils/http/axios'
 import { BaseResult } from '@/api/common/model/baseModel'
+import { func } from 'vue-types'
+import { url } from 'inspector'
 
 // Aes加密
 const encryption = new AesEncryption(cacheCipher as Partial<EncryptionParams>)
@@ -19,7 +21,8 @@ enum Api {
   AddUser = '/User/AddUser',
   DelUser = '/User/DelUser',
   UpdateUser = '/User/UpdateUser',
-  IsUserAccountExist = '/User/IsUserAccountExist'
+  IsUserAccountExist = '/User/IsUserAccountExist',
+	GetUserLoginRelated = '/User/GetUserLoginRelated'
 }
 /**
  * @description 获取Token
@@ -123,5 +126,15 @@ export function isUserAccountExist(params: string){
 	return defHttp.post<BaseResult>(
 		// 配置header,设置ocelot的限流白名单
 		{url: Api.IsUserAccountExist,params: {params},headers: {gatewayHeader: 'host-web-client'}}
+	)
+}
+/**
+ * @description 获取用户登录相关信息
+ * @returns 
+ */
+export function getUserLoginRelated(){
+	return defHttp.get<BaseResult<UserDto>>(
+		{url: Api.GetUserLoginRelated},
+		{errorMessageMode: 'none'}
 	)
 }

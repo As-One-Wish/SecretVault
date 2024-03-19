@@ -7,6 +7,7 @@ import {
 	TOKEN_KEY,
 	USER_KEY,
 	ROLE_KEY,
+	ROLES_KEY,
 	PROJ_CFG_KEY,
 	APP_LOCAL_CACHE_KEY,
 	APP_SESSION_CACHE_KEY,
@@ -17,12 +18,14 @@ import { DEFAULT_CACHE_TIME } from '@/settings/encryptionSetting'
 import { toRaw } from 'vue'
 import { pick, omit } from 'lodash-es'
 import { UserDto } from '@/api/sysManagement/model/userModel'
+import { RoleDto } from '@/api/sysManagement/model/roleModel'
 
 interface BasicStore {
   [TOKEN_KEY]: string | number | null | undefined
   [TOKEN_EXPIRE_TIME_KEY]: number|null|undefined
   [USER_KEY]: UserDto
-  [ROLE_KEY]: string[]
+  [ROLE_KEY]: RoleDto
+	[ROLES_KEY]: string[]
   [PROJ_CFG_KEY]: ProjectConfig
   [MULTIPLE_TABS_KEY]: RouteLocationNormalized[]
 }
