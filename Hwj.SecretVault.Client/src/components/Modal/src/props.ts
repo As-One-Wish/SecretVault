@@ -15,11 +15,11 @@ export const modalProps = {
 	centered: { type: Boolean },
 	cancelText: { type: String, default: t('common.cancelText') },
 	okText: { type: String, default: t('common.okText') },
-
 	closeFunc: Function as PropType<() => Promise<boolean>>
 }
 
 export const basicProps = Object.assign({}, modalProps, {
+
 	defaultFullscreen: { type: Boolean },
 	// Can it be full screen
 	canFullscreen: { type: Boolean, default: true },

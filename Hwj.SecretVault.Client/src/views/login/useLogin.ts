@@ -1,4 +1,4 @@
-import type { ValidationRule } from 'ant-design-vue/lib/form/Form'
+import type { Rule } from 'ant-design-vue/lib/form/Form'
 import type { RuleObject } from 'ant-design-vue/lib/form/interface'
 import { ref, computed, unref, Ref } from 'vue'
 import { useI18n } from '@/hooks/web/useI18n'
@@ -41,10 +41,8 @@ export function useFormValid<T extends Object = any>(formRef: Ref<any>) {
 export function useFormRules(formData?: Recordable) {
 	const { t } = useI18n()
 
-	const getAccountFormRule = computed(() => createRule(t('sys.login.accountPlaceholder')))
-	const getPasswordFormRule = computed(() => createRule(t('sys.login.passwordPlaceholder')))
-	const getSmsFormRule = computed(() => createRule(t('sys.login.smsPlaceholder')))
-	const getMobileFormRule = computed(() => createRule(t('sys.login.mobilePlaceholder')))
+	const getAccountFormRule = computed(() => createRule(t('sys.login.accountPlaceholder'), 'string'))
+	const getPasswordFormRule = computed(() => createRule(t('sys.login.passwordPlaceholder'), 'string'))
 
 	const validatePolicy = async (_: RuleObject, value: boolean) => {
 		return !value ? Promise.reject(t('sys.login.policyPlaceholder')) : Promise.resolve()
@@ -62,7 +60,7 @@ export function useFormRules(formData?: Recordable) {
 		}
 	}
 
-	const getFormRules = computed((): { [k: string]: ValidationRule | ValidationRule[] } => {
+	const getFormRules = computed((): { [k: string]: Rule | Rule[] } => {
 		const accountFormRule = unref(getAccountFormRule)
 		const passwordFormRule = unref(getPasswordFormRule)
 		switch (unref(currentState)) {
@@ -94,9 +92,10 @@ export function useFormRules(formData?: Recordable) {
 	return { getFormRules }
 }
 
-function createRule(message: string) {
+function createRule(message: string, type: string) {
 	return [
 		{
+			type: type,
 			required: true,
 			message,
 			trigger: 'change'

@@ -1,10 +1,9 @@
 import { Ref, unref, watchEffect } from 'vue'
 import { useTimeoutFn } from '@/hooks/core/useTimeout'
-
 export interface UseModalDragMoveContext {
-  draggable: Ref<boolean>
-  destroyOnClose: Ref<boolean | undefined> | undefined
-  visible: Ref<boolean>
+  draggable: Ref<boolean>;
+  destroyOnClose: Ref<boolean | undefined> | undefined;
+  visible: Ref<boolean>;
 }
 
 export function useModalDragMove(context: UseModalDragMoveContext) {

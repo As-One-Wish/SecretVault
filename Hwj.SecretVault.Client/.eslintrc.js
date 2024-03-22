@@ -86,6 +86,8 @@ module.exports = {
 		// 关闭组件命名规则
 		'vue/multi-word-component-names': 'off',
 		// 非空代码块
-		'no-empty': 'off'
+		'no-empty': 'off',
+		// 非空箭头函数
+		'no-empty-function': ['error', { 'allow': ['arrowFunctions'] }]
 	}
 }

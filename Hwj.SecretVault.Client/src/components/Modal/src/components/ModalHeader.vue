@@ -16,7 +16,6 @@ export default defineComponent({
 			type: [String, Array] as PropType<string | string[]>
 		},
 		title: { type: String }
-	},
-	emits: ['dblclick']
+	}
 })
 </script>

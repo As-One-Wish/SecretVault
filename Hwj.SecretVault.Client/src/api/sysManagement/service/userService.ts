@@ -5,8 +5,6 @@ import { AesEncryption, EncryptionParams } from '@/utils/cipher'
 import { cacheCipher } from '@/settings/encryptionSetting'
 import { defHttp } from '@/utils/http/axios'
 import { BaseResult } from '@/api/common/model/baseModel'
-import { func } from 'vue-types'
-import { url } from 'inspector'
 
 // Aes加密
 const encryption = new AesEncryption(cacheCipher as Partial<EncryptionParams>)

@@ -1,4 +1,5 @@
-﻿using Hwj.SecretVault.Application.ModuleAuthorization;
+﻿using Hwj.Aow.Utils.CommonHelper.Helpers;
+using Hwj.SecretVault.Application.ModuleAuthorization;
 using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Dtos;
 using Hwj.SecretVault.Infra.Entity.ModuleAuthorization.Params;
 using Hwj.SecretVault.Infra.Entity.Shared.Dtos;
@@ -42,6 +43,7 @@ namespace Hwj.SecretVault.HttpApi.Host.Controllers.ModuleAuthorization
         [AllowAnonymous]
         public async Task<IActionResult> CreateToken([FromBody] JwtLoginParam jwtLoginParam)
         {
+            jwtLoginParam.Password = AesCryptHelper.DecryptByAesEcb(jwtLoginParam.Password);
             (JwtUserDto? JwtUserDto, string Msg) userInfo = await _secretAppService.GetJwtUserAsync(jwtLoginParam);
             if (userInfo.JwtUserDto == null)
                 return Ok(new BaseResult(false, null, userInfo.Msg));
